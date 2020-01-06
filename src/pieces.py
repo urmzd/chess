@@ -37,7 +37,6 @@ class Pawn(Piece):
         super().__init__(name, color, x, y, board)
 
     
-
 class King(Piece):
 
     def __init__(self, name, color, x, y, board):
