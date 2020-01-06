@@ -1,5 +1,5 @@
-# chess
-Chess game in Python
+# Chess
+Chess game in Python Command Line. No GUI will implemented as of now.
 
 
 Structure:
@@ -11,7 +11,3 @@ Structure:
         BISHOP
         ROOK
         KNIGHT
-=======
-Chess game in Python.
-
-Will be ran in the command line. NO GUI as of now.
