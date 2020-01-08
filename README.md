@@ -3,15 +3,15 @@ Chess game in Python Command Line. No GUI will implemented as of now.
 
 The Chess Board will be labelled as following:
 
-    1 2 3 4 5 6 7 8
-A
-B
-C
-D
-E
-F
-G
-H
+        1 2 3 4 5 6 7 8
+    A   R N B Q K B N R
+    B   P P P P P P P P
+    C
+    D
+    E
+    F
+    G   P P P P P P P P
+    H   R N B Q K B N R
 
 Where Y(A - B) is the WHITE SIDE
 AND Y(G - H) is the BLACK SIDE
