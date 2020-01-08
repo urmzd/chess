@@ -43,7 +43,7 @@ SPECIAL CASES:
 
     ## WILL IMPLEMENT THIS AFTER GAME IS COMPLETELY DONE
     Threefold Repetition:
-        1. Requires a position to be repeated three times. NOT A MOVE(S). Castles, En Passent resets the possibility. A draw request may be made.
+        1. Requires a position to be repeated three times. NOT MOVE(S). Castles, En Passent resets the possibility. A draw request may be made.
 
 PIECE:
 
