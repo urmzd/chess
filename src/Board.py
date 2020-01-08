@@ -3,7 +3,7 @@ import Pieces.py
 class Board:
 
     def __init__(self, board):
-        self.board = [[Rook()]]
+        self.board = [] # Will be a 2d list containing all pieces.
         self.counter = 0 # Counts the number of moves since last pawn move or capture
         self.lastMove = ""
     
