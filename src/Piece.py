@@ -31,6 +31,10 @@ class Piece:
     ## So this method will be implemented differently for every piece.
     def isValidMove(self, x, y):
         pass
+
+    # Check all squares are valid.
+    def isValidPath(x, y):
+        pass
     
     ## Checks if friendly exists at (x, y)
     def isFriendly(self, x, y):
