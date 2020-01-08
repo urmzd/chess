@@ -9,6 +9,10 @@ class Board:
     def update(self):
         pass
 
+    # Converts char to int.
+    def convertY(self, y):
+        return ord(chr(y)) - 96
+
     # Prints board using string representation.
     def __str__(self):
         pass

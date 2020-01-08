@@ -7,6 +7,11 @@ class Piece:
         self.y = y
         self.board = board
 
+    # Converts char to int.
+    def convertY(self, y):
+        return ord(chr(y)) - 96
+
+    ## moves piece on board.
     def move(self, x, y):
         pass
 
@@ -24,7 +29,7 @@ class Piece:
     ## Next it checks if a friendly piece already exists at the spot.
     ## Additionally, only the knight can hop over other pieces,
     ## So this method will be implemented differently for every piece.
-    def isValid(self, x, y):
+    def isValidMove(self, x, y):
         pass
     
     ## Checks if friendly exists at (x, y)
@@ -36,8 +41,8 @@ class Piece:
         return True if self.board[x][y] == None else False
 
     ## Stores last move made. Used for en passent.
-    def storeMove(self):
-        self.board.lastMove = str(name) + str(color) + str(x) + str(y)
+    def storeMove(self, x, y):
+        self.board.lastMove = self.color + self.name + self.x + self.y + x + y
 
     ## Checks if move will let piece stay within board.
     def isWithinBounds(self, x, y):
@@ -67,24 +72,61 @@ class Pawn(Piece):
         if self.color == 'W':
             if y > self.y:
                 return True
-
-        if self.color == 'B':
+        else:
             if y < self.y:
                 return True
         
         return False
+    
+    ## Checks if opposing pawn moved two steps on left or right side.
+    def allowedEnPassent(self):
+
+        # Ex: WPb2d2, BPg2e2
+        # Check Colour: W (B), B (G)
+        # Convert B to 2
+        # Convert D to 4
+        # Convert G to 7
+        # Convert E to 5
+        # Subtract abs(D - B) = 2 (En Passent Allowed) for Any Pawn on (1, D) or (3, D)
+        # Subtract abs(G - E) = 2 (En Passent Allowed) for Any Pawn on (1, E) or (3, E)
+        lastMove = self.board.lastMove
+
+        if lastMove[1] == "P":
+            if int(lastMove[3]) - 1 == self.x or int(lastMove[3]) + 1 == self.x:
+                if lastMove[0] == "B":
+                    if lastMove[2] == "g":
+                        if lastMove[4] == "e":
+                            return True
+                else:
+                    if lastMove[2] == "b":
+                        if lastMove[4] == "e":
+                            return True
+        return False
+
 
     # if not played, can move 2 spots in the y direction.
     # if moved only spot is allowed.
     # only diagonal attacks are allowed. Check if enemy exists on (1,1) on either side.
     # An "en passent" can be made if the opponent moves two units to prevent being captured AND
     ## NO OTHER MOVE HAS BEEN MADE SINCE THEN.
-    def isValid(self, x, y):
+    def isValidMove(self, x, y):
+        
+        if not self.isCorrectDirection(y):
+            return False
         
         if not self.played and abs(x - self.x) == 0:
-            if not isCorrectDirection(y) and abs(y - self.y) == 2:
+            if abs(y - self.y) == 2:
                 return True
-        
+
+        if self.allowedEnPassent() and abs(self.x - x) == 1 and abs(self.y - y) == 1 and x == int(self.board.lastMove[3]):
+            return True
+
+        if not self.isEmpty(x,y) and abs(self.x - x) == 1 and abs(self.y - y) == 1 and not self.isFriendly(x,y):
+            return True
+
+        if abs(self.y - y) == 1 and abs(self.x - x) == 0 and self.isEmpty(x,y):
+            return True
+
         return False
 
     def move(self, x,y):

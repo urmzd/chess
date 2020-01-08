@@ -13,8 +13,7 @@ The Chess Board will be labelled as following:
     G   P P P P P P P P
     H   R N B Q K B N R
 
-Where Y(A - B) is the WHITE SIDE
-AND Y(G - H) is the BLACK SIDE
+Where Y(A ==> B) is the WHITE SIDE AND Y(G ==> H) is the BLACK SIDE
 
 Structure:
 
@@ -30,7 +29,7 @@ SPECIAL CASES:
 
     En Passent:
         1. The opponents pawn has moved 2 units towards the friendly pawn to prevent itself from being captured.
-        2. It must happen immediately after the pawn has moved or the friendly has forfeited the right to use the en passent move.
+        2. It must happen immediately after the pawn has moved or the friendly has forfeited the right to use the En Passent move.
     
     Castling:
         1. The king moves two steps towards any rook.
@@ -42,8 +41,8 @@ SPECIAL CASES:
         1. A draw may be declared if a pawn hasn't been moved in the last 50 moves.
         2. OR a piece hasn't been captured in the last 50 moves.
 
-    ## WILL IMPLEMENT THIS AFTER GAME IS COMLETLY DONE
-    Threefold repetition:
+    ## WILL IMPLEMENT THIS AFTER GAME IS COMPLETELY DONE
+    Threefold Repetition:
         1. Requires a position to be repeated three times. NOT A MOVE(S). Castles, En Passent resets the possibility. A draw request may be made.
 
 PIECE:
@@ -75,9 +74,14 @@ PIECE:
             @return boolean: True if within bounds, False otherwise.
         
         @desc: Checks if a move is valid for any instance of the Piece class.
-        isValid(x,y):
+        isValidMove(x,y):
             @param X: The X coordinate the piece is requesting to move to.
             @param Y: The Y coordinate the piece is requesting to move to.
             @return boolean: True if move can be made, False otherwise.
+        
+        @desc: Store move made into the Board lastMove attribute. Stores Color, Name, Old X position, Old Y position, New X Position, New Y Position.
+        storeMove(x, y):
+            @param X: The new X coordinate the piece is being moved to.
+            @param Y: The new Y coordinate the piece is being moved to.
 
         
