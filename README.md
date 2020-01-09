@@ -51,3 +51,7 @@ Notes:
 
         Name : {P, K, Q, R, K, B} : {Pawn, King, Queen, Rook, Knight, Bishop}
         Color: {W, B} : {White, Black}
+
+# NOTES
+
+May add a possibleMoveSet to have easier implementation of A.I later on.
