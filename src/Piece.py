@@ -9,11 +9,12 @@ class Piece:
         @desc: A constructor to initialize basic attributes all children of this class will inherit.
         @param name: A single character representation of the piece name. Ex: "P" for Pawn.
         @param color: A single character representation of the piece team. "W" for White, "B" for Black.
+        @param value: An integer representing the value of the piece.
         @param x: An integer indicating the x position of the piece.
         @param y: An integer indiciating the y position of the piece.
         @param board: The board in which the piece will move on.
     """
-    def __init__(self, name, color, x, y, board):
+    def __init__(self, name, color, value, x, y, board):
         self.name = name
         self.color = color
         self.x = x
