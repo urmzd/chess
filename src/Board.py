@@ -24,21 +24,21 @@ class Board:
     def fillBoard(self):
         
         for x in range(8):
-            self.board[1][x] = Pawn("W", x, 1, self.board)
-            self.board[6][x] = Pawn("B", x, 6, self.board)
+            self.board[1][x] = Pawn("W", x, 1, self)
+            self.board[6][x] = Pawn("B", x, 6, self)
 
         colors = ["W", "B"]
         yLocations = [0, 7]
 
         for i in range(2):
-            self.board[yLocations[i]][0] = Rook(colors[i], 0, yLocations[i], self.board)
-            self.board[yLocations[i]][1] = Knight(colors[i], 1, yLocations[i], self.board)
-            self.board[yLocations[i]][2] = Bishop(colors[i], 2, yLocations[i], self.board)
-            self.board[yLocations[i]][3] = Queen(colors[i], 3, yLocations[i], self.board)
-            self.board[yLocations[i]][4] = King(colors[i], 4, yLocations[i], self.board)
-            self.board[yLocations[i]][5] = Bishop(colors[i], 5, yLocations[i], self.board)
-            self.board[yLocations[i]][6] = Knight(colors[i], 6, yLocations[i], self.board)
-            self.board[yLocations[i]][7] = Rook(colors[i], 7, yLocations[i], self.board)
+            self.board[yLocations[i]][0] = Rook(colors[i], 0, yLocations[i], self)
+            self.board[yLocations[i]][1] = Knight(colors[i], 1, yLocations[i], self)
+            self.board[yLocations[i]][2] = Bishop(colors[i], 2, yLocations[i], self)
+            self.board[yLocations[i]][3] = Queen(colors[i], 3, yLocations[i], self)
+            self.board[yLocations[i]][4] = King(colors[i], 4, yLocations[i], self)
+            self.board[yLocations[i]][5] = Bishop(colors[i], 5, yLocations[i], self)
+            self.board[yLocations[i]][6] = Knight(colors[i], 6, yLocations[i], self)
+            self.board[yLocations[i]][7] = Rook(colors[i], 7, yLocations[i], self)
             
     """
         @desc: move takes a piece at (x1, y2) and moves it to (x2, y2) as long as the move is valid.
@@ -48,7 +48,7 @@ class Board:
         @param y2: The y location the piece is being requested to move to.
     """
     def move(self, x1, y1, x2, y2):
-        self.board[x1][y1].move(x2, y2)
+        self.board[y1][x1].move(x2, y2)
 
     """
         @desc: convertAlpha converts lower case alphabets in the ASCII set to a integer.
@@ -98,4 +98,6 @@ class Board:
 
 board = Board()
 board.fillBoard()
+board.printBoard()
+board.move(0, 1, 0, 2)
 board.printBoard()
