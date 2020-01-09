@@ -3,15 +3,15 @@ Chess game in Python Command Line. No GUI will implemented as of now.
 
 The Chess Board will be labelled as following:
 
-        1 2 3 4 5 6 7 8
-    A   R N B Q K B N R
-    B   P P P P P P P P
-    C
-    D
-    E
-    F
-    G   P P P P P P P P
-    H   R N B Q K B N R
+        A B C D E F G H
+    1   R N B Q K B N R
+    2   P P P P P P P P
+    3
+    4
+    5
+    6
+    7   P P P P P P P P
+    8   R N B Q K B N R
 
 Structure:
 
@@ -46,7 +46,7 @@ Additional Rules:
 Piece Class:
 
     Note:
-        The Y Coordinate will be converted from an ASCII character to an integer by the system.
+        The X Coordinate will be converted from an ASCII character to an integer by the system.
 
     Attributes:
 
@@ -73,19 +73,19 @@ Piece Class:
         
         @desc: Returns a boolean indicating if a move is valid for any instance of the Piece class.
         isValidMove(x,y):
-            @param X: The X coordinate the piece is requesting to move to.
-            @param Y: The Y coordinate the piece is requesting to move to.
+            @param x: The X coordinate the piece is requesting to move to.
+            @param y: The Y coordinate the piece is requesting to move to.
             @return boolean: True if move can be made, False otherwise.
         
         @desc: Checks if all squares are valid up until destination coordinate.
         isValidPath(x,y):
-            @param X: The final X coordinate the piece will arrive to.
-            @param Y: The final Y coordinate the piece will arrive to.
+            @param x: The final x coordinate the piece will arrive to.
+            @param y: The final x coordinate the piece will arrive to.
         
-        @desc: Store move made into the Board lastMove attribute. Stores Color, Name, Old X position, Old Y position, New X Position, New Y Position.
+        @desc: Store move made into the Board lastMove attribute. Stores Color, Name, Old X position, Old Y position, New x Position, New y Position.
         storeMove(x, y):
-            @param X: The new X coordinate the piece is being moved to.
-            @param Y: The new Y coordinate the piece is being moved to.
+            @param x: The new X coordinate the piece is being moved to.
+            @param y: The new Y coordinate the piece is being moved to.
 
         @desc: Returns the difference in values. 
         difference(a, b):
@@ -95,18 +95,18 @@ Piece Class:
 
         @desc: Returns a boolean indicating if a piece is on the same team.
         isFriendly(x, y):
-            @param X: The X coordinate of the piece to check.
-            @param Y: The Y coordinate of the piece to check,.
+            @param x: The X coordinate of the piece to check.
+            @param y: The Y coordinate of the piece to check,.
             @return boolean: True if this piece is on the same piece as the the piece on (X,Y).
         
         @desc: Returns a boolean indicating if a empty position exists on the main board.
-        isEmpty(x,y):
-            @param X: The X coordinate on the board to check.
-            @param Y: The Y coordinate on the board to check.
+        isEmpty(x, y):
+            @param x: The X coordinate on the board to check.
+            @param y: The Y coordinate on the board to check.
 
         @desc: Updates board with new position.
-        update(x,y):
-            @param X: The new X position of the piece.
-            @param Y: The new Y position of the piece.
+        update(x, y):
+            @param x: The new X position of the piece.
+            @param y: The new Y position of the piece.
 
         
