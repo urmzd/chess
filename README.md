@@ -43,12 +43,11 @@ Additional Rules:
     Threefold Repetition:
         1. Requires a position to be repeated three times. Not moves. Castles, En Passent resets the possibility. A draw request may be made.
 
-Piece Class:
+Notes:
+    
+    The X Coordinate will be converted from an ASCII character to an integer by the system.
 
-    Note:
-        The X Coordinate will be converted from an ASCII character to an integer by the system.
-
-    Attributes:
+    Legend:
 
         Name : {P, K, Q, R, K, B} : {Pawn, King, Queen, Rook, Knight, Bishop}
         Color: {W, B} : {White, Black}
