@@ -1,4 +1,4 @@
-import Piece
+from Piece import Piece
 
 """
     @desc: The Pawn class inherits some attributes from the its parent class, Piece.
