@@ -93,11 +93,3 @@ class Board:
                     line = line + " " + repr(self.board[x][y])
             print(line + "\n") # New line for every 8 pieces printed.
             line = ""
-
-
-
-board = Board()
-board.fillBoard()
-board.printBoard()
-board.move(0, 1, 0, 2)
-board.printBoard()
