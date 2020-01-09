@@ -38,7 +38,7 @@ class Pawn(Piece):
     """
     def allowedEnPassent(self, x, y):
 
-        lastMove = self.board.lastMove # Get the last move, example move: WPd2d4.
+        lastMove = self.board.lastMove # Get the last move, example move: WP1214.
 
         # The En Passent can only be used if the unit where the pawn is moving is empty.
         if not isEmpty(x, y):
