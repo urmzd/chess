@@ -36,9 +36,11 @@ class Piece:
         @param y: The new Y position of the piece.
     """
     def update(self, x, y):
-        board[y][x].x = x
-        board[y][x].y = y
-        board[y][x] = self
+        self.board.board[y][x] = self
+        self.board.board[self.y][self.x] = None
+        self.board.board[y][x].x = x
+        self.board.board[y][x].y = y
+        
 
     """
         @desc: capture removes piece at given coordinate in the format: (x,y)
@@ -46,8 +48,8 @@ class Piece:
         @param y: The y coordinate in which to remove the piece.
     """
     def capture(self, x, y):
-        if not isFriendly(x, y):
-            self.board[y][x] = None
+        if not self.isFriendly(x, y):
+            self.board.board[y][x] = None
         else:
             print("Invalid move! Friendly piece exists at coordinate specified.")
 
@@ -58,7 +60,7 @@ class Piece:
         @return boolean: True if this piece is on the same piece as the the piece on (x,y).
     """
     def isFriendly(self, x, y):
-        return True if self.board[y][x].color == self.color else False
+        return True if self.board.board[y][x].color == self.color else False
 
     """
         @desc: isEmpty returns a boolean indicating if a empty position exists on the board.
@@ -66,7 +68,7 @@ class Piece:
         @param y: The Y coordinate on the board to check.
     """
     def isEmpty(self, x, y):
-        return True if self.board[y][x] == None else False
+        return True if self.board.board[y][x] == None else False
 
         
     """
@@ -76,7 +78,7 @@ class Piece:
         @param y: The new Y coordinate the piece is being moved to.
     """
     def storeMove(self, x, y):
-        self.board.lastMove = self.color + self.name + self.x + self.y + x + y
+        self.board.lastMove = self.color + self.name + str(self.x) + str(self.y) + str(x) + str(y)
 
     """
         @desc: isWithinBounds checks if given coordinate is within the board's boundaries.
