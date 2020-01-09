@@ -1,4 +1,4 @@
-import Piece
+from Piece import Piece
 
 """
     @desc: The Board class holds all the pieces in the game and contains methods to 
