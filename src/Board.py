@@ -32,8 +32,16 @@ class Board:
     def convertY(self, letter):
         return ord(chr(letter)) - 96
 
-    def __str__(self):
-        pass
-    
-    def __repr__(self):
-        pass
+    """
+        @desc: Prints all pieces on the board.
+    """
+    def printBoard(self):
+        # Iterates through the board and prints each piece.
+        for x in range(8):
+            print("\n") # New line for every 8 pieces printed.
+            for y in range(8):
+                if Board[x][y] == None:
+                    print("-") # In case no piece exists at unit.
+                else:
+                    print(Board[x][y])
+
