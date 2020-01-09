@@ -43,7 +43,7 @@ Additional Rules:
     Threefold Repetition:
         1. Requires a position to be repeated three times. Not moves. Castles, En Passent resets the possibility. A draw request may be made.
 
-PIECE:
+Piece Class:
 
     Note:
         The Y Coordinate will be converted from an ASCII character to an integer by the system.
@@ -103,5 +103,10 @@ PIECE:
         isEmpty(x,y):
             @param X: The X coordinate on the board to check.
             @param Y: The Y coordinate on the board to check.
+
+        @desc: Updates board with new position.
+        update(x,y):
+            @param X: The new X position of the piece.
+            @param Y: The new Y position of the piece.
 
         
