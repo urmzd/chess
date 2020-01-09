@@ -1,9 +1,35 @@
 import Piece
 
+"""
+    @desc: The Pawn class inherits some attributes from the its parent class, Piece.
+    It also contains it's own attributes differentiating it from other pieces.
+    The Pawn in Chess is allowed to move only 1 unit forward, unless it's on the first move,
+    which then it is allowed move 2 units forward. If the Pawn can reach the end(s) of the board,
+    it can be "promoted" to any piece (except to a King). It can only capture diagonally and only if
+    there is a piece on the on the left or ride diagonals of the pawn. Except for when using the En Passent
+    rule which allows it to capture the pawn behind it immediately after the opposing pawn has moved two
+    moves towards the current pawn in order to avoid capture and there is no other piece on that unit.
+    In case there is a unit already there, the pawn will only capture that piece and the other piece will not
+    be captured. Also, the pawn can only move if all units it is moving towards are empty.
+"""
+
+"""
+    @Todo: add new move-sets when the pawn is promoted.
+"""
 class Pawn(Piece):
 
-    def __init__(self, name, color, x, y, board, played):
-        super().__init__(name, color, x, y, board, False)
+    """
+        @desc: The class constructor which creates a new Pawn piece.
+        @param name: By default, a pawn will have the name "P" to indicate it is indeed a pawn.
+        @param color: The team the pawn is on, "W" for white, "B" for black.
+        @param x: The starting x position.
+        @param y: The starting y position.
+        @param played: A boolean which is set to False by default to indicate the piece has not moved.
+        @param promoted: A boolean which is set to False by default to indicate the "Pawn" does not have 
+            additional privileges.
+    """
+    def __init__(self, name, color, x, y, board, played, promoted):
+        super().__init__("P", color, x, y, board, False, False)
 
     """
         @desc: isCorrectionDirection determines if the pawn piece is going in the right direction.
