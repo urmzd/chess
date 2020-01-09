@@ -70,7 +70,7 @@ class Pawn(Piece):
         lastMove = self.board.lastMove # Get the last move, example move: WP1214.
 
         # The En Passent can only be used if the unit where the pawn is moving is empty.
-        if not isEmpty(x, y):
+        if not self.isEmpty(x, y):
             return False
         
         if lastMove[1] == "P": # Ensure that the last move was made by a pawn.
@@ -165,7 +165,8 @@ class Pawn(Piece):
                     self.capture(x, y - 1) # Remove piece behind.
                 else:
                     self.capture(x, y + 1) # Otherwise, remove piece ahead.
-            else: # Otherwise, capture piece at requested location.
+            
+            if not self.isEmpty(x,y): # Capture piece at requested location if spot is not empty.
                 self.capture(x, y) 
 
             self.update(x, y) # Update piece on board.
