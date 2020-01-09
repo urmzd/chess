@@ -20,16 +20,17 @@ class Pawn(Piece):
 
     """
         @desc: The class constructor which creates a new Pawn piece.
-        @param name: By default, a pawn will have the name "P" to indicate it is indeed a pawn.
-        @param color: The team the pawn is on, "W" for white, "B" for black.
-        @param x: The starting x position.
-        @param y: The starting y position.
-        @param played: A boolean which is set to False by default to indicate the piece has not moved.
-        @param promoted: A boolean which is set to False by default to indicate the "Pawn" does not have 
+        @attr name: By default, a pawn will have the name "P" to indicate it is indeed a pawn.
+        @attr color: The team the pawn is on, "W" for white, "B" for black.
+        @attr value: The value of the pawn. Default value is set to 1 for the pawn.
+        @attr x: The starting x position.
+        @attr y: The starting y position.
+        @attr played: A boolean which is set to False by default to indicate the piece has not moved.
+        @attar promoted: A boolean which is set to False by default to indicate the "Pawn" does not have 
             additional privileges.
     """
-    def __init__(self, name, color, x, y, board, played, promoted):
-        super().__init__("P", color, x, y, board, False, False)
+    def __init__(self, color, x, y, board):
+        super().__init__("P", color, 1,  x, y, board, False, False)
 
     """
         @desc: isCorrectionDirection determines if the pawn piece is going in the right direction.
