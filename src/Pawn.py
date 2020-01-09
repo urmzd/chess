@@ -30,7 +30,9 @@ class Pawn(Piece):
             additional privileges.
     """
     def __init__(self, color, x, y, board):
-        super().__init__("P", color, 1,  x, y, board, False, False)
+        super().__init__("P", color, 1,  x, y, board)
+        self.played = False
+        self.promoted = False
 
     """
         @desc: isCorrectionDirection determines if the pawn piece is going in the right direction.
