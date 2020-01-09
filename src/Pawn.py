@@ -22,16 +22,16 @@ class Pawn(Piece):
 
         if not isEmpty(x, y):
             return False
-
+            
         if lastMove[1] == "P":
-            if int(lastMove[3]) - 1 == self.x or int(lastMove[3]) + 1 == self.x:
+            if int(lastMove[2]) - 1 == self.x or int(lastMove[2]) + 1 == self.x:
                 if lastMove[0] == "B":
-                    if lastMove[2] == "g":
-                        if lastMove[4] == "e":
+                    if int(lastMove[3]) == 7:
+                        if int(lastMove[5]) == 5:
                             return True
                 else:
-                    if lastMove[2] == "b":
-                        if lastMove[4] == "d":
+                    if lastMove[3] == 2 :
+                        if lastMove[5] == 4:
                             return True
         return False
 
