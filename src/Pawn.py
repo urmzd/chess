@@ -124,7 +124,7 @@ class Pawn(Piece):
             if not self.played and self.isValidPath(x,y) and self.difference(y, self.y) == 2:
                 return True # It is a valid request.
             # If the pawn is requesting to move 1 unit and the unit is empty.
-            if self.isEmpty(x,y) and self.difference(y, self.y) == 1 and :
+            if self.isEmpty(x,y) and self.difference(y, self.y) == 1:
                 return True # It is a valid request.
 
         # If a capture attempt is being made.
