@@ -36,9 +36,9 @@ class Piece:
         @param y: The new Y position of the piece.
     """
     def update(self, x, y):
-        board[x][y].x = x
-        board[x][y].y = y
-        board[x][y] = self
+        board[y][x].x = x
+        board[y][x].y = y
+        board[y][x] = self
 
     """
         @desc: capture removes piece at given coordinate in the format: (x,y)
@@ -47,7 +47,7 @@ class Piece:
     """
     def capture(self, x, y):
         if not isFriendly(x, y):
-            self.board[x][y] = None
+            self.board[y][x] = None
         else:
             print("Invalid move! Friendly piece exists at coordinate specified.")
 
@@ -58,7 +58,7 @@ class Piece:
         @return boolean: True if this piece is on the same piece as the the piece on (x,y).
     """
     def isFriendly(self, x, y):
-        return True if self.board[x][y].color == self.color else False
+        return True if self.board[y][x].color == self.color else False
 
     """
         @desc: isEmpty returns a boolean indicating if a empty position exists on the board.
@@ -66,7 +66,7 @@ class Piece:
         @param y: The Y coordinate on the board to check.
     """
     def isEmpty(self, x, y):
-        return True if self.board[x][y] == None else False
+        return True if self.board[y][x] == None else False
 
         
     """
@@ -85,7 +85,7 @@ class Piece:
         @return boolean: True if within bounds, False otherwise.
     """
     def isWithinBounds(self, x, y):
-        return True if x >= 1 and x <= 8 and y >= 1 and y <= 8 else False
+        return True if x >= 0 and x < 8 and y >= 0 and y < 8  else False
 
 
     """
@@ -117,4 +117,10 @@ class Piece:
         @desc: __str__ returns a string representation of the piece.
     """
     def __str__(self):
-        return name
+        return self.name
+
+    """
+        @desc: __repr__ returns a string representation of the piece.
+    """
+    def __repr__(self):
+        return self.name
