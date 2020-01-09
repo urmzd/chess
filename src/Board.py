@@ -3,22 +3,18 @@ import Pieces.py
 class Board:
 
     def __init__(self, board):
-        self.board = [] # Will be a 2d list containing all pieces.
-        self.counter = 0 # Counts the number of moves since last pawn move or capture
+        self.board = []
+        self.counter = 0
         self.lastMove = ""
-    
-    # Updates board information.
-    def update(self):
-        pass
 
-    # Converts char to int.
+    def move(self, x1, y1, x2, y2):
+        board[x1][y1].move(x2, y2)
+
     def convertY(self, y):
         return ord(chr(y)) - 96
 
-    # Prints board using string representation.
     def __str__(self):
         pass
     
-    # Representation of board.
     def __repr__(self):
         pass
