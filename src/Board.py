@@ -78,13 +78,13 @@ class Board:
     def printBoard(self):
 
         line = "" # Line to print.
-        topLine = "  1 2 3 4 5 6 7 8"
+        topLine = "  A B C D E F G H"
 
         print(topLine + "\n")
         # Iterates through the board and prints each piece.
         for x in range(8):
 
-            line = line + self.convertNumber(x, True)
+            line = line + str(x + 1)
 
             for y in range(8):
                 if self.board[x][y] == None:
