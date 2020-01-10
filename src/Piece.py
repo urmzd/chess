@@ -80,7 +80,7 @@ class Piece:
         @param y: The y position to check.
         @return boolean: True if all units are empty, False otherwise.
     """
-    def validateMove(self, x: int, y: int) -> bool:
+    def validMove(self, x: int, y: int) -> bool:
         pass
     
     """
