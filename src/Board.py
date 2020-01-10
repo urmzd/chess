@@ -96,3 +96,11 @@ class Board:
                     line = line + " " + repr(self.board[x][y])
             print(line + "\n") # New line for every 8 pieces printed.
             line = ""
+
+    ## Check if (x,y) is empty.
+    def isEmpty(self, x: int, y: int) -> bool:
+        return self.board[y][x] == None
+    
+    # Checks if current team is the same as the piece on board[y][x].
+    def isFriendly(self, x: int, y: int, team: str) -> bool:
+        return  team == self.board[y][x].team
