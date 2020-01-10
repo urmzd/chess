@@ -1,125 +1,98 @@
+from typing import List
+from Board import Board
+
 """
-    @desc: The Piece class is meant to be a class which all pieces in the 
-    Chess game are to inherit the properties of. It also contains helper methods
-    meant to reduce the number of lines written in each child class.
+    @desc:
+        The Piece class is a class that is meant to parent other classes such as:
+            Pawn,
+            King,
+            Queen,
+            Bishop,
+            Knight,
+            Rook.
+        
+        It contains three abstract methods that all children must inherit, these are:
+            1. isValidPath(x, y), which validates all units up until the destination.
+            2. isValidMove(x, y), which validates the unit chosen.
+            3. getPossibleValues(), which returns an array filled will all possible moves in the form [x,y].
+
 """
 class Piece:
 
     """
-        @desc: A constructor to initialize basic attributes all children of this class will inherit.
-        @param name: A single character representation of the piece name. Ex: "P" for Pawn.
-        @param color: A single character representation of the piece team. "W" for White, "B" for Black.
-        @param value: An integer representing the value of the piece.
-        @param x: An integer indicating the x position of the piece.
-        @param y: An integer indiciating the y position of the piece.
-        @param board: The board in which the piece will move on.
+        @desc: Constructs an instance of the Piece class.
+        @param name: A string representing the name of the piece.
+        @param team: A string representing the team of the piece.
+        @param value: An integer representing the 'value' of the piece.
+        @param x: The x position of the piece on the game board.
+        @param y: The y position of the piece on the game board.
+        @param board: An instance of the Board class on which the piece will be interacted with.
     """
-    def __init__(self, name, color, value, x, y, board):
+    def __init__(self, name: str, team: str, value: int, x: int, y: int, board: Board):
         self.name = name
-        self.color = color
+        self.team = team
+        self.value = value
         self.x = x
         self.y = y
         self.board = board
+    
+    """
+        @desc: Updates the position (x,y) of the piece on the board.
+        @param x: The new x position of the piece.
+        @param y: The new y position of the piece.
+    """
+    def update(self, x: int, y: int):
+        self.board.board[y][x] = self # Move to new position.
+        self.board.board[self.y][self.x] = None # Remove piece at old position.
+        self.x = x # Update x position.
+        self.y = y # Update y position.
 
     """
-        @desc: difference is a method that returns the difference in values. 
-        @param a: The starting value.
-        @param b: The ending value.
-        @return int: The absolute difference between two integers.
+        @desc: Removes a piece on the board.
+        @param x: The x position of the piece to remove.
+        @param y: The y position of the piece to remove.
     """
-    def difference(self, a, b):
-        return abs(a - b)
+    def capture(self, x: int, y: int):
+        self.board.board[y][x] = None # Clear piece at position.
 
     """
-        @desc: update is a method that updates the board and the piece with a new position.
-        @param x: The new X position of the piece.
-        @param y: The new Y position of the piece.
+        @desc: Stores a string into the Board instance in the form: "TN(x1,y1)(x2,y2)".
+        @param x: The new x position of the piece that will be moving.
+        @param y: The new y position of the piece that will be moving.
     """
-    def update(self, x, y):
-        self.board.board[y][x] = self
-        self.board.board[self.y][self.x] = None
-        self.board.board[y][x].x = x
-        self.board.board[y][x].y = y
-        
-    """
-        @desc: capture removes piece at given coordinate in the format: (x,y)
-        @param x: The x coordinate in which to remove the piece. 
-        @param y: The y coordinate in which to remove the piece.
-    """
-    def capture(self, x, y):
-        if not self.isFriendly(x, y):
-            self.board.board[y][x] = None
-        else:
-            print("Invalid move! Friendly piece exists at coordinate specified.")
+    def storeMove(self, x: int, y: int):
+        self.board.lastMove = team + name + str(self.x) + str(self.y) + str(x) + str(y)
 
     """
-        @desc: isFriendly returns a boolean indicating if a piece is on the same team.
-        @param x: The x coordinate of the piece to check.
-        @param y: The y coordinate of the piece to check.
-        @return boolean: True if this piece is on the same piece as the the piece on (x,y).
+        @desc: Checks if a position (x,y) is valid by determining if it is within the borders of the board.
+        @param x: The requested x position to check.
+        @param y: The requested y position to check.
+        @return boolean: True if x and y are in the range of 8.
     """
-    def isFriendly(self, x, y):
-        return True if self.board.board[y][x].color == self.color else False
+    def isWithinBoards(self, x: int, y: int) -> bool:
+        return x >= 0 and x < 8 and y >= 0 and y < 8
 
     """
-        @desc: isEmpty returns a boolean indicating if a empty position exists on the board.
-        @param x: The X coordinate on the board to check.
-        @param y: The Y coordinate on the board to check.
+        @desc: Checks if all units up to but not including the position (x,y) requested is empty.
+        @param x: The x position to check up until.
+        @param y: The y position to check up until.
+        @return boolean: True if all units are empty, False otherwise.
     """
-    def isEmpty(self, x, y):
-        return True if self.board.board[y][x] == None else False
-        
-    """
-        @desc: Store move made into the Board lastMove attribute. Stores Color, Name, Old X position, Old Y position, New x Position, New y Position.
-        storeMove(x, y):
-        @param x: The new X coordinate the piece is being moved to.
-        @param y: The new Y coordinate the piece is being moved to.
-    """
-    def storeMove(self, x, y):
-        self.board.lastMove = self.color + self.name + str(self.x) + str(self.y) + str(x) + str(y)
-
-    """
-        @desc: isWithinBounds checks if given coordinate is within the board's boundaries.
-        @param x: The X coordinate to check.
-        @param y: The Y coordinate to check.
-        @return boolean: True if within bounds, False otherwise.
-    """
-    def isWithinBounds(self, x, y):
-        return True if x >= 0 and x < 8 and y >= 0 and y < 8  else False
-
-    """
-        @desc: isValidPath is an abstract method meant to check if all squares are valid up until destination coordinate.
-        @param x: The final x coordinate the piece will arrive to.
-        @param y: The final x coordinate the piece will arrive to.
-    """
-    def isValidPath(self, x, y):
-        pass
-
-    """
-        @desc: isValidMove is a abstract method meant to returns a boolean indicating if a move is valid.
-        @param x: The X coordinate the piece is requesting to move to.
-        @param y: The Y coordinate the piece is requesting to move to.
-        @return boolean: True if move can be made, False otherwise.
-    """
-    def isValidMove(self, x, y):
-        pass
-
-    """
-        @desc: move is an abstract method meant to move a piece to given coordinate in the format: (x, y)
-        @param x: The new X coordinate of the piece. (1 on Left, 8 on Right)
-        @param y: The new Y coordinate of the piece. (A on Top, H on Bottom)
-    """
-    def move(self, x, y):
+    def isValidPath(self, x: int, y: int) -> bool:
         pass
     
     """
-        @desc: __str__ returns a string representation of the piece.
+        @desc: Checks if unit can be moved to by determining if a piece can be captured or is empty.
+        @param x: The x position to check.
+        @param y: The y position to check.
+        @return boolean: True if a piece can be captured or is empty.
     """
-    def __str__(self):
-        return self.name
-
+    def isValidMove(self, x: int, y: int) -> bool:
+        pass
+    
     """
-        @desc: __repr__ returns a string representation of the piece.
+        @desc: Determines all the possible moves a piece can be make.
+        @return: A list containing x and y positions in the form [x,y].
     """
-    def __repr__(self):
-        return self.name
+    def getPossibleMoves(self) -> List[List[int]]:
+        pass
