@@ -4,6 +4,7 @@ from Board import Board
 """
     @desc:
         The Piece class is a class that is meant to parent other classes such as:
+
             Pawn,
             King,
             Queen,
@@ -12,6 +13,7 @@ from Board import Board
             Rook.
         
         It contains three abstract methods that all children must inherit, these are:
+
             1. isValidPath(x, y), which validates all units up until the destination.
             2. isValidMove(x, y), which validates the unit chosen.
             3. getPossibleValues(), which returns an array filled will all possible moves in the form [x,y].
@@ -41,7 +43,7 @@ class Piece:
         @param x: The new x position of the piece.
         @param y: The new y position of the piece.
     """
-    def update(self, x: int, y: int):
+    def move(self, x: int, y: int):
         self.board.board[y][x] = self # Move to new position.
         self.board.board[self.y][self.x] = None # Remove piece at old position.
         self.x = x # Update x position.
@@ -53,7 +55,7 @@ class Piece:
         @param y: The y position of the piece to remove.
     """
     def capture(self, x: int, y: int):
-        self.board.board[y][x] = None # Clear piece at position.
+        self.board.board[y][x] = None # Clears piece at position.
 
     """
         @desc: Stores a string into the Board instance in the form: "TN(x1,y1)(x2,y2)".
@@ -73,21 +75,12 @@ class Piece:
         return x >= 0 and x < 8 and y >= 0 and y < 8
 
     """
-        @desc: Checks if all units up to but not including the position (x,y) requested is empty.
-        @param x: The x position to check up until.
-        @param y: The y position to check up until.
-        @return boolean: True if all units are empty, False otherwise.
-    """
-    def isValidPath(self, x: int, y: int) -> bool:
-        pass
-    
-    """
-        @desc: Checks if unit can be moved to by determining if a piece can be captured or is empty.
+        @desc: Checks if unit is allowed at position (x,y).
         @param x: The x position to check.
         @param y: The y position to check.
-        @return boolean: True if a piece can be captured or is empty.
+        @return boolean: True if all units are empty, False otherwise.
     """
-    def isValidMove(self, x: int, y: int) -> bool:
+    def validateMove(self, x: int, y: int) -> bool:
         pass
     
     """
