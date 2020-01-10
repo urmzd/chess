@@ -104,3 +104,15 @@ class Board:
     # Checks if current team is the same as the piece on board[y][x].
     def isFriendly(self, x: int, y: int, team: str) -> bool:
         return  team == self.board[y][x].team
+
+"""
+#TEST PAWN
+board = Board()
+board.fillBoard()
+board.printBoard()
+board.move(0, 1, 0, 3)
+board.move(0, 3, 0, 4)
+board.move(1, 6, 1, 4)
+board.move(0, 4, 1, 5)
+board.printBoard()
+"""
