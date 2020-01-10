@@ -1,5 +1,4 @@
 from typing import List
-from Board import Board
 
 """
     @desc:
@@ -30,7 +29,7 @@ class Piece:
         @param y: The y position of the piece on the game board.
         @param board: An instance of the Board class on which the piece will be interacted with.
     """
-    def __init__(self, name: str, team: str, value: int, x: int, y: int, board: Board):
+    def __init__(self, name: str, team: str, value: int, x: int, y: int, board):
         self.name = name
         self.team = team
         self.value = value
@@ -89,3 +88,7 @@ class Piece:
     """
     def getPossibleMoves(self) -> List[List[int]]:
         pass
+
+    # String representation.
+    def __repr__(self):
+        return self.name
