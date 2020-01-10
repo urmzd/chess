@@ -21,6 +21,9 @@ class Board:
         self.counter = 0 # Number of moves since the last capture or pawn move.
         self.lastMove = "" # A string to hold the last move made in string format.
     
+    """
+        @desc: Fills board will all the required pieces to play.
+    """
     def fillBoard(self):
         
         for x in range(8):
@@ -47,7 +50,7 @@ class Board:
         @param x2: The x location the piece is being requested to move to.
         @param y2: The y location the piece is being requested to move to.
     """
-    def move(self, x1, y1, x2, y2):
+    def move(self, x1: int, y1: int, x2: int, y2: int):
         self.board[y1][x1].move(x2, y2)
 
     """
@@ -55,7 +58,7 @@ class Board:
         @param letter: The ASCII letter to convert.
         @param case: True for upper case letters, false for lower case letters.
     """
-    def convertAlpha(self, letter, case):
+    def convertAlpha(self, letter: chr, case: bool) -> int:
         if case:
             return ord(chr(letter)) - 65
         else:
@@ -66,7 +69,7 @@ class Board:
         @param number: The number to convert.
         @param case: True for upper case letters, false for lower case letters.
     """
-    def convertNumber(self, number, case):
+    def convertNumber(self, number: int, case: bool) -> chr:
         if case:
             return chr(number + 65)
         else:
