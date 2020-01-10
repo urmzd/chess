@@ -41,7 +41,6 @@ class Piece:
         self.board.board[y][x].x = x
         self.board.board[y][x].y = y
         
-
     """
         @desc: capture removes piece at given coordinate in the format: (x,y)
         @param x: The x coordinate in which to remove the piece. 
@@ -69,7 +68,6 @@ class Piece:
     """
     def isEmpty(self, x, y):
         return True if self.board.board[y][x] == None else False
-
         
     """
         @desc: Store move made into the Board lastMove attribute. Stores Color, Name, Old X position, Old Y position, New x Position, New y Position.
@@ -88,7 +86,6 @@ class Piece:
     """
     def isWithinBounds(self, x, y):
         return True if x >= 0 and x < 8 and y >= 0 and y < 8  else False
-
 
     """
         @desc: isValidPath is an abstract method meant to check if all squares are valid up until destination coordinate.
