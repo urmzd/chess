@@ -71,7 +71,7 @@ class Piece:
         @param y: The requested y position to check.
         @return boolean: True if x and y are in the range of 8.
     """
-    def isWithinBoards(self, x: int, y: int) -> bool:
+    def isWithinBoard(self, x: int, y: int) -> bool:
         return x >= 0 and x < 8 and y >= 0 and y < 8
 
     """
