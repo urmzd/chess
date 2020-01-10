@@ -8,7 +8,6 @@ class Rook(Piece):
 
     def __init__(self, color, x, y, board, played):
         super().__init__("R", color, 5, x, y, board)
-        self.castleAllowed = True
         self.played = False
     
     def isValidPath(self, x, y):
@@ -54,3 +53,5 @@ class Rook(Piece):
 
     def move(self, x, y):
         
+        if isValidMove(x,y):
+            self.update(x,y)
