@@ -55,3 +55,9 @@ Notes:
 # NOTES
 
 May add a possibleMoveSet to have easier implementation of A.I later on.
+
+A.I will be a minimax algorithm with alpha-beta pruning.
+Essentially, certain nodes will attempt to MAXIMIZE the "reward" while the minimizer will do the exact opposite
+and attempt to minimize the reward. The algorithm is based on the idea that the participants will choose the most logic choice.
+
+https://youtu.be/zp3VMe0Jpf8
