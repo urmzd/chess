@@ -12,6 +12,8 @@ from Piece import Piece
             on the pawn. If the pawn is able to reach the end(s) of the board, the console will ask which "Piece" should the pawn 
             upgrade to. Upon confirmation, the promoted attribute is set to True and restrictions on the pawn are removed, allowing
             it to inherit move sets of other pieces.
+            3. enPassent, which is set to False by default. On an valid attempt to use the En Passent move, the attribute will be set to
+            true, allowing for other methods to use this information to remove the appropriate enemy pawn.
         
         Additional Notes:
             An En Passent can be used, which essentially allows the Pawn to capture the piece to it's side 
@@ -27,9 +29,73 @@ class Pawn(Piece):
         super().__init__("P", team, 1, x, y, board)
         self.played = False
         self.promoted  = False
+        self.enPassent = False
+
+    # Determine if pawn is moving in the right direction.
+    def validDirection(self, y: int) -> bool:
+        
+        if self.team == "W":
+            if y > self.y:
+                return True
+        elif self.team == "B":
+            if y < self.y:
+                return True
+        else:
+            return False
+        
     
-    def validateMove(self, x: int, y: int) -> bool:
-        pass
+    
+    # default returns false, unless the rules stated belowed are obliged, then it returns true.
+    def validMove(self, x: int, y: int) -> bool:
+
+        isValid = False # Default return value will be false.
+        
+        # 2 units forward for first move if not played.
+        # 1 unit forward after that.
+        # 1 unit left/right + 1 unit forward for attacks.
+        # 1 unit left/right + 1 unit forward for en passent.
+        # CANNOT GO BACKWARDS
+
+        # For normal movement, not promoted
+        if not self.played:
+            if self.validDirection(y) and abs(y - self.y) == 2:
+                for step in range(2):
+                    if not self.board.isEmpty(x, y + step):
+                        return False
+                isValid = True
+        else:
+            if self.validDirection(y) and abs(y - self.y) == 1:
+                isValid = True
+        
+        attemptingToAttack = abs(y - self.y) == 1 and abs(x - self.x) == 1
+
+        # For regular attack.
+        if not self.board.isEmpty(x, y) and validDirection(y):
+            if not isFriendly(x, y, self.team):
+                if attemptingToAttack:
+                    isValid = True
+        
+        # For En passent.
+        # check attempting to attack            
+        # BP3735
+        # last move must have been made by a pawn, making 2 steps on left side or right
+        # side of current pawn, 
+
+        if self.board.isEmpty(x,y) and validDirection(y):
+            if attemptingToAttack:
+                lastMove = self.board.lastMove
+                if lastMove[1] == "P" and lastMove[0] != self.team:
+                    if int(lastMove[2]) - 1 == self.x or int(lastMove[2]) + 1 == self.x:
+                        if abs(int(lastMove[3]) - int(lastMove[5])) == 0:
+                            self.enPassent = True
+                            isValid = True
+
+        if isValid:
+            self.storeMove(x, y)        
+            return True
+
+        return False
+
 
     def getPossibleMoves(self) -> List[List[int]]:
         pass
