@@ -31,6 +31,32 @@ class Pawn(Piece):
         self.promoted  = False
         self.enPassent = False
 
+    # @Override move
+
+    def move(self, x: int, y: int):
+        
+        if self.validMove(x, y):
+            if not self.board.isEmpty(x, y):
+                if not self.board.isFriendly(x, y, self.team):
+                    self.board.board[self.y][self.x].capture(x, y)
+
+            if self.enPassent:
+                if self.team == "W":
+                    self.board.board[self.y][self.x].capture(x, y - 1)
+                else:
+                    self.board.board[self.y][self.x].capture(x, y + 1)
+                
+                self.enPassent = False # Reset so move cant be used again.
+
+            self.played = True
+            self.board.board[y][x] = self
+            self.board.board[self.y][self.x] = None
+            self.storeMove(x, y)
+            self.x = x
+            self.y = y
+        else:
+            print("Invalid move.")
+
     # Determine if pawn is moving in the right direction.
     def validDirection(self, y: int) -> bool:
         
@@ -44,8 +70,7 @@ class Pawn(Piece):
             return False
         
     
-    
-    # default returns false, unless the rules stated belowed are obliged, then it returns true.
+    # Default returns false, unless the rules stated belowed are obliged, then it returns true.
     def validMove(self, x: int, y: int) -> bool:
 
         isValid = False # Default return value will be false.
@@ -58,43 +83,43 @@ class Pawn(Piece):
 
         # For normal movement, not promoted
         if not self.played:
-            if self.validDirection(y) and abs(y - self.y) == 2:
-                for step in range(2):
-                    if not self.board.isEmpty(x, y + step):
+
+            if self.validDirection(y) and abs(y - self.y) == 2 and abs(x - self.x) == 0:
+                for step in range(1, abs(y - self.y) + 1):
+                    if self.team == "B":
+                        step = -step
+
+                    if not self.board.isEmpty(x, self.y + step):
                         return False
                 isValid = True
-        else:
-            if self.validDirection(y) and abs(y - self.y) == 1:
-                isValid = True
+        
+        if self.validDirection(y) and abs(y - self.y) == 1 and abs(x - self.x) == 0:
+            isValid = True
         
         attemptingToAttack = abs(y - self.y) == 1 and abs(x - self.x) == 1
 
         # For regular attack.
-        if not self.board.isEmpty(x, y) and validDirection(y):
+        if not self.board.isEmpty(x, y) and self.validDirection(y):
             if not isFriendly(x, y, self.team):
                 if attemptingToAttack:
                     isValid = True
         
         # For En passent.
         # check attempting to attack            
-        # BP3735
+        # BP1614
         # last move must have been made by a pawn, making 2 steps on left side or right
         # side of current pawn, 
 
-        if self.board.isEmpty(x,y) and validDirection(y):
+        if self.board.isEmpty(x,y) and self.validDirection(y):
             if attemptingToAttack:
                 lastMove = self.board.lastMove
                 if lastMove[1] == "P" and lastMove[0] != self.team:
                     if int(lastMove[2]) - 1 == self.x or int(lastMove[2]) + 1 == self.x:
-                        if abs(int(lastMove[3]) - int(lastMove[5])) == 0:
+                        if abs(int(lastMove[3]) - int(lastMove[5])) == 2:
                             self.enPassent = True
                             isValid = True
 
-        if isValid:
-            self.storeMove(x, y)        
-            return True
-
-        return False
+        return isValid
 
 
     def getPossibleMoves(self) -> List[List[int]]:
