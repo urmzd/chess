@@ -13,7 +13,11 @@ class Piece():
     
     def move(self, x: int, y: int):
         self.storeMove(x,y)
-        self.capture(x, y)
+
+        if not self.board.isEmpty(x,y):
+            self.capture(x, y)
+            self.resetCounter()
+
         self.board.board[y][x] = self
         self.board.board[self.y][self.x] = None
         self.x = x

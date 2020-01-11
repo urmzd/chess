@@ -59,6 +59,7 @@ class Pawn(Piece):
                 else:
                     self.capture(x, y + 1)
             
+            self.board.incrementCounter()
             self.move(x, y)
 
     def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
