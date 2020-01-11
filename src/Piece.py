@@ -64,6 +64,17 @@ class Piece:
         return x >= 0 and x < 8 and y >= 0 and y < 8
 
     """
+        @desc: Moves piece to position.
+        @param x: The x position to move to.
+        @param y: The y position to move to.
+    """
+    def move(self, x: int, y: int) -> bool:
+        self.board.board[y][x] = self
+        self.board.board[self.y][self.x] = None
+        self.storeMove(x, y)
+        self.x = x
+        self.y = y
+    """
         @desc: Checks if unit is allowed at position (x,y).
         @param x: The x position to check.
         @param y: The y position to check.
@@ -80,13 +91,13 @@ class Piece:
         pass
 
     """
-        @desc: Updates the position (x,y) of the piece on the board.
+        @desc: Updates the position (x,y) of the piece on the board, capturing if necessary.
         @param x: The new x position of the piece.
         @param y: The new y position of the piece.
     """
-    def move(self, x: int, y: int):
+    def update(self, x: int, y: int):
         pass
-
+    
     # String representation.
     def __repr__(self):
         return self.name
