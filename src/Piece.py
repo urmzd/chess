@@ -62,7 +62,7 @@ class Piece:
         @param y: The new y position of the piece that will be moving.
     """
     def storeMove(self, x: int, y: int):
-        self.board.lastMove = team + name + str(self.x) + str(self.y) + str(x) + str(y)
+        self.board.lastMove = self.team + self.name + str(self.x) + str(self.y) + str(x) + str(y)
 
     """
         @desc: Checks if a position (x,y) is valid by determining if it is within the borders of the board.
