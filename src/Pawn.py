@@ -21,6 +21,8 @@ from Piece import Piece
             However, this can only be used if the following condition are met:
 
                 1. The last move made was the opposing enemy's pawn moved 2 squares towards the current pawn to prevent capture.
+
+        @TODO: add promoted moveset.
 """
 
 class Pawn(Piece):
