@@ -59,6 +59,9 @@ class Pawn(Piece):
                 else:
                     self.capture(x, y + 1)
             
+            if self.played == False:
+                self.played = True
+                
             self.board.incrementCounter()
             self.move(x, y)
 
