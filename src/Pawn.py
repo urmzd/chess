@@ -33,7 +33,7 @@ class Pawn(Piece):
 
     # @Override move
 
-    def move(self, x: int, y: int):
+    def update(self, x: int, y: int):
         
         if self.validMove(x, y):
             if not self.board.isEmpty(x, y):
@@ -49,11 +49,7 @@ class Pawn(Piece):
                 self.enPassent = False # Reset so move cant be used again.
 
             self.played = True
-            self.board.board[y][x] = self
-            self.board.board[self.y][self.x] = None
-            self.storeMove(x, y)
-            self.x = x
-            self.y = y
+            self.move(x, y)
         else:
             print("Invalid move.")
 
