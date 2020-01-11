@@ -1,93 +1,47 @@
 from typing import List
 
-"""
-    @desc:
-        The Piece class is a class that is meant to parent other classes such as:
+class Piece():
 
-            Pawn,
-            King,
-            Queen,
-            Bishop,
-            Knight,
-            Rook.
-        
-        It contains four abstract methods that all children must inherit, these are:
-
-            1. validMove(x, y), which validates the unit chosen.
-            2. getPossibleValues(), which returns an array filled will all possible moves in the form [x,y].
-            3. update(x, y), which moves the piece to postion (x, y) and removes any opposing piece if it lands on it.
-
-"""
-class Piece:
-
-    """
-        @desc: Constructs an instance of the Piece class.
-        @param name: A string representing the name of the piece.
-        @param team: A string representing the team of the piece.
-        @param value: An integer representing the 'value' of the piece.
-        @param x: The x position of the piece on the game board.
-        @param y: The y position of the piece on the game board.
-        @param board: An instance of the Board class on which the piece will be interacted with.
-    """
-    def __init__(self, name: str, team: str, value: int, x: int, y: int, board):
-        self.name = name
+    def __init__(self, team: chr, name: chr, icon: chr, value: int, x: int, y: int, board: "Board"):
         self.team = team
+        self.name = name
+        self.icon = icon
         self.value = value
         self.x = x
         self.y = y
         self.board = board
-
-    """
-        @desc: Removes a piece on the board.
-        @param x: The x position of the piece to remove.
-        @param y: The y position of the piece to remove.
-    """
-    def capture(self, x: int, y: int):
-        self.board.board[y][x] = None # Clears piece at position.
-
-    """
-        @desc: Stores a string into the Board instance in the form: "TN(x1,y1)(x2,y2)".
-        @param x: The new x position of the piece that will be moving.
-        @param y: The new y position of the piece that will be moving.
-    """
-    def storeMove(self, x: int, y: int):
-        self.board.lastMove = self.team + self.name + str(self.x) + str(self.y) + str(x) + str(y)
-
-    """
-        @desc: Moves piece to position.
-        @param x: The x position to move to.
-        @param y: The y position to move to.
-    """
-    def move(self, x: int, y: int) -> bool:
+    
+    def move(self, x: int, y: int):
+        self.storeMove(x,y)
+        self.capture(x, y)
         self.board.board[y][x] = self
         self.board.board[self.y][self.x] = None
-        self.storeMove(x, y)
         self.x = x
         self.y = y
-    """
-        @desc: Checks if unit is allowed at position (x,y).
-        @param x: The x position to check.
-        @param y: The y position to check.
-        @return boolean: True if all units are empty, False otherwise.
-    """
-    def validMove(self, x: int, y: int) -> bool:
+
+    def capture(self, x: int, y: int):
+        self.board.remove(x, y)
+    
+    def isFriendly(self, x: int, y: int) -> bool:
+        return self.board.board[y][x].team == self.team
+
+    def validPosition(self, x: int, y: int) -> bool:
+        if not self.board.isContained(x,y):
+            return False
+
+        return self.board.isEmpty(x, y) or not self.isFriendly(x, y)
+    
+    def storeMove(self, x: int, y: int):
+        self.board.lastMove = self.team + self.name + str(self.x) + str(self.y) + str(x) + str(y)
+    
+    def __repr__(self):
+        return self.icon
+
+    def validMove(self, x: int, int: int) -> bool:
         pass
     
-    """
-        @desc: Determines all the possible moves a piece can be make.
-        @return: A list containing x and y positions in the form [x,y].
-    """
-    def getPossibleMoves(self) -> List[List[int]]:
-        pass
-
-    """
-        @desc: Updates the position (x,y) of the piece on the board, capturing if necessary.
-        @param x: The new x position of the piece.
-        @param y: The new y position of the piece.
-    """
     def update(self, x: int, y: int):
         pass
-    
-    # String representation.
-    def __repr__(self):
-        return self.name
+
+    def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
+        pass
