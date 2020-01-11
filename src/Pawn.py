@@ -38,13 +38,13 @@ class Pawn(Piece):
         if self.validMove(x, y):
             if not self.board.isEmpty(x, y):
                 if not self.board.isFriendly(x, y, self.team):
-                    self.board.board[self.y][self.x].capture(x, y)
+                    self.capture(x, y)
 
             if self.enPassent:
                 if self.team == "W":
-                    self.board.board[self.y][self.x].capture(x, y - 1)
+                    self.capture(x, y - 1)
                 else:
-                    self.board.board[self.y][self.x].capture(x, y + 1)
+                    self.capture(x, y + 1)
                 
                 self.enPassent = False # Reset so move cant be used again.
 
@@ -68,7 +68,7 @@ class Pawn(Piece):
     
     # Default returns false, unless the rules stated belowed are obliged, then it returns true.
     def validMove(self, x: int, y: int) -> bool:
-                
+
         # 2 units forward for first move if not played.
         # 1 unit forward after that.
         # 1 unit left/right + 1 unit forward for attacks.

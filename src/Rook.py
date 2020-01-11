@@ -13,7 +13,7 @@ class Rook(Piece):
         if self.validMove(x, y):
             if not self.board.isEmpty(x, y):
                 if not self.board.isFriendly(x, y, self.team):
-                    self.board.board[y][x].capture(x, y)
+                    self.capture(x, y)
             else:
                 self.move(x, y)
         else:
