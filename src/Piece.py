@@ -13,10 +13,9 @@ from typing import List
         
         It contains four abstract methods that all children must inherit, these are:
 
-            1. isValidPath(x, y), which validates all units up until the destination.
-            2. isValidMove(x, y), which validates the unit chosen.
-            3. getPossibleValues(), which returns an array filled will all possible moves in the form [x,y].
-            4. move(x, y), which moves the piece to postion (x, y) and removes any opposing piece if it lands on it.
+            1. validMove(x, y), which validates the unit chosen.
+            2. getPossibleValues(), which returns an array filled will all possible moves in the form [x,y].
+            3. update(x, y), which moves the piece to postion (x, y) and removes any opposing piece if it lands on it.
 
 """
 class Piece:
