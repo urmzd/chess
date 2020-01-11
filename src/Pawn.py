@@ -68,9 +68,7 @@ class Pawn(Piece):
     
     # Default returns false, unless the rules stated belowed are obliged, then it returns true.
     def validMove(self, x: int, y: int) -> bool:
-
-        isValid = False # Default return value will be false.
-        
+                
         # 2 units forward for first move if not played.
         # 1 unit forward after that.
         # 1 unit left/right + 1 unit forward for attacks.
@@ -87,10 +85,10 @@ class Pawn(Piece):
 
                     if not self.board.isEmpty(x, self.y + step):
                         return False
-                isValid = True
+                return True
         
         if self.validDirection(y) and abs(y - self.y) == 1 and abs(x - self.x) == 0:
-            isValid = True
+            return True
         
         attemptingToAttack = abs(y - self.y) == 1 and abs(x - self.x) == 1
 
@@ -98,7 +96,7 @@ class Pawn(Piece):
         if not self.board.isEmpty(x, y) and self.validDirection(y):
             if not self.board.isFriendly(x, y, self.team):
                 if attemptingToAttack:
-                    isValid = True
+                    return True
         
         # For En passent.
         # check attempting to attack            
@@ -113,9 +111,9 @@ class Pawn(Piece):
                     if int(lastMove[2]) - 1 == self.x or int(lastMove[2]) + 1 == self.x:
                         if abs(int(lastMove[3]) - int(lastMove[5])) == 2:
                             self.enPassent = True
-                            isValid = True
+                            return True
 
-        return isValid
+        return False
 
 
     def getPossibleMoves(self) -> List[List[int]]:
