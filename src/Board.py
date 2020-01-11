@@ -105,6 +105,7 @@ class Board:
     def isFriendly(self, x: int, y: int, team: str) -> bool:
         return  team == self.board[y][x].team
 
+
 """
 #TEST PAWN
 board = Board()
@@ -114,6 +115,7 @@ board.update(0, 1, 0, 3)
 board.update(0, 3, 0, 4)
 board.update(1, 6, 1, 4)
 board.update(0, 4, 1, 5)
-print(board.lastMove)
+board.update(0, 6, 1, 5)
+board.update(0, 7, 0, 0)
 board.printBoard()
 """
