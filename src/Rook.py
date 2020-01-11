@@ -21,8 +21,6 @@ class Rook(Piece):
 
     def validMove(self, x: int, y: int) -> bool:
         
-        validMove = False
-
         if self.board.isEmpty(x,y):
             return True
         
@@ -44,9 +42,9 @@ class Rook(Piece):
                     return False
 
             if self.board.isEmpty(x, y) or not self.board.isFriendly(x, y, self.team):
-                validMove = True
+                return True
 
-        return validMove
+        return False
 
     def getPossibleMoves(self) -> List[List[int]]:
         pass
