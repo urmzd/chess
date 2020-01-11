@@ -60,4 +60,9 @@ A.I will be a minimax algorithm with alpha-beta pruning.
 Essentially, certain nodes will attempt to MAXIMIZE the "reward" while the minimizer will do the exact opposite
 and attempt to minimize the reward. The algorithm is based on the idea that the participants will choose the most logic choice.
 
-https://youtu.be/zp3VMe0Jpf8
+Alpha-beta pruning is a way of optimizing the algorithm. At it's core, it evaluates all nodes until it comes across a value which will not effect the end result.
+
+For more information, watch theses:
+
+https://youtu.be/zp3VMe0Jpf8 
+https://www.youtube.com/watch?v=l-hh51ncgDI
