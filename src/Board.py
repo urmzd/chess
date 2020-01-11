@@ -35,12 +35,12 @@ class Board:
 
         for i in range(2):
             self.board[yLocations[i]][0] = Rook(colors[i], 0, yLocations[i], self)
-            self.board[yLocations[i]][1] = Knight(colors[i], 1, yLocations[i], self)
-            self.board[yLocations[i]][2] = Bishop(colors[i], 2, yLocations[i], self)
-            self.board[yLocations[i]][3] = Queen(colors[i], 3, yLocations[i], self)
+            #self.board[yLocations[i]][1] = Knight(colors[i], 1, yLocations[i], self)
+            #self.board[yLocations[i]][2] = Bishop(colors[i], 2, yLocations[i], self)
+            #self.board[yLocations[i]][3] = Queen(colors[i], 3, yLocations[i], self)
             self.board[yLocations[i]][4] = King(colors[i], 4, yLocations[i], self)
-            self.board[yLocations[i]][5] = Bishop(colors[i], 5, yLocations[i], self)
-            self.board[yLocations[i]][6] = Knight(colors[i], 6, yLocations[i], self)
+            #self.board[yLocations[i]][5] = Bishop(colors[i], 5, yLocations[i], self)
+            #self.board[yLocations[i]][6] = Knight(colors[i], 6, yLocations[i], self)
             self.board[yLocations[i]][7] = Rook(colors[i], 7, yLocations[i], self)
             
     """
@@ -76,6 +76,15 @@ class Board:
             return chr(number + 97)
 
     """
+        @desc: Checks if a position (x,y) is valid by determining if it is within the borders of the board.
+        @param x: The requested x position to check.
+        @param y: The requested y position to check.
+        @return boolean: True if x and y are in the range of 8.
+    """
+    def isWithinBoard(self, x: int, y: int) -> bool:
+        return x >= 0 and x < 8 and y >= 0 and y < 8
+
+    """
         @desc: Prints all pieces on the board.
     """
     def printBoard(self):
@@ -108,16 +117,11 @@ class Board:
     def resetCounter(self):
         self.counter = 0
 
-"""
+
 #TEST PAWN
 board = Board()
 board.fillBoard()
 board.printBoard()
-board.update(0, 1, 0, 3)
-board.update(0, 3, 0, 4)
-board.update(1, 6, 1, 4)
-board.update(0, 4, 1, 5)
-board.update(0, 6, 1, 5)
-board.update(0, 7, 0, 0)
+
+board.update(4, 7, 6, 7)
 board.printBoard()
-"""
