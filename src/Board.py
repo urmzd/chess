@@ -114,5 +114,6 @@ board.move(0, 1, 0, 3)
 board.move(0, 3, 0, 4)
 board.move(1, 6, 1, 4)
 board.move(0, 4, 1, 5)
+print(board.lastMove)
 board.printBoard()
 """
