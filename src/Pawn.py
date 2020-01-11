@@ -96,7 +96,7 @@ class Pawn(Piece):
 
         # For regular attack.
         if not self.board.isEmpty(x, y) and self.validDirection(y):
-            if not isFriendly(x, y, self.team):
+            if not self.board.isFriendly(x, y, self.team):
                 if attemptingToAttack:
                     isValid = True
         
