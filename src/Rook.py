@@ -14,8 +14,9 @@ class Rook(Piece):
             if not self.board.isEmpty(x, y):
                 if not self.board.isFriendly(x, y, self.team):
                     self.capture(x, y)
-            else:
-                self.move(x, y)
+
+            self.played = True # Indicate rook has moved.
+            self.move(x, y)
         else:
             print("Invalid move.")
 
@@ -34,7 +35,7 @@ class Rook(Piece):
                 if not self.board.isEmpty(x, y + step):
                     return False
             if self.board.isEmpty(x, y) or not self.board.isFriendly(x, y, self.team):
-                validMove = True
+                return True
         
         if abs(y - self.y == 0):
             for step in range(1, abs(x - self.x)):
