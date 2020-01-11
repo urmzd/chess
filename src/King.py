@@ -7,7 +7,7 @@ class King(Piece):
         super().__init__(team, "K", "\u2654",  1000, x, y, board)
         self.played = False
 
-    def validMove(self, x: int, int: int) -> bool:
+    def validMove(self, x: int, y: int) -> bool:
         pass
     
     def update(self, x: int, y: int):
