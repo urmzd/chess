@@ -11,11 +11,12 @@ from typing import List
             Knight,
             Rook.
         
-        It contains three abstract methods that all children must inherit, these are:
+        It contains four abstract methods that all children must inherit, these are:
 
             1. isValidPath(x, y), which validates all units up until the destination.
             2. isValidMove(x, y), which validates the unit chosen.
             3. getPossibleValues(), which returns an array filled will all possible moves in the form [x,y].
+            4. move(x, y), which moves the piece to postion (x, y) and removes any opposing piece if it lands on it.
 
 """
 class Piece:
@@ -36,17 +37,6 @@ class Piece:
         self.x = x
         self.y = y
         self.board = board
-    
-    """
-        @desc: Updates the position (x,y) of the piece on the board.
-        @param x: The new x position of the piece.
-        @param y: The new y position of the piece.
-    """
-    def move(self, x: int, y: int):
-        self.board.board[y][x] = self # Move to new position.
-        self.board.board[self.y][self.x] = None # Remove piece at old position.
-        self.x = x # Update x position.
-        self.y = y # Update y position.
 
     """
         @desc: Removes a piece on the board.
@@ -87,6 +77,14 @@ class Piece:
         @return: A list containing x and y positions in the form [x,y].
     """
     def getPossibleMoves(self) -> List[List[int]]:
+        pass
+
+    """
+        @desc: Updates the position (x,y) of the piece on the board.
+        @param x: The new x position of the piece.
+        @param y: The new y position of the piece.
+    """
+    def move(self, x: int, y: int):
         pass
 
     # String representation.
