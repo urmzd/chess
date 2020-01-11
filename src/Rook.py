@@ -32,14 +32,14 @@ class Rook(Piece):
 
         if abs(x - self.x) == 0:
             for step in range(1, abs(y - self.y)):
-                if not self.board.isEmpty(x, y + step):
+                if not self.board.isEmpty(x, self.y + step):
                     return False
             if self.board.isEmpty(x, y) or not self.board.isFriendly(x, y, self.team):
                 return True
         
         if abs(y - self.y == 0):
             for step in range(1, abs(x - self.x)):
-                if not self.board.isEmpty(x + step, y):
+                if not self.board.isEmpty(self.x + step, y):
                     return False
 
             if self.board.isEmpty(x, y) or not self.board.isFriendly(x, y, self.team):
