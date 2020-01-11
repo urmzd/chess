@@ -54,15 +54,6 @@ class Piece:
         self.board.lastMove = self.team + self.name + str(self.x) + str(self.y) + str(x) + str(y)
 
     """
-        @desc: Checks if a position (x,y) is valid by determining if it is within the borders of the board.
-        @param x: The requested x position to check.
-        @param y: The requested y position to check.
-        @return boolean: True if x and y are in the range of 8.
-    """
-    def isWithinBoard(self, x: int, y: int) -> bool:
-        return x >= 0 and x < 8 and y >= 0 and y < 8
-
-    """
         @desc: Moves piece to position.
         @param x: The x position to move to.
         @param y: The y position to move to.
