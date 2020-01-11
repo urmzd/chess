@@ -50,8 +50,8 @@ class Board:
         @param x2: The x location the piece is being requested to move to.
         @param y2: The y location the piece is being requested to move to.
     """
-    def move(self, x1: int, y1: int, x2: int, y2: int):
-        self.board[y1][x1].move(x2, y2)
+    def update(self, x1: int, y1: int, x2: int, y2: int):
+        self.board[y1][x1].update(x2, y2)
 
     """
         @desc: convertAlpha converts lower case alphabets in the ASCII set to a integer.
@@ -110,10 +110,10 @@ class Board:
 board = Board()
 board.fillBoard()
 board.printBoard()
-board.move(0, 1, 0, 3)
-board.move(0, 3, 0, 4)
-board.move(1, 6, 1, 4)
-board.move(0, 4, 1, 5)
+board.update(0, 1, 0, 3)
+board.update(0, 3, 0, 4)
+board.update(1, 6, 1, 4)
+board.update(0, 4, 1, 5)
 print(board.lastMove)
 board.printBoard()
 """
