@@ -38,6 +38,10 @@ class Rook(Piece):
     def update(self, x: int, y: int):
         
         if self.validMove(x, y):
+            
+            if self.played == False:
+                self.played = True
+
             self.move(x, y)
 
     def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
