@@ -104,7 +104,9 @@ class Board:
     # Checks if current team is the same as the piece on board[y][x].
     def isFriendly(self, x: int, y: int, team: str) -> bool:
         return  team == self.board[y][x].team
-
+    
+    def resetCounter(self):
+        self.counter = 0
 
 """
 #TEST PAWN
