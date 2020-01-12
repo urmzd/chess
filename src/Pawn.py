@@ -3,6 +3,17 @@ from Piece import Piece
 
 class Pawn(Piece):
 
+    """
+        Note: Inherits properties from Piece, check Piece.py for more information about attributes.
+        @desc: Represents a Pawn piece in the game of Chess. The Pawn is allowed 2 moves forward on the first turn, 1 move in the forward direction otherwise.
+            It is allowed to attack diagonally but only 1 unit diagonally. It can also the use the En Passent rule to remove a piece behind it,
+            given that the last move made was by the enemy Pawn moving two units towards the current Pawn.
+
+        @param possibleMoves: A set of all possible moves the Pawn can make.
+        @param played: Indicates if played already. Default = False.
+        @param enPassent: Indicates if En Passent can be used or not. Default = False.
+    """
+
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
         super().__init__(team, "P", "\u2659", 10, x, y, board)
 
@@ -13,11 +24,13 @@ class Pawn(Piece):
         self.played = False
         self.enPassent = False
 
+    # Check Piece.py for more documentation.
     def validMove(self, x: int, y: int) -> bool:
 
         if not self.validPosition(x, y):
             return False
 
+        # Determine the correct set of possible moves. Invert if necessary.
         if not self.updated:
             possibleMoves = self.getMoveSet(self.possibleMoves)
         else:
@@ -42,10 +55,12 @@ class Pawn(Piece):
 
         elif xDifference == possibleMoves[2][0] or xDifference == possibleMoves[3][0]:
 
+            # Checks if an attack can be made.
             if yDifference == possibleMoves[2][1]:
                 if not self.board.isEmpty(x, y) and not self.isFriendly(x, y):
                     return True
 
+                # Checks if En Passent can be used or not.
                 elif self.board.isEmpty(x, y):
                     lastMove = self.board.lastMove
                     if lastMove[1] == "P":
@@ -59,10 +74,12 @@ class Pawn(Piece):
         else:
             return False
 
+    # Check Piece.py for more documentation.
     def update(self, x: int, y: int) -> bool:
 
         if self.validMove(x, y):
 
+            # If En Passent is allowed, determine which way the piece is facing and remove the piece behind it.
             if self.enPassent:
                 if self.team == "W":
                     self.capture(x, y - 1)
@@ -73,6 +90,7 @@ class Pawn(Piece):
             if self.played == False:
                 self.played = True
 
+            # Reset the 50-move rule counter since a pawn move has been made.
             self.board.resetCounter()
             self.move(x, y)
             return True
