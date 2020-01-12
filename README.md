@@ -49,8 +49,9 @@ Notes:
 
     Legend:
 
-        Name : {P, K, Q, R, K, B} : {Pawn, King, Queen, Rook, Knight, Bishop}
+        Name : {P, K, Q, R, K, B} : {Pawn, King, Queen, Rook, Knight, Bishop} : {1, 100, 9, 5, 3, 3 (Technically 3.5)}
         Color: {W, B} : {White, Black}
+
 
 # NOTES
 
