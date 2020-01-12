@@ -1,39 +1,40 @@
 from typing import List
 from Piece import Piece
 
+
 class Rook(Piece):
 
     def __init__(self, team: str, x: int, y: int, board: "Board"):
-        super().__init__(team, "R", "\u2656", 5, x, y, board)
-
-        self.possibleMoves = [[0, 1], [0, -1], [1, 0], [-1, 0]] # And any n * subset of, where [x,y].
-        self.played = False
+        super().__init__(team, "R", "\u2656", 50, x, y, board)
 
         if self.team == "W":
             self.icon = "\u265C"
+
+        self.possibleMoves = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        self.played = False
 
     def validMove(self, x: int, y: int) -> bool:
 
         if not self.validPosition(x, y):
             return False
-        
+
         if not self.updated:
             possibleMoves = self.getMoveSet(self.possibleMoves)
         else:
             possibleMoves = self.possibleMoves
 
         xDifference = x - self.x
-        yDifference = y - self.y        
-        
+        yDifference = y - self.y
+
         if xDifference == possibleMoves[0][0] * xDifference:
-            
+
             if yDifference == possibleMoves[0][1] * yDifference:
                 indexNumber = 0
             elif yDifference == possibleMoves[1][1] * yDifference:
                 indexNumber = 1
             else:
                 return False
-        
+
         elif yDifference == possibleMoves[2][1] * yDifference:
 
             if xDifference == possibleMoves[2][0] * xDifference:
@@ -56,21 +57,20 @@ class Rook(Piece):
 
             if not self.board.isEmpty(tempX, tempY):
                 return False
-            
+
             tempX = tempX + xStep
             tempY = tempY + yStep
 
         return True
-    
+
     def update(self, x: int, y: int):
-        
+
         if self.validMove(x, y):
-            
+
             if self.played == False:
                 self.played = True
 
             self.move(x, y)
-        
 
     def getAllPossibleMoves(self) -> List[List[int]]:
 
@@ -82,7 +82,7 @@ class Rook(Piece):
 
         for move in possibleMoves:
             while self.board.contains(tempX + move[0], tempY + move[1]):
-                
+
                 if [tempX + move[0], tempY + move[1]] in validMoves:
                     tempX = tempX + move[0]
                     tempY = tempY + move[1]
@@ -93,8 +93,5 @@ class Rook(Piece):
 
                 tempX = tempX + move[0]
                 tempY = tempY + move[1]
-        
+
         return validMoves
-
-
-            

@@ -1,12 +1,14 @@
 from Piece import Piece
 from Rook import Rook
 
+
 class King(Piece):
 
-    possibleMoves = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1], [2, 0], [-2, 0]]
+    possibleMoves = [[0, 1], [0, -1], [1, 0], [1, 1],
+                     [1, -1], [-1, 0], [-1, 1], [-1, -1], [2, 0], [-2, 0]]
 
     def __init__(self, team: chr, x: int, y: int, board: 'Board'):
-        super().__init__(team, "K", "\u2654",  1000, x, y, board)
+        super().__init__(team, "K", "\u2654",  900, x, y, board)
         self.played = False
 
         if self.team == "W":
@@ -14,7 +16,7 @@ class King(Piece):
 
     def validMove(self, x: int, y: int) -> bool:
 
-        if not self.validPosition(x,y):
+        if not self.validPosition(x, y):
             return False
 
         if not self.updated:
@@ -57,16 +59,16 @@ class King(Piece):
                 return False
 
         elif xDifference == possibleMoves[8][0]:
-             
+
             if yDifference == possibleMoves[8][1]:
 
-                 if self.board.isEmpty(self.x + possibleMoves[8][0], self.y):
-                     return True
+                if self.board.isEmpty(self.x + possibleMoves[8][0], self.y):
+                    return True
             else:
                 return False
 
         elif xDifference == possibleMoves[9][0]:
-            
+
             if yDifference == possibleMoves[9][1]:
 
                 if self.board.isEmpty(self.x + possibleMoves[9][0], self.y):
@@ -74,12 +76,11 @@ class King(Piece):
 
         else:
             return False
-        
-    
+
     def update(self, x: int, y: int):
-        
+
         if self.validMove(x, y):
-            
+
             if x - self.x == 2:
                 if isinstance(self.board.board[self.y][7], Rook):
                     self.board.board[self.y][7].update(5, self.y)

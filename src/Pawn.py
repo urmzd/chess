@@ -1,14 +1,15 @@
 from Piece import Piece
 
+
 class Pawn(Piece):
 
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
-        super().__init__(team, "P", "\u2659", 1, x, y, board)
-        
+        super().__init__(team, "P", "\u2659", 10, x, y, board)
+
         if self.team == "W":
             self.icon = "\u265F"
 
-        self.possibleMoves = [[0, 1], [0, 2], [1, 1], [-1, 1]] 
+        self.possibleMoves = [[0, 1], [0, 2], [1, 1], [-1, 1]]
         self.played = False
         self.enPassent = False
 
@@ -34,7 +35,7 @@ class Pawn(Piece):
 
                 if not self.board.isEmpty(x, self.y + possibleMoves[1][1]):
                     return False
-                    
+
                 return True
             else:
                 return False
@@ -57,21 +58,20 @@ class Pawn(Piece):
 
         else:
             return False
-    
-            
+
     def update(self, x: int, y: int):
-        
+
         if self.validMove(x, y):
-            
+
             if self.enPassent:
                 if self.team == "W":
-                    self.capture(x, y - 1) 
+                    self.capture(x, y - 1)
                 else:
                     self.capture(x, y + 1)
                 self.enPassent = False
 
             if self.played == False:
                 self.played = True
-                
+
             self.board.incrementCounter()
             self.move(x, y)

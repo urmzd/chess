@@ -1,15 +1,19 @@
 from Piece import Piece
 
+
 class Knight(Piece):
 
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
-        super().__init__(team, "N", "\u2658", 3, x, y, board)
-        self.possibleMoves = [[1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]]
+        super().__init__(team, "N", "\u2658", 30, x, y, board)
+
         if self.team == "W":
             self.icon = "\u265E"
 
+        self.possibleMoves = [[1, 2], [1, -2], [-1, 2],
+                              [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]]
+
     def validMove(self, x: int, y: int) -> bool:
-                
+
         if not self.validPosition(x, y):
             return False
 
@@ -45,6 +49,6 @@ class Knight(Piece):
             return False
 
     def update(self, x: int, y: int):
-        
-        if self.validMove(x,y):
+
+        if self.validMove(x, y):
             self.move(x, y)
