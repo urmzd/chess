@@ -156,6 +156,11 @@ class Piece():
 
         return validMoves
 
+    """
+        @desc: Converts number to corresponding ASCII character.
+        @param number: Number to convert.
+    """
+
     def convertNumber(self, number) -> chr:
         return chr(number + 97)
 
