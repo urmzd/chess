@@ -11,29 +11,47 @@ class Rook(Piece):
 
         if not self.validPosition(x, y):
             return False
-
-        if abs(self.x - x) == 0:
-
-            for step in range(1, abs(self.y - y)):
-                if y - self.y < 0:
-                    step = -step
-
-                if not self.board.isEmpty(self.x, self.y + step):
-                    return False
-                return True
         
-        if abs(self.y - y) == 0:
+        possibleMoves = [[0, 1], [0, -1], [1, 0], [-1, 0]] # And any n * subset of, where [x,y].
+
+        self.inverseMoveSet(possibleMoves, self.team)
+
+        xDifference = x - self.x
+        yDifference = y - self.y        
+        
+        if xDifference == possibleMoves[0][0] * xDifference:
             
-            for step in range(1, abs(self.x - x)):
+            if yDifference == possibleMoves[0][1] * yDifference:
+                indexNumber = 0
+            elif yDifference == possibleMoves[1][1] * yDifference:
+                indexNumber = 1
+            else:
+                return False
+        
+        elif yDifference == possibleMoves[2][1] * yDifference:
 
-                if x - self.x < 0:
-                    step = -step
+            if xDifference == possibleMoves[2][0] * xDifference:
+                indexNumber = 2
+            elif xDifference == possibleMoves[3][0] * xDifference:
+                indexNumber = 3
+            else:
+                return False
 
-                if not self.board.isEmpty(self.x + step, self.y):
-                    return False
-                return True
+        else:
+            return False
 
-        return False
+        xStep = possibleMoves[indexNumber][0]
+        yStep = possibleMoves[indexNumber][1]
+
+        tempX = self.x + xStep
+        tempY = self.y + yStep
+
+        while tempX < x and tempY < y:
+
+            if not self.board.isEmpty(tempX, tempY):
+                return False
+
+        return True
     
     def update(self, x: int, y: int):
         
@@ -43,6 +61,7 @@ class Rook(Piece):
                 self.played = True
 
             self.move(x, y)
+        
 
     def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
         pass

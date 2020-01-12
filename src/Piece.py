@@ -16,7 +16,7 @@ class Piece():
 
         if not self.board.isEmpty(x,y):
             self.capture(x, y)
-            self.resetCounter()
+            self.board.resetCounter()
 
         self.board.board[y][x] = self
         self.board.board[self.y][self.x] = None
@@ -26,14 +26,21 @@ class Piece():
     def capture(self, x: int, y: int):
         self.board.remove(x, y)
     
-    def isFriendly(self, x: int, y: int) -> bool:
-        return self.board.board[y][x].team == self.team
+    def isFriendly(self, x: int, y: int) -> bool:        
+        return self.team == self.board.board[y][x].team
 
     def validPosition(self, x: int, y: int) -> bool:
         if not self.board.isContained(x,y):
             return False
 
         return self.board.isEmpty(x, y) or not self.isFriendly(x, y)
+    
+    @classmethod
+    def inverseMoveSet(cls, list, team):
+        if team == "B":
+            for moveset in range(len(list)):
+                for move in range(len(list[moveset])):
+                    list[moveset][move] = -list[moveset][move]
     
     def storeMove(self, x: int, y: int):
         self.board.lastMove = self.team + self.name + str(self.x) + str(self.y) + str(x) + str(y)

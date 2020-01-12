@@ -8,32 +8,67 @@ class King(Piece):
         self.played = False
 
     def validMove(self, x: int, y: int) -> bool:
-        
+
         if not self.validPosition(x,y):
             return False
 
-        if abs(x - self.x) > 1 and abs(y - self.y) > 1:
+        possibleMoves = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1], [2, 0], [-2, 0]]
+        
+        self.inverseMoveSet(possibleMoves, self.team)
+
+        xDifference = x - self.x
+        yDifference = y - self.y
+
+        if xDifference == possibleMoves[0][0]:
+
+            if yDifference == possibleMoves[0][1]:
+                return True
+            elif yDifference == possibleMoves[1][1]:
+                return True
+            else:
+                return False
+
+        elif xDifference == possibleMoves[2][0]:
+
+            if yDifference == possibleMoves[2][1]:
+                return True
+            elif yDifference == possibleMoves[3][1]:
+                return True
+            elif yDifference == possibleMoves[4][1]:
+                return True
+            else:
+                return False
+
+        elif xDifference == possibleMoves[5][0]:
+
+            if yDifference == possibleMoves[5][1]:
+                return True
+            elif yDifference == possibleMoves[6][1]:
+                return True
+            elif yDifference == possibleMoves[7][1]:
+                return True
+            else:
+                return False
+
+        elif xDifference == possibleMoves[8][0]:
+             
+            if yDifference == possibleMoves[8][1]:
+
+                 if self.board.isEmpty(self.x + possibleMoves[8][0], self.y):
+                     return True
+            else:
+                return False
+
+        elif xDifference == possibleMoves[9][0]:
+            
+            if yDifference == possibleMoves[9][1]:
+
+                if self.board.isEmpty(self.x + possibleMoves[9][0], self.y):
+                    return True
+
+        else:
             return False
         
-        if not self.played:
-
-            if abs(y - self.y) == 0:
-                if abs(x - self.x) == 2:
-                    for step in range(1, abs(x - self.x)):
-                        if not self.board.isEmpty(self.x + step, self.y):
-                            return False
-                    if not self.board.board[self.y][7].played:
-                        return True
-
-            if x - self.x == -2:
-                for step in range(1, abs(x - self.x)):
-                    for step in range(1, abs(x - self.x) + 1):
-                        if not self.board.isEmpty(self.x - step, self.y):
-                            return False
-                    if not self.board.board[self.y][0].played:
-                        return True
-
-        return False
     
     def update(self, x: int, y: int):
         
