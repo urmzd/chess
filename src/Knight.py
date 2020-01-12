@@ -4,7 +4,7 @@ class Knight(Piece):
 
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
         super().__init__(team, "N", "\u2658", 3, x, y, board)
-        self.possibleMoves = possibleMoves = [[1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]]
+        self.possibleMoves = [[1, 2], [1, -2], [-1, 2], [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]]
         if self.team == "W":
             self.icon = "\u265E"
 
@@ -13,7 +13,10 @@ class Knight(Piece):
         if not self.validPosition(x, y):
             return False
 
-        possibleMoves = self.getMoveSet()
+        if not self.updated:
+            possibleMoves = self.getMoveSet(self.possibleMoves)
+        else:
+            possibleMoves = self.possibleMoves
 
         xDifference = self.x - x
         yDifference = self.y - y

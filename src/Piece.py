@@ -2,7 +2,7 @@ from typing import List
 
 class Piece():
 
-    def __init__(self, team: chr, name: chr, icon: chr, value: int, x: int, y: int, board: "Board", possibleMoves = [[]]):
+    def __init__(self, team: chr, name: chr, icon: chr, value: int, x: int, y: int, board: "Board", updated = False):
         self.team = team
         self.name = name
         self.icon = icon
@@ -10,10 +10,11 @@ class Piece():
         self.x = x
         self.y = y
         self.board = board
-        self.possibleMoves = possibleMoves
+        self.updated = updated
     
     def move(self, x: int, y: int):
         self.storeMove(x,y)
+        self.updated = True
 
         if not self.board.isEmpty(x,y):
             self.capture(x, y)
@@ -36,8 +37,7 @@ class Piece():
 
         return self.board.isEmpty(x, y) or not self.isFriendly(x, y)
     
-    def getMoveSet(self) -> List[List[int]]:
-        moves = self.possibleMoves
+    def getMoveSet(self, moves: List[List[int]]) -> List[List[int]]:
 
         if self.team == "B":
             for moveset in range(len(moves)):

@@ -17,7 +17,10 @@ class Pawn(Piece):
         if not self.validPosition(x, y):
             return False
 
-        possibleMoves = self.getMoveSet()
+        if not self.updated:
+            possibleMoves = self.getMoveSet(self.possibleMoves)
+        else:
+            possibleMoves = self.possibleMoves
 
         xDifference = x - self.x
         yDifference = y - self.y
@@ -72,4 +75,3 @@ class Pawn(Piece):
                 
             self.board.incrementCounter()
             self.move(x, y)
-        

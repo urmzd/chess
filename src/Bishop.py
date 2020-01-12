@@ -6,7 +6,8 @@ class Bishop(Piece):
 
     def __init__(self, team: chr, x: int, y: int, board: 'Board'):
         super().__init__(team, 'B', "\u2657", 3, x, y, board)
-        self.possibleValues = possibleMoves = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
+        self.possibleMoves = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
+
         if self.team == "W":
             self.icon = "\u265D"
     
@@ -15,7 +16,10 @@ class Bishop(Piece):
         if not self.validPosition(x,y):
             return False
         
-        possibleMoves = self.getMoveSet()
+        if not self.updated:
+            possibleMoves = self.getMoveSet(self.possibleMoves)
+        else:
+            possibleMoves = self.possibleMoves
 
         xDifference = x - self.x
         yDifference = y - self.y

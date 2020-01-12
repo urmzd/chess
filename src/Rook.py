@@ -5,6 +5,7 @@ class Rook(Piece):
 
     def __init__(self, team: str, x: int, y: int, board: "Board"):
         super().__init__(team, "R", "\u2656", 5, x, y, board)
+
         self.possibleMoves = [[0, 1], [0, -1], [1, 0], [-1, 0]] # And any n * subset of, where [x,y].
         self.played = False
 
@@ -16,7 +17,10 @@ class Rook(Piece):
         if not self.validPosition(x, y):
             return False
         
-        possibleMoves = self.getMoveSet()
+        if not self.updated:
+            possibleMoves = self.getMoveSet(self.possibleMoves)
+        else:
+            possibleMoves = self.possibleMoves
 
         xDifference = x - self.x
         yDifference = y - self.y        
