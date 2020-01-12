@@ -93,7 +93,19 @@ class Pawn(Piece):
             # Reset the 50-move rule counter since a pawn move has been made.
             self.board.resetCounter()
             self.move(x, y)
+
+            if y == 0 or y == 7:
+                self.requestUpgrade()
+
             return True
         else:
             print("Illegal move. Try again.")
             return False
+
+    # Calls upgrade in the board class.
+    def requestUpgrade(self):
+        
+        pieceType = input("Please enter the lowercase letter of the piece you would like to upgrade to: ")
+
+        while not self.board.promotePawn(pieceType, self.team, self.x, self.y):
+            pieceType = input("Please enter the lowercase letter of the piece you would like to upgrade to: ")

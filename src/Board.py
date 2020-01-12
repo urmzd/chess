@@ -83,18 +83,23 @@ class Board():
     def isEmpty(self, x: int, y: int) -> bool:
         return self.board[y][x] == None
 
-    # Moves piece at x,y to x1,y1.
-    def update(self, x: int, y: int, x1: int, y1: int) -> bool:
-        if self.board[y][x].update(x1, y1):
+    # Method overriding.
+    # Moves piece using a string rather than integers.
+    def update(self, move: str) -> bool:
+
+        x1 = self.convertLetter(move[0])
+        y1 = int(move[1]) - 1
+        x2 = self.convertLetter(move[2])
+        y2 = int(move[3]) - 1
+
+        if self.isEmpty(x1, y1):
+            print("No piece exists at specified location. Try again")
+            return False
+
+        if self.board[y1][x1].update(x2, y2):
             return True
         else:
             return False
-
-    # Method overriding.
-    # Moves piece using a string rather than integers.
-    def update(self, move: str):
-        self.board[int(move[1]) - 1][self.convertLetter(move[0])
-                                     ].update(self.convertLetter(move[2]), int(move[3]) - 1)
 
     # Converts letter to its equivlent decimal.
     def convertLetter(self, letter: chr) -> int:
@@ -112,6 +117,27 @@ class Board():
     def contains(self, x: int, y: int):
         return x >= 0 and x < 8 and y >= 0 and y < 8
 
+    ## Add a piece onto the board. Used for a pawn promotion.
+    def addPiece(self, piece: Piece, x: int, y: int):
+        self.board[y][x] = piece
+
+    def promotePawn(self, name: chr, team: chr, x: int, y: int) -> bool:
+
+        if name == "q":
+            self.board[y][x] = Queen(team, x, y, self)
+            return True
+        elif name == "n":
+            self.board[y][x] = Knight(team, x, y, self)
+            return True
+        elif name == "b":
+            self.board[y][x] = Bishop(team, x, y, self)
+            return True
+        elif name == "r":
+            self.board[y][x] = Rook(team, x, y, self)
+            return True
+        else:
+            print("Invalid piece name. Try again.")
+            return False
 
 """
 ###### TESTS 
@@ -132,7 +158,13 @@ board.update("b4a3") #en passent
 board.update("a1a3")
 board.update("d8e8")
 board.update("e8f7")
+board.update("g5g4")
+board.update("g4g3")
+board.update("g3g2")
+board.update("g2h1")
+
 
 board.printBoard()
 ##### TESTS
 """
+
