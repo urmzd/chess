@@ -7,9 +7,10 @@ class Knight(Piece):
         Note: Inherits properties from Piece, check Piece.py for more information about attributes.
         @desc: Represents a Knight in the game of Chess. The Knight can jump over pieces but must adhere to the possibleMoves set.
             Which essentially consists of 2 moves in one direction and 1 prependicular to the direction it was heading.
-        
+
         @param possibleMoves: The set of all possible moves the knight can make.
     """
+
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
         super().__init__(team, "N", "\u2658", 30, x, y, board)
 
@@ -55,7 +56,7 @@ class Knight(Piece):
                 return True
         else:
             return False
-            
+
     # Refer to Piece.py documentation for more information about this piece.
     def update(self, x: int, y: int) -> bool:
 

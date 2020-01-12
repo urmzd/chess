@@ -9,21 +9,22 @@ class King(Piece):
         @desc: Represents the King in the game of Chess. This piece is the most important piece in the game as losing this piece 
             means losing the game. The King can make 1 move in any direction and can take 2 steps to 'castle' if the Rook involved 
             in the castling has yet to move. The King must also not have moved prior to the castle. Castles can not occur when in check.
-        
+
         @param played: Indicates whether the King has moved or not.
         @param possibleMoves: A set of all the possible moves the King can make.
     """
+
     def __init__(self, team: chr, x: int, y: int, board: 'Board'):
         super().__init__(team, "K", "\u2654",  900, x, y, board)
 
         if self.team == "W":
             self.icon = "\u265A"
-        
+
         self.played = False
         self.possibleMoves = [[0, 1], [0, -1], [1, 0], [1, 1],
                               [1, -1], [-1, 0], [-1, 1], [-1, -1], [2, 0], [-2, 0]]
 
-    ### Check Piece.py documentation for more information regarding this method.
+    # Check Piece.py documentation for more information regarding this method.
     def validMove(self, x: int, y: int) -> bool:
 
         if not self.validPosition(x, y):
@@ -68,7 +69,7 @@ class King(Piece):
             else:
                 return False
 
-        ### The last two elif's determine if castling is allowed.
+        # The last two elif's determine if castling is allowed.
         elif xDifference == possibleMoves[8][0]:
 
             if yDifference == possibleMoves[8][1]:
@@ -88,19 +89,21 @@ class King(Piece):
         else:
             return False
 
-    ## Check Piece.py documentation for more information regarding this method.
+    # Check Piece.py documentation for more information regarding this method.
     def update(self, x: int, y: int) -> bool:
 
         if self.validMove(x, y):
-            
-            ## Determine if castling is allowed.
+
+            # Determine if castling is allowed.
             if x - self.x == 2:
                 if isinstance(self.board.board[self.y][7], Rook):
-                    self.board.board[self.y][7].update(5, self.y) # Update Rook's position.
+                    # Update Rook's position.
+                    self.board.board[self.y][7].update(5, self.y)
 
             if x - self.x == -2:
                 if isinstance(self.board.board[self.y][0], Rook):
-                    self.board.board[self.y][0].update(3, self.y) # Update Rook's position.
+                    # Update Rook's position.
+                    self.board.board[self.y][0].update(3, self.y)
 
             self.played = True
             self.move(x, y)

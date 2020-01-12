@@ -9,11 +9,21 @@ from Bishop import Bishop
 
 class Board():
 
+    """
+        @desc: Represents a Board in the game of Chess.
+
+        @attributes:
+            board: An 8 x 8 board.
+            counter: The number of moves made since the last capture or pawn move.
+            lastMove: A string containing information about the last move in the game.
+    """
+
     def __init__(self):
         self.board = [[None for x in range(8)] for y in range(8)]
         self.counter = 0
         self.lastMove = ""
 
+    # Fills board with all the pieces required to play the game.
     def fillBoard(self):
 
         startingPositions = [1, 6]
@@ -44,6 +54,7 @@ class Board():
             self.board[startingPositions[index]][7] = Rook(
                 teams[index], 7, startingPositions[index], self)
 
+    # Prints out the current state of the board.
     def printBoard(self):
 
         print("  " + "A B C D E F G H" + "\n")
@@ -64,31 +75,40 @@ class Board():
 
         print("  " + "A B C D E F G H" + "\n")
 
+    # Removes a piece fromm the board.
     def remove(self, x: int, y: int):
         self.board[y][x] = None
 
+    # Checks if a point on the board is empty.
     def isEmpty(self, x: int, y: int) -> bool:
         return self.board[y][x] == None
 
+    # Moves piece at x,y to x1,y1.
     def update(self, x: int, y: int, x1: int, y1: int) -> bool:
         if self.board[y][x].update(x1, y1):
             return True
         else:
             return False
 
+    # Method overriding.
+    # Moves piece using a string rather than integers.
     def update(self, move: str):
         self.board[int(move[1]) - 1][self.convertLetter(move[0])
                                      ].update(self.convertLetter(move[2]), int(move[3]) - 1)
 
+    # Converts letter to its equivlent decimal.
     def convertLetter(self, letter: chr) -> int:
         return ord(letter) - 97
 
+    # Resets counter to 0.
     def resetCounter(self):
         self.counter = 0
 
+    # Increments counter.
     def incrementCounter(self):
         self.counter += 1
 
+    # Checks if a point is contained within the board.
     def contains(self, x: int, y: int):
         return x >= 0 and x < 8 and y >= 0 and y < 8
 

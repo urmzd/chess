@@ -8,7 +8,7 @@ class Rook(Piece):
         Note: Inherits properties from Piece, check Piece.py for more information about attributes.
         @desc: Represents a Rook in the game of Chess. The Rook can make any number of moves but only in the horizontal/vertical plane.
             It is also involved in castling. Refer to the King class for more information about how this works.
-        
+
         @param possibleMoves: A set of the possible moves that can be made by the Rook. All legal moves are n multiples of the set.
         @param played: Indicates whether the piece has been played or not in the game.
     """
@@ -22,7 +22,7 @@ class Rook(Piece):
         self.possibleMoves = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         self.played = False
 
-    ### Refer to Pieces.py documentation for more information.
+    # Refer to Pieces.py documentation for more information.
     def validMove(self, x: int, y: int) -> bool:
 
         if not self.validPosition(x, y):
@@ -73,7 +73,7 @@ class Rook(Piece):
 
         return True
 
-    ### Refer to Pieces.py documentation for more information.
+    # Refer to Pieces.py documentation for more information.
     def update(self, x: int, y: int) -> bool:
 
         if self.validMove(x, y):
@@ -87,7 +87,7 @@ class Rook(Piece):
             print("Illegal move. Try again.")
             return False
 
-    ### Refer to Pieces.py documentation for more information.
+    # Refer to Pieces.py documentation for more information.
     def getAllPossibleMoves(self) -> List[List[int]]:
 
         possibleMoves = self.getMoveSet(self.possibleMoves, self.team)
