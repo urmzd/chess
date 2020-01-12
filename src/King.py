@@ -96,17 +96,24 @@ class King(Piece):
 
             # Determine if castling is allowed.
             if x - self.x == 2:
-                if isinstance(self.board.board[self.y][7], Rook):
+                if type(self.board.board[self.y][7]) is Rook and not self.board.board[self.y][7].played:
                     # Update Rook's position.
                     self.board.board[self.y][7].update(5, self.y)
+                else:
+                    print("Cannot castle since pieces have already moved.")
+                    return False
 
             if x - self.x == -2:
-                if isinstance(self.board.board[self.y][0], Rook):
+                if type(self.board.board[self.y][0]) is Rook and not self.board.board[self.y][0].played:
                     # Update Rook's position.
                     self.board.board[self.y][0].update(3, self.y)
+                else:
+                    print("Cannot castle since pieces have already moved.")
+                    return False
 
             self.played = True
             self.move(x, y)
-
+            return True
         else:
             print("Illegal move. Try again.")
+            return False
