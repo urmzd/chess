@@ -49,8 +49,10 @@ class Board():
                 else:
                     line = line + " " + repr(self.board[y][x])
             
-            print(line + "\n")
+            print(line + "  " + str(y + 1) + "\n")
             line = ""
+
+        print("  " + "A B C D E F G H" + "\n")
 
     def remove(self, x: int, y: int):
         self.board[y][x] = None

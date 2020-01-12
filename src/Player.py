@@ -23,7 +23,4 @@ class Player:
     def movePiece(self, move: str):
         self.board.update(move)
 
-    #PossibleMoves
-    # for bishop, rook and queen. Look at all n factors until you reach a stop point marking each point as valid.
-    # for knight, king and pawn. Look at set only.
     
