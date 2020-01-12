@@ -88,9 +88,6 @@ class Bishop(Piece):
 
         validMoves = []
 
-        tempX = self.x
-        tempY = self.y
-
         # Checks what moves are legal and stores them within validMoves.
         for move in possibleMoves:
             tempX = self.x

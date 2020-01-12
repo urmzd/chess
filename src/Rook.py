@@ -90,9 +90,6 @@ class Rook(Piece):
         possibleMoves = self.getMoveSet(self.possibleMoves)
         validMoves = []
 
-        tempX = self.x
-        tempY = self.y
-
         for move in possibleMoves:
             tempX = self.x
             tempY = self.y
