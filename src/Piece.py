@@ -44,7 +44,7 @@ class Piece():
             self.board.resetCounter()
 
         # Increase the number of moves made since the last capture / pawn move.
-        self.incrementCounter()
+        self.board.incrementCounter()
         self.board.board[y][x] = self  # Move to location.
         self.board.board[self.y][self.x] = None  # Remove old instance of self.
         self.x = x  # Update x attribute.
