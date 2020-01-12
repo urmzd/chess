@@ -22,10 +22,13 @@ class Queen(Piece):
 
         return False
 
-    def update(self, x: int, y: int):
+    def update(self, x: int, y: int) -> bool:
 
         if self.validMove(x, y):
             self.move(x, y)
+        else:
+            print("Illegal move. Try again.")
+            return False
 
     def getAllPossibleMoves(self) -> List[List[int]]:
 

@@ -77,7 +77,7 @@ class King(Piece):
         else:
             return False
 
-    def update(self, x: int, y: int):
+    def update(self, x: int, y: int) -> bool:
 
         if self.validMove(x, y):
 
@@ -91,3 +91,6 @@ class King(Piece):
 
             self.played = True
             self.move(x, y)
+
+        else: 
+            print("Illegal move. Try again.")

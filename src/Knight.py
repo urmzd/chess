@@ -48,7 +48,11 @@ class Knight(Piece):
         else:
             return False
 
-    def update(self, x: int, y: int):
+    def update(self, x: int, y: int) -> bool:
 
         if self.validMove(x, y):
             self.move(x, y)
+            return True
+        else:
+            print("Illegal move. Try again.")
+            return False

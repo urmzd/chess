@@ -70,8 +70,11 @@ class Board():
     def isEmpty(self, x: int, y: int) -> bool:
         return self.board[y][x] == None
 
-    def update(self, x: int, y: int, x1: int, y1: int):
-        self.board[y][x].update(x1, y1)
+    def update(self, x: int, y: int, x1: int, y1: int) -> bool:
+        if self.board[y][x].update(x1, y1):
+            return True
+        else:
+            return False
 
     def update(self, move: str):
         self.board[int(move[1]) - 1][self.convertLetter(move[0])

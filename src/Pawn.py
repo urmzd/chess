@@ -59,7 +59,7 @@ class Pawn(Piece):
         else:
             return False
 
-    def update(self, x: int, y: int):
+    def update(self, x: int, y: int) -> bool:
 
         if self.validMove(x, y):
 
@@ -73,5 +73,9 @@ class Pawn(Piece):
             if self.played == False:
                 self.played = True
 
-            self.board.incrementCounter()
+            self.board.resetCounter()
             self.move(x, y)
+            return True
+        else:
+            print("Illegal move. Try again.")
+            return False

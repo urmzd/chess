@@ -62,12 +62,15 @@ class Bishop(Piece):
 
         return True
 
-    def update(self, x: int, y: int):
+    def update(self, x: int, y: int) -> bool:
 
         if self.validMove(x, y):
             self.move(x, y)
+            return True
         else:
-            print("X")
+            print("Illegal move. Try again.")
+            return False
+
 
     def getAllPossibleMoves(self) -> List[List[int]]:
 
