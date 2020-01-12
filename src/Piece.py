@@ -55,7 +55,7 @@ class Piece():
     def validMove(self, x: int, int: int) -> bool:
         pass
     
-    def update(self, x: int, y: int):
+    def update(self, x: int, y: int) -> bool:
         pass
 
     # DEFAULT FOR KING, PAWN AND KNIGHT. QUEEN, BISHOP AND ROOK WILL HAVE THEIR OWN IMPLEMENTATION.
