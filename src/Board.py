@@ -73,15 +73,28 @@ class Board():
     def isContained(self, x: int, y: int):
         return x >= 0 and x < 8 and y >= 0 and y < 8
 
-"""
+
 board = Board()
 board.fillBoard()
-board.update(4, 0, 2, 0)
-board.update(4, 7, 6, 7)
-#board.update(0, 1, 0, 3)
-#board.update(0, 3, 0, 4)
-#board.update(1, 6, 1, 4)
-#board.update(0, 4, 1, 5)
-#board.update(1, 5, 0, 6)
+### PAWN TESTS ####
+board.update(0, 1, 0, 3)
+board.update(0, 3, 0, 4)
+board.update(1, 6, 1, 4)
+board.update(0, 4, 1, 5)
+board.update(1, 5, 0, 6)
+board.update(0, 6, 1, 7)
+## ROOK TESTS ####
+board.update(0, 7, 0, 0)
+board.update(0, 0, 1, 0)
+### BISHOP TEST ###
+board.update(2, 7, 0, 5)
+board.update(0, 5, 4, 1)
+# KNIGHT TEST ###
+board.update(6, 0, 4, 1)
+board.update(4, 1, 6, 0)
+# QUEEN TEST ###
+board.update(3, 0, 4, 1)
+#CASTLE TEST
+#board.update(4, 0, 2, 0)
+#board.update(4, 0, 6, 0)
 board.printBoard()
-"""
