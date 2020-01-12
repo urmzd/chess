@@ -2,7 +2,7 @@ from typing import List
 
 class Piece():
 
-    def __init__(self, team: chr, name: chr, icon: chr, value: int, x: int, y: int, board: "Board"):
+    def __init__(self, team: chr, name: chr, icon: chr, value: int, x: int, y: int, board: "Board", possibleMoves = [[]]):
         self.team = team
         self.name = name
         self.icon = icon
@@ -10,6 +10,7 @@ class Piece():
         self.x = x
         self.y = y
         self.board = board
+        self.possibleMoves = possibleMoves
     
     def move(self, x: int, y: int):
         self.storeMove(x,y)
@@ -30,17 +31,20 @@ class Piece():
         return self.team == self.board.board[y][x].team
 
     def validPosition(self, x: int, y: int) -> bool:
-        if not self.board.isContained(x,y):
+        if not self.board.contains(x,y):
             return False
 
         return self.board.isEmpty(x, y) or not self.isFriendly(x, y)
     
-    @classmethod
-    def inverseMoveSet(cls, list, team):
-        if team == "B":
-            for moveset in range(len(list)):
-                for move in range(len(list[moveset])):
-                    list[moveset][move] = -list[moveset][move]
+    def getMoveSet(self) -> List[List[int]]:
+        moves = self.possibleMoves
+
+        if self.team == "B":
+            for moveset in range(len(moves)):
+                for move in range(len(moves[moveset])):
+                    moves[moveset][move] = -moves[moveset][move]
+
+        return moves
     
     def storeMove(self, x: int, y: int):
         self.board.lastMove = self.team + self.name + str(self.x) + str(self.y) + str(x) + str(y)
@@ -54,5 +58,14 @@ class Piece():
     def update(self, x: int, y: int):
         pass
 
-    def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
-        pass
+    # DEFAULT FOR KING, PAWN AND KNIGHT. QUEEN, BISHOP AND ROOK WILL HAVE THEIR OWN IMPLEMENTATION.
+    def getAllPossibleMoves(self) -> List[List[int]]:
+
+        possibleMoves = self.getMoveSet(self.possibleMoves, self.team)
+        validMoves = []
+
+        for move in self.possibleMoves:
+            if self.validMove(move[0], move[1]):
+                validMoves.append(move)
+            
+        return validMoves

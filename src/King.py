@@ -1,20 +1,23 @@
-from typing import List
 from Piece import Piece
+from Rook import Rook
 
 class King(Piece):
+
+    possibleMoves = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1], [2, 0], [-2, 0]]
 
     def __init__(self, team: chr, x: int, y: int, board: 'Board'):
         super().__init__(team, "K", "\u2654",  1000, x, y, board)
         self.played = False
+
+        if self.team == "W":
+            self.icon = "\u265A"
 
     def validMove(self, x: int, y: int) -> bool:
 
         if not self.validPosition(x,y):
             return False
 
-        possibleMoves = [[0, 1], [0, -1], [1, 0], [1, 1], [1, -1], [-1, 0], [-1, 1], [-1, -1], [2, 0], [-2, 0]]
-        
-        self.inverseMoveSet(possibleMoves, self.team)
+        possibleMoves = self.getMoveSet(self.possibleMoves, self.team)
 
         xDifference = x - self.x
         yDifference = y - self.y
@@ -75,13 +78,12 @@ class King(Piece):
         if self.validMove(x, y):
             
             if x - self.x == 2:
-                self.board.board[self.y][7].update(5, self.y)
+                if isinstance(self.board.board[self.y][7], Rook):
+                    self.board.board[self.y][7].update(5, self.y)
 
             if x - self.x == -2:
-                self.board.board[self.y][0].update(3, self.y)
+                if isinstance(self.board.board[self.y][0], Rook):
+                    self.board.board[self.y][0].update(3, self.y)
 
             self.played = True
             self.move(x, y)
-
-    def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
-        pass

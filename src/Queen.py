@@ -7,6 +7,8 @@ class Queen(Piece):
 
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
         super().__init__(team, "Q", "\u2655",  9, x, y, board)
+        if self.team == "W":
+            self.icon = "\u265B"
 
     def validMove(self, x: int, y: int) -> bool:
         
@@ -23,5 +25,17 @@ class Queen(Piece):
         if self.validMove(x, y):
             self.move(x, y)
 
-    def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
-        pass
+    def getAllPossibleMoves(self) -> List[List[int]]:
+        
+        validMoves = []
+
+        bishop = Bishop(self.team, self.x, self.y, self.board)
+        rook = Rook(self.team, self.x, self.y, self.board)
+
+        for move in bishop.getAllPossibleMoves():
+            validMoves.append(move)
+        
+        for move in rook.getAllPossibleMoves():
+            validMoves.append(move)
+
+        return validMoves

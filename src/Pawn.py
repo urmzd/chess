@@ -1,10 +1,14 @@
-from typing import List
 from Piece import Piece
 
 class Pawn(Piece):
 
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
         super().__init__(team, "P", "\u2659", 1, x, y, board)
+        
+        if self.team == "W":
+            self.icon = "\u265F"
+
+        self.possibleMoves = [[0, 1], [0, 2], [1, 1], [-1, 1]] 
         self.played = False
         self.enPassent = False
 
@@ -12,18 +16,17 @@ class Pawn(Piece):
 
         if not self.validPosition(x, y):
             return False
-    
-        possibleMoves = [[0, 1], [0, 2], [1, 1], [-1, 1]] # And all negatives.
 
-        self.inverseMoveSet(possibleMoves, self.team)
+        possibleMoves = self.getMoveSet()
 
         xDifference = x - self.x
         yDifference = y - self.y
 
-        if xDifference == 0:
+        if xDifference == possibleMoves[0][0]:
 
             if yDifference == possibleMoves[0][1]:
                 return True
+
             elif yDifference == possibleMoves[1][1] and not self.played:
 
                 if not self.board.isEmpty(x, self.y + possibleMoves[1][1]):
@@ -70,6 +73,3 @@ class Pawn(Piece):
             self.board.incrementCounter()
             self.move(x, y)
         
-
-    def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
-        pass

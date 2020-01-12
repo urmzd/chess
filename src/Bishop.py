@@ -3,17 +3,19 @@ from Piece import Piece
 
 class Bishop(Piece):
 
+
     def __init__(self, team: chr, x: int, y: int, board: 'Board'):
         super().__init__(team, 'B', "\u2657", 3, x, y, board)
+        self.possibleValues = possibleMoves = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
+        if self.team == "W":
+            self.icon = "\u265D"
     
     def validMove(self, x: int, y: int) -> bool:
 
         if not self.validPosition(x,y):
             return False
         
-        possibleMoves = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
-
-        self.inverseMoveSet(possibleMoves, self.team)
+        possibleMoves = self.getMoveSet()
 
         xDifference = x - self.x
         yDifference = y - self.y
@@ -49,6 +51,9 @@ class Bishop(Piece):
 
             if not self.board.isEmpty(tempX, tempY):
                 return False
+            
+            tempX = tempX + xStep
+            tempY = tempY + yStep
 
         return True
     
@@ -56,6 +61,29 @@ class Bishop(Piece):
         
         if self.validMove(x, y):
             self.move(x, y)
+        else:
+            print("X")
 
-    def getPossibleMoves(self, x: int, y: int) -> List[List[int]]:
-        pass
+    def getAllPossibleMoves(self) -> List[List[int]]:
+
+        possibleMoves = self.getMoveSet(self.possibleMoves, self.team)
+        validMoves = []
+
+        tempX = self.x
+        tempY = self.y
+
+        for move in possibleMoves:
+            while self.board.contains(tempX + move[0], tempY + move[1]):
+                
+                if [tempX + move[0], tempY + move[1]] in validMoves:
+                    tempX = tempX + move[0]
+                    tempY = tempY + move[1]
+                    continue
+
+                if self.validMove(tempX + move[0], tempY + move[1]):
+                    validMoves.append([tempX + move[0], tempY + move[1]])
+
+                tempX = tempX + move[0]
+                tempY = tempY + move[1]
+        
+        return validMoves
