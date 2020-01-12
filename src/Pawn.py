@@ -31,10 +31,7 @@ class Pawn(Piece):
             return False
 
         # Determine the correct set of possible moves. Invert if necessary.
-        if not self.updated:
-            possibleMoves = self.getMoveSet(self.possibleMoves)
-        else:
-            possibleMoves = self.possibleMoves
+        possibleMoves = self.getMoveSet(self.possibleMoves)
 
         xDifference = x - self.x
         yDifference = y - self.y
@@ -62,8 +59,10 @@ class Pawn(Piece):
 
                 # Checks if En Passent can be used or not.
                 elif self.board.isEmpty(x, y):
+                    
                     lastMove = self.board.lastMove
-                    if lastMove[1] == "P":
+
+                    if lastMove != "" and lastMove[1] == "P":
                         if int(lastMove[2]) + 1 == self.x or int(lastMove[2]) - 1 == self.x:
                             if abs(int(lastMove[3]) - int(lastMove[5])):
                                 self.enPassent = True
@@ -104,8 +103,10 @@ class Pawn(Piece):
 
     # Calls upgrade in the board class.
     def requestUpgrade(self):
-        
-        pieceType = input("Please enter the lowercase letter of the piece you would like to upgrade to: ")
+
+        pieceType = input(
+            "Please enter the lowercase letter of the piece you would like to upgrade to: ")
 
         while not self.board.promotePawn(pieceType, self.team, self.x, self.y):
-            pieceType = input("Please enter the lowercase letter of the piece you would like to upgrade to: ")
+            pieceType = input(
+                "Please enter the lowercase letter of the piece you would like to upgrade to: ")

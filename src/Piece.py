@@ -91,7 +91,7 @@ class Piece():
 
     def getMoveSet(self, moves: List[List[int]]) -> List[List[int]]:
 
-        if self.team == "B":
+        if self.team == "B" and not self.updated:
             for moveset in range(len(moves)):
                 for move in range(len(moves[moveset])):
                     moves[moveset][move] = -moves[moveset][move]
@@ -147,11 +147,29 @@ class Piece():
 
     def getAllPossibleMoves(self) -> List[List[int]]:
 
-        possibleMoves = self.getMoveSet(self.possibleMoves, self.team)
+        possibleMoves = self.getMoveSet(self.possibleMoves)
         validMoves = []
 
         for move in self.possibleMoves:
-            if self.validMove(move[0], move[1]):
-                validMoves.append(move)
+            if self.validMove(self.x + move[0], self.y + move[1]):
+                validMoves.append([self.x + move[0], self.y + move[1]])
 
         return validMoves
+
+    def convertNumber(self, number) -> chr:
+        return chr(number + 97)
+
+    """
+        @desc: Given a set of valid moves, the method will return a list of possible strings that can be used as a paramater in the update()
+            located in Board.py.
+        @param validMoves: A 2-D List of integer moves indicating which positions the piece can move to.
+    """
+
+    def getStringMoves(self, validMoves) -> List[str]:
+
+        stringMoves = []
+
+        for move in validMoves:
+            stringMoves.append(self.convertNumber(self.x) + str(self.y) + self.convertNumber(move[0]) + str(move[1]))
+
+        return stringMoves

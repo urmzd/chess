@@ -28,10 +28,7 @@ class Rook(Piece):
         if not self.validPosition(x, y):
             return False
 
-        if not self.updated:
-            possibleMoves = self.getMoveSet(self.possibleMoves)
-        else:
-            possibleMoves = self.possibleMoves
+        possibleMoves = self.getMoveSet(self.possibleMoves)
 
         xDifference = x - self.x
         yDifference = y - self.y
@@ -90,13 +87,15 @@ class Rook(Piece):
     # Refer to Pieces.py documentation for more information.
     def getAllPossibleMoves(self) -> List[List[int]]:
 
-        possibleMoves = self.getMoveSet(self.possibleMoves, self.team)
+        possibleMoves = self.getMoveSet(self.possibleMoves)
         validMoves = []
 
         tempX = self.x
         tempY = self.y
 
         for move in possibleMoves:
+            tempX = self.x
+            tempY = self.y
             while self.board.contains(tempX + move[0], tempY + move[1]):
 
                 if [tempX + move[0], tempY + move[1]] in validMoves:

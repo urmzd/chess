@@ -27,10 +27,7 @@ class Bishop(Piece):
             return False
 
         # Determine the correct set of possibleMoves for the current Bishop.
-        if not self.updated:
-            possibleMoves = self.getMoveSet(self.possibleMoves)
-        else:
-            possibleMoves = self.possibleMoves
+        possibleMoves = self.getMoveSet(self.possibleMoves)
 
         xDifference = x - self.x
         yDifference = y - self.y
@@ -87,7 +84,8 @@ class Bishop(Piece):
     # Reads Piece.py documentation for more information about this method.
     def getAllPossibleMoves(self) -> List[List[int]]:
 
-        possibleMoves = self.getMoveSet(self.possibleMoves, self.team)
+        possibleMoves = self.getMoveSet(self.possibleMoves)
+
         validMoves = []
 
         tempX = self.x
@@ -95,6 +93,8 @@ class Bishop(Piece):
 
         # Checks what moves are legal and stores them within validMoves.
         for move in possibleMoves:
+            tempX = self.x
+            tempY = self.y
             while self.board.contains(tempX + move[0], tempY + move[1]):
 
                 # Skip iteration if move already exists within validMoves.

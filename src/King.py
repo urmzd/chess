@@ -6,8 +6,8 @@ class King(Piece):
 
     """
         Note: Inherits properties from Piece, check Piece.py for more information about attributes.
-        @desc: Represents the King in the game of Chess. This piece is the most important piece in the game as losing this piece 
-            means losing the game. The King can make 1 move in any direction and can take 2 steps to 'castle' if the Rook involved 
+        @desc: Represents the King in the game of Chess. This piece is the most important piece in the game as losing this piece
+            means losing the game. The King can make 1 move in any direction and can take 2 steps to 'castle' if the Rook involved
             in the castling has yet to move. The King must also not have moved prior to the castle. Castles can not occur when in check.
 
         @param played: Indicates whether the King has moved or not.
@@ -30,10 +30,7 @@ class King(Piece):
         if not self.validPosition(x, y):
             return False
 
-        if not self.updated:
-            possibleMoves = self.getMoveSet(self.possibleMoves)
-        else:
-            possibleMoves = self.possibleMoves
+        possibleMoves = self.getMoveSet(self.possibleMoves)
 
         xDifference = x - self.x
         yDifference = y - self.y
