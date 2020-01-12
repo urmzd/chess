@@ -61,6 +61,9 @@ class Board():
     def update(self, x: int, y: int, x1: int, y1: int):
         self.board[y][x].update(x1, y1)
 
+    def update(self, move: str):
+        self.board[int(move[1]) - 1][self.convertLetter(move[0])].update(self.convertLetter(move[2]), int(move[3]) - 1)
+
     def convertLetter(self, letter: chr) -> int:
         return ord(letter) - 97
 
@@ -70,31 +73,29 @@ class Board():
     def incrementCounter(self):
         self.counter += 1
 
-    def isContained(self, x: int, y: int):
+    def contains(self, x: int, y: int):
         return x >= 0 and x < 8 and y >= 0 and y < 8
 
-
+"""
+###### TESTS 
 board = Board()
 board.fillBoard()
-### PAWN TESTS ####
-board.update(0, 1, 0, 3)
-board.update(0, 3, 0, 4)
-board.update(1, 6, 1, 4)
-board.update(0, 4, 1, 5)
-board.update(1, 5, 0, 6)
-board.update(0, 6, 1, 7)
-## ROOK TESTS ####
-board.update(0, 7, 0, 0)
-board.update(0, 0, 1, 0)
-### BISHOP TEST ###
-board.update(2, 7, 0, 5)
-board.update(0, 5, 4, 1)
-# KNIGHT TEST ###
-board.update(6, 0, 4, 1)
-board.update(4, 1, 6, 0)
-# QUEEN TEST ###
-board.update(3, 0, 4, 1)
-#CASTLE TEST
-#board.update(4, 0, 2, 0)
-#board.update(4, 0, 6, 0)
+##### TEST GAME ####
+board.update("e2e4")
+board.update("e7e5")
+board.update("f7f6")
+board.update("g8e7")
+board.update("g7g5")
+board.update("f8h5")
+board.update("e8g8") # Castle
+board.update("b7b5")
+board.update("b5b4")
+board.update("a2a4")
+board.update("b4a3") #en passent
+board.update("a1a3")
+board.update("d8e8")
+board.update("e8f7")
+
 board.printBoard()
+##### TESTS
+"""
