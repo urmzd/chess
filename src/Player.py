@@ -14,11 +14,26 @@ class Player:
         # Get position of King
         # Check if position of King is a valid move for all pieces on the current team
         # If it is, this player is inCheck
-        self.board.getKing(self.team)
-        pass
+        if self.team == "W":
+            team = "B"
+        else:
+            team = "W"
+        
+        moves = self.board.getAllPossibleMoves(team)
+        king = self.board.getKing(self.team)
+
+        x = self.board.convertNumber(king.x)
+        y = king.y + 1
+
+        for move in moves:
+            if move[2] == x and move[3] == str(y):
+                return True
+            else
+                return False
 
     def isCheckmate(self):
-        pass
+        
+        if self.board.getKing(self.team)
 
     def getRandomMove(self):
         moves = board.getAllPossibleMoves(self.team)
@@ -48,12 +63,19 @@ class Player:
 
     def minimaxRoot(self, depth, isMaximizingPlayer):
 
-        moves = board.getAllPossibleMoves(self.team)
-        bestMove = -9999
-        bestMoveFound = random.choice(moves)
-        boardCopy = board.getDeepCopy()
+        if isMaximizingPlayer:
+            bestMove = 9999
+            team = "W"
+        else:
+            bestMove = -9999
+            team = "B"
+
+        boardCopy = board.getDeepCopy() # Get a copy of the main board.
+        moves = boardCopy.getAllPossibleMoves(team) # Get all the possible moves.
+        bestMoveFound = random.choice(moves) # Pick a random move.
 
         for move in moves:
+            boardCopy = board.getDeepCopy()
             boardCopy.update(move)
             value = self.minimax(depth - 1, boardCopy, -10000, 10000, not isMaximizingPlayer)
 
@@ -66,11 +88,16 @@ class Player:
     def minimax(self, depth, board, alpha, beta, isMaximizingPlayer):
         
         if depth == 0:
-            return -self.board.getEvaluation()
-        
-        moves = board.getAllPossibleMoves(self.team)
+            return board.getEvaluation()
 
-        if(isMaximizingPlayer):
+        if isMaximizingPlayer:
+            team = "W"
+        else:
+            team = "B"
+            
+        moves = board.getAllPossibleMoves(team)
+
+        if isMaximizingPlayer:
             bestMove = -9999
 
             for move in moves:
@@ -91,21 +118,10 @@ class Player:
         
         return bestMove
 
-    def updateWorth(self):
-        # Get value of all pieces.
-        # Get value of all positions.
-        # worth = value of all pieces + value of postions the pieces are on.
-        pass
-
     def movePiece(self, move: str):
         self.board.update(move)
 
-
-# TESTING
 board = Board()
 board.fillBoard()
-player = Player(board, "B", False)
-player.movePiece(player.minimaxRoot(2, False))
-
-board.printBoard()
-###
+player = Player(board, "W", False)
+player.isCheck()
