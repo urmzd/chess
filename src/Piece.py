@@ -92,9 +92,7 @@ class Piece():
     def getMoveSet(self, moves: List[List[int]]) -> List[List[int]]:
 
         if self.team == "B" and not self.updated:
-            for moveset in range(len(moves)):
-                for move in range(len(moves[moveset])):
-                    moves[moveset][move] = -moves[moveset][move]
+            self.board.negateList(moves)
 
         return moves
 
