@@ -62,7 +62,7 @@ class Rook(Piece):
         tempX = self.x + xStep
         tempY = self.y + yStep
 
-        while tempX < x or tempY < y:
+        while tempX != x or tempY != y:
 
             if not self.board.isEmpty(tempX, tempY):
                 return False

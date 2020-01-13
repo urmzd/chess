@@ -93,6 +93,7 @@ class Piece():
 
         if self.team == "B" and not self.updated:
             self.board.negateList(moves)
+            self.updated = True
 
         return moves
 

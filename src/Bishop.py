@@ -63,7 +63,7 @@ class Bishop(Piece):
         tempY = self.y + yStep
 
         # Test the path of the Bishop. Ensure all steps are valid.
-        while tempX < x or tempY < y:
+        while tempX != x or tempY != y:
 
             if not self.board.isEmpty(tempX, tempY):
                 return False
@@ -93,8 +93,10 @@ class Bishop(Piece):
 
         # Checks what moves are legal and stores them within validMoves.
         for move in possibleMoves:
+
             tempX = self.x
             tempY = self.y
+            
             while self.board.contains(tempX + move[0], tempY + move[1]):
 
                 # Skip iteration if move already exists within validMoves.
