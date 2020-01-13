@@ -1,3 +1,4 @@
+from typing import List
 from Piece import Piece
 from Pawn import Pawn
 from King import King
@@ -18,7 +19,7 @@ class Board():
             lastMove: A string containing information about the last move in the game.
     """
 
-    # Values of Pieces @ Positions. Credit to Chess Programming Wiki and FreeCodeCamp:
+    # Values of Pieces @ Positions. Credit to Chess Programming Wiki and FreeCodeCamp: https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
     pawnEval = [
         [0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
         [5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0,  5.0],
@@ -201,13 +202,47 @@ class Board():
             print("Invalid piece name. Try again.")
             return False
 
-    # Get king
+    # Get King.
     def getKing(self, team: chr) -> King:
 
         for row in self.board:
             for piece in row:
-                if piece is King:
+                if piece is type(King) and piece.team == team:
                     return piece
+
+    # Get all possible moves a team can make.
+    def getAllPossibleMoves(self, team: chr) -> List[List[str]]:
+        allPossibleMoves = []
+
+        for row in self.board:
+            for piece in row:
+                if piece != None and piece.team == team:
+                    for move in piece.getStringMoves():
+                        allPossibleMoves.append(move)
+
+        return allPossibleMoves
+
+    # Create a copy of the current board.
+    def getDeepCopy(self):
+        return copy.deepcopy(self)
+
+    # Evaluate board.
+    def evaluateBoard(self, team: chr) -> int:
+
+        for row in self.board:
+            for piece in row:
+                print(x)
+
+        return
+
+    # Negates all values in a list.
+    def negateList(self, arr: List[List[str]]) -> List[List[str]]:
+
+        for y in range(len(arr)):
+            for x in range(len(arr[y])):
+                arr[y][x] = -arr[y][x]
+
+        return arr
 
 
 # TESTS
@@ -220,12 +255,17 @@ board.update("e7e5")
 board.update("f7f6")
 board.update("g8e7")
 board.update("g7g5")
-board.update("f8h5")
-board.update("e8g8") # Castle
+board.update("f8h6")
+board.update("f1e2")
+board.update("b2b4")
+board.update("c1a3")
+
+"""
+board.update("e8g8")  # Castle
 board.update("b7b5")
 board.update("b5b4")
 board.update("a2a4")
-board.update("b4a3") #en passent
+board.update("b4a3")  # en passent
 board.update("a1a3")
 board.update("d8e8")
 board.update("e8f7")
@@ -233,7 +273,7 @@ board.update("g5g4")
 board.update("g4g3")
 board.update("g3g2")
 board.update("g2h1")
-print(board.board[2][0].getStringMoves(board.board[2][0].getAllPossibleMoves()))
-
+# print(board.getAllPossibleMoves("W"))
+"""
 board.printBoard()
-##### TESTS
+# TESTS
