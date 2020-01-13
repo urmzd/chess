@@ -13,10 +13,12 @@ class Queen(Piece):
     """
 
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
-        super().__init__(team, "Q", "\u2655",  90, x, y, board)
+        super().__init__(team, "Q", "\u2655",  -90, x, y, board)
 
         if self.team == "W":
             self.icon = "\u265B"
+            self.value = abs(self.value)
+
 
     # Refer to Piece.py documentation for more information about this piece.
     def validMove(self, x: int, y: int) -> bool:

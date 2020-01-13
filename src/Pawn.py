@@ -15,10 +15,11 @@ class Pawn(Piece):
     """
 
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
-        super().__init__(team, "P", "\u2659", 10, x, y, board)
+        super().__init__(team, "P", "\u2659", -10, x, y, board)
 
         if self.team == "W":
             self.icon = "\u265F"
+            self.value = abs(self.value)
 
         self.possibleMoves = [[0, 1], [0, 2], [1, 1], [-1, 1]]
         self.played = False

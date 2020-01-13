@@ -14,10 +14,12 @@ class Rook(Piece):
     """
 
     def __init__(self, team: str, x: int, y: int, board: "Board"):
-        super().__init__(team, "R", "\u2656", 50, x, y, board)
+        super().__init__(team, "R", "\u2656", -50, x, y, board)
 
         if self.team == "W":
             self.icon = "\u265C"
+            self.value = abs(self.value)
+
 
         self.possibleMoves = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         self.played = False

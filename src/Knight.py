@@ -12,10 +12,11 @@ class Knight(Piece):
     """
 
     def __init__(self, team: chr, x: int, y: int, board: "Board"):
-        super().__init__(team, "N", "\u2658", 30, x, y, board)
+        super().__init__(team, "N", "\u2658", -30, x, y, board)
 
         if self.team == "W":
             self.icon = "\u265E"
+            self.value = abs(self.value)
 
         self.possibleMoves = [[1, 2], [1, -2], [-1, 2],
                               [-1, -2], [2, 1], [2, -1], [-2, 1], [-2, -1]]

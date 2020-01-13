@@ -19,6 +19,7 @@ class King(Piece):
 
         if self.team == "W":
             self.icon = "\u265A"
+            self.value = abs(self.value)
 
         self.played = False
         self.possibleMoves = [[0, 1], [0, -1], [1, 0], [1, 1],

@@ -12,10 +12,12 @@ class Bishop(Piece):
     """
 
     def __init__(self, team: chr, x: int, y: int, board: 'Board'):
-        super().__init__(team, 'B', "\u2657", 30, x, y, board)
+        super().__init__(team, 'B', "\u2657", -30, x, y, board)
 
         if self.team == "W":
             self.icon = "\u265D"
+            self.value = abs(self.value)
+
 
         self.possibleMoves = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
