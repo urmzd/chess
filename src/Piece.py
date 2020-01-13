@@ -174,6 +174,7 @@ class Piece():
         stringMoves = []
 
         for move in self.getAllPossibleMoves():
-            stringMoves.append(self.convertNumber(self.x) + str(self.y + 1) + self.convertNumber(move[0]) + str(move[1] + 1))
+            stringMoves.append(self.convertNumber(
+                self.x) + str(self.y + 1) + self.convertNumber(move[0]) + str(move[1] + 1))
 
         return stringMoves

@@ -18,7 +18,6 @@ class Bishop(Piece):
             self.icon = "\u265D"
             self.value = abs(self.value)
 
-
         self.possibleMoves = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
     # Read Piece.py documentation for more information regarding this method.
@@ -96,7 +95,7 @@ class Bishop(Piece):
 
             tempX = self.x
             tempY = self.y
-            
+
             while self.board.contains(tempX + move[0], tempY + move[1]):
 
                 # Skip iteration if move already exists within validMoves.

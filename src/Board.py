@@ -8,6 +8,7 @@ from Rook import Rook
 from Bishop import Bishop
 import copy
 
+
 class Board():
 
     """
@@ -224,13 +225,13 @@ class Board():
         return allPossibleMoves
 
     # Create a copy of the current board.
-    def getDeepCopy(self):        
+    def getDeepCopy(self):
         return copy.deepcopy(self)
 
     # Evaluate board.
     def getEvaluation(self) -> int:
-        
-        evaluation = 0 
+
+        evaluation = 0
         for row in self.board:
             for piece in row:
                 if piece != None:
@@ -243,7 +244,7 @@ class Board():
 
         for y in range(len(arr)):
             for x in range(len(arr[y])):
-                arr[y][x] =  -arr[y][x]
+                arr[y][x] = -arr[y][x]
 
         return arr
 

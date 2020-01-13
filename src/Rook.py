@@ -20,7 +20,6 @@ class Rook(Piece):
             self.icon = "\u265C"
             self.value = abs(self.value)
 
-
         self.possibleMoves = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         self.played = False
 

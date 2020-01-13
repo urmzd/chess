@@ -1,6 +1,7 @@
 from Board import Board
 import random
 
+
 class Player:
 
     def __init__(self, board, team, isAI):
@@ -23,7 +24,7 @@ class Player:
         moves = board.getAllPossibleMoves(self.team)
         return random.choice(moves)
 
-    ## Generate temp board, make a move and evaluate the board. The score that minimizes opponents score.
+    # Generate temp board, make a move and evaluate the board. The score that minimizes opponents score.
     def calculateBestMove(self) -> str:
         moves = board.getAllPossibleMoves(self.team)
 
@@ -31,7 +32,7 @@ class Player:
             bestValue = 9999
         else:
             bestValue = -9999
-            
+
         bestMove = self.getRandomMove()
 
         for move in moves:
@@ -42,8 +43,7 @@ class Player:
             if boardValue > bestValue:
                 bestValue = boardValue
                 bestMove = move
-        
-        print(bestMove)
+
         return bestMove
 
     def updateWorth(self):
@@ -55,7 +55,8 @@ class Player:
     def movePiece(self, move: str):
         self.board.update(move)
 
-### TESTING
+
+# TESTING
 board = Board()
 board.fillBoard()
 player = Player(board, "B", False)

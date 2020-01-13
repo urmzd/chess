@@ -1,6 +1,7 @@
 from Player import Player
 from Board import Board
 
+
 class Chess():
 
     def __init__(self, board, player1, player2):
@@ -15,4 +16,9 @@ class Chess():
     def askForDepth(self) -> int:
         input("What depth would like the A.I to compute to? Type an integer: ")
     
-    
+    def askForMove(self) -> str:
+        input("What move would you like to play? Type a string in the format 'x1y1x2y2': ")
+
+    def startGame():
+        board = Board()
+        board.fillBoard()

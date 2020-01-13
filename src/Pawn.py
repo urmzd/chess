@@ -60,7 +60,7 @@ class Pawn(Piece):
 
                 # Checks if En Passent can be used or not.
                 elif self.board.isEmpty(x, y):
-                    
+
                     lastMove = self.board.lastMove
 
                     if lastMove != "" and lastMove[1] == "P":

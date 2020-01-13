@@ -19,7 +19,6 @@ class Queen(Piece):
             self.icon = "\u265B"
             self.value = abs(self.value)
 
-
     # Refer to Piece.py documentation for more information about this piece.
     def validMove(self, x: int, y: int) -> bool:
 
