@@ -31,22 +31,23 @@ class Bishop(Piece):
 
         xDifference = x - self.x
         yDifference = y - self.y
+#        self.possibleMoves = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
-        if xDifference == possibleMoves[0][0] * xDifference:
+        if xDifference == possibleMoves[0][0] * abs(xDifference):
 
-            if yDifference == possibleMoves[0][1] * yDifference:
+            if yDifference == possibleMoves[0][1] * abs(yDifference):
                 indexNumber = 0
-            elif yDifference == possibleMoves[1][1] * yDifference:
+            elif yDifference == possibleMoves[1][1] * abs(yDifference):
                 indexNumber = 1
             else:
                 return False
 
-        elif xDifference == possibleMoves[2][0] * xDifference:
+        elif xDifference == possibleMoves[2][0] * abs(xDifference):
 
-            if yDifference == possibleMoves[2][1] * yDifference:
-                indexNumber = 3
-            elif yDifference == possibleMoves[3][1] * yDifference:
+            if yDifference == possibleMoves[2][1] * abs(yDifference):
                 indexNumber = 2
+            elif yDifference == possibleMoves[3][1] * abs(yDifference):
+                indexNumber = 3
             else:
                 return False
 
