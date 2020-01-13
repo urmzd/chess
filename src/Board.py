@@ -6,7 +6,7 @@ from Knight import Knight
 from Queen import Queen
 from Rook import Rook
 from Bishop import Bishop
-
+import copy
 
 class Board():
 
@@ -161,6 +161,7 @@ class Board():
         if self.board[y1][x1].update(x2, y2):
             return True
         else:
+            print("Move attempted: " + move)
             return False
 
     # Converts letter to its equivlent decimal.
@@ -223,33 +224,39 @@ class Board():
         return allPossibleMoves
 
     # Create a copy of the current board.
-    def getDeepCopy(self):
+    def getDeepCopy(self):        
         return copy.deepcopy(self)
 
     # Evaluate board.
-    def evaluateBoard(self, team: chr) -> int:
-
+    def getEvaluation(self) -> int:
+        
+        evaluation = 0 
         for row in self.board:
             for piece in row:
-                print(x)
+                if piece != None:
+                    evaluation += piece.value
 
-        return
+        return evaluation
 
     # Negates all values in a list.
     def negateList(self, arr: List[List[str]]) -> List[List[str]]:
 
         for y in range(len(arr)):
             for x in range(len(arr[y])):
-                arr[y][x] = -arr[y][x]
+                arr[y][x] =  -arr[y][x]
 
         return arr
 
 
+#### SIMPLE TESTS ####
+board = Board()
+board.fillBoard()
+board.printBoard()
+"""
 # TESTS
 board = Board()
 board.fillBoard()
 ##### TEST GAME ####
-
 board.update("e2e4")
 board.update("e7e5")
 board.update("f7f6")
@@ -259,8 +266,6 @@ board.update("f8h6")
 board.update("f1e2")
 board.update("b2b4")
 board.update("c1a3")
-
-"""
 board.update("e8g8")  # Castle
 board.update("b7b5")
 board.update("b5b4")
@@ -273,7 +278,6 @@ board.update("g5g4")
 board.update("g4g3")
 board.update("g3g2")
 board.update("g2h1")
-# print(board.getAllPossibleMoves("W"))
-"""
 board.printBoard()
 # TESTS
+"""

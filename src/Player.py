@@ -1,5 +1,5 @@
 from Board import Board
-from random import randrange
+import random
 
 class Player:
 
@@ -13,19 +13,38 @@ class Player:
         # Get position of King
         # Check if position of King is a valid move for all pieces on the current team
         # If it is, this player is inCheck
+        self.board.getKing(self.team)
         pass
 
     def isCheckmate(self):
         pass
 
-    def makeRandomMove(self):
+    def getRandomMove(self):
         moves = board.getAllPossibleMoves(self.team)
-        self.movePiece(moves[randrange(len(moves))])
+        return random.choice(moves)
 
     ## Generate temp board, make a move and evaluate the board. The score that minimizes opponents score.
-    def calculateBestMove(self):
+    def calculateBestMove(self) -> str:
+        moves = board.getAllPossibleMoves(self.team)
 
-        pass
+        if self.team == "W":
+            bestValue = 9999
+        else:
+            bestValue = -9999
+            
+        bestMove = self.getRandomMove()
+
+        for move in moves:
+            boardCopy = board.getDeepCopy()
+            boardCopy.update(move)
+            boardValue = board.getEvaluation()
+
+            if boardValue > bestValue:
+                bestValue = boardValue
+                bestMove = move
+        
+        print(bestMove)
+        return bestMove
 
     def updateWorth(self):
         # Get value of all pieces.
@@ -39,7 +58,10 @@ class Player:
 ### TESTING
 board = Board()
 board.fillBoard()
-player = Player(board, "W", False)
-player.makeRandomMove()
+player = Player(board, "B", False)
+player.movePiece(player.calculateBestMove())
+player.movePiece(player.calculateBestMove())
+player.movePiece(player.calculateBestMove())
+
 board.printBoard()
 ###
