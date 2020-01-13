@@ -156,14 +156,6 @@ class Piece():
         return validMoves
 
     """
-        @desc: Converts number to corresponding ASCII character.
-        @param number: Number to convert.
-    """
-
-    def convertNumber(self, number) -> chr:
-        return chr(number + 97)
-
-    """
         @desc: Given a set of valid moves, the method will return a list of possible strings that can be used as a paramater in the update()
             located in Board.py.
         @param validMoves: A 2-D List of integer moves indicating which positions the piece can move to.
@@ -174,7 +166,7 @@ class Piece():
         stringMoves = []
 
         for move in self.getAllPossibleMoves():
-            stringMoves.append(self.convertNumber(
-                self.x) + str(self.y + 1) + self.convertNumber(move[0]) + str(move[1] + 1))
+            stringMoves.append(self.board.convertNumber(
+                self.x) + str(self.y + 1) + self.board.convertNumber(move[0]) + str(move[1] + 1))
 
         return stringMoves
