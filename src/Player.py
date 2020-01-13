@@ -1,14 +1,13 @@
 from Board import Board
-
+from random import randrange
 
 class Player:
 
-    def __init__(self, board, team):
+    def __init__(self, board, team, isAI):
         self.board = board
         self.team = team
+        self.isAI = isAI
         self.inCheck = False
-        self.lost = False
-        self.worth = None
 
     def isCheck(self):
         # Get position of King
@@ -19,6 +18,15 @@ class Player:
     def isCheckmate(self):
         pass
 
+    def makeRandomMove(self):
+        moves = board.getAllPossibleMoves(self.team)
+        self.movePiece(moves[randrange(len(moves))])
+
+    ## Generate temp board, make a move and evaluate the board. The score that minimizes opponents score.
+    def calculateBestMove(self):
+
+        pass
+
     def updateWorth(self):
         # Get value of all pieces.
         # Get value of all positions.
@@ -27,3 +35,11 @@ class Player:
 
     def movePiece(self, move: str):
         self.board.update(move)
+
+### TESTING
+board = Board()
+board.fillBoard()
+player = Player(board, "W", False)
+player.makeRandomMove()
+board.printBoard()
+###
