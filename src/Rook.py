@@ -57,10 +57,10 @@ class Rook(Piece):
         xStep = possibleMoves[indexNumber][0]
         yStep = possibleMoves[indexNumber][1]
 
-        tempX = self.x + xStep
-        tempY = self.y + yStep
+        tempX = self.x
+        tempY = self.y
 
-        while tempX < x and tempY < y:
+        while tempX < x or tempY < y:
 
             if not self.board.isEmpty(tempX, tempY):
                 return False
@@ -91,8 +91,10 @@ class Rook(Piece):
         validMoves = []
 
         for move in possibleMoves:
+
             tempX = self.x
             tempY = self.y
+
             while self.board.contains(tempX + move[0], tempY + move[1]):
 
                 if [tempX + move[0], tempY + move[1]] in validMoves:

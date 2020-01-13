@@ -60,7 +60,7 @@ class Bishop(Piece):
         tempY = self.y + yStep
 
         # Test the path of the Bishop. Ensure all steps are valid.
-        while tempX < x and tempY < y:
+        while tempX < x or tempY < y:
 
             if not self.board.isEmpty(tempX, tempY):
                 return False
