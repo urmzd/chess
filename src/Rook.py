@@ -57,8 +57,8 @@ class Rook(Piece):
         xStep = possibleMoves[indexNumber][0]
         yStep = possibleMoves[indexNumber][1]
 
-        tempX = self.x
-        tempY = self.y
+        tempX = self.x + xStep
+        tempY = self.y + yStep
 
         while tempX < x or tempY < y:
 

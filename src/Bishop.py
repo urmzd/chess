@@ -44,9 +44,9 @@ class Bishop(Piece):
         elif xDifference == possibleMoves[2][0] * xDifference:
 
             if yDifference == possibleMoves[2][1] * yDifference:
-                indexNumber = 2
-            elif yDifference == possibleMoves[3][1] * yDifference:
                 indexNumber = 3
+            elif yDifference == possibleMoves[3][1] * yDifference:
+                indexNumber = 2
             else:
                 return False
 
