@@ -61,7 +61,7 @@ class Board():
         [-0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
         [0.0,   0.0, 0.0,  0.5,  0.5,  0.0,  0.0,  0.0]]
 
-    evalQueen = [
+    queenEval = [
         [-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0],
         [-1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
         [-1.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
@@ -227,6 +227,26 @@ class Board():
     # Create a copy of the current board.
     def getDeepCopy(self):
         return copy.deepcopy(self)
+    
+    def getPositionEvaluation(self, piece) -> int:
+          
+        if piece.name == "P":
+            arr = self.pawnEval
+        elif piece.name == "K":
+            arr = self.kingEval
+        elif piece.name == "Q":
+            arr = self.queenEval
+        elif piece.name == "N":
+            arr = self.knightEval
+        elif piece.name == "B":
+            arr = self.bishopEval
+        else:
+            arr = self.rookEval
+
+        if piece.team == "B":
+            list(reversed(arr))
+        
+        return arr[piece.y][piece.x]
 
     # Evaluate board.
     def getEvaluation(self) -> int:
@@ -235,7 +255,7 @@ class Board():
         for row in self.board:
             for piece in row:
                 if piece != None:
-                    evaluation += piece.value
+                    evaluation += (piece.value +  self.getPositionEvaluation(piece))
 
         return evaluation
 
