@@ -170,11 +170,11 @@ class Piece():
         @param validMoves: A 2-D List of integer moves indicating which positions the piece can move to.
     """
 
-    def getStringMoves(self, validMoves) -> List[str]:
+    def getStringMoves(self) -> List[str]:
 
         stringMoves = []
 
-        for move in validMoves:
-            stringMoves.append(self.convertNumber(self.x) + str(self.y) + self.convertNumber(move[0]) + str(move[1]))
+        for move in self.getAllPossibleMoves():
+            stringMoves.append(self.convertNumber(self.x) + str(self.y + 1) + self.convertNumber(move[0]) + str(move[1] + 1))
 
         return stringMoves
