@@ -162,12 +162,16 @@ class Board():
         if self.board[y1][x1].update(x2, y2):
             return True
         else:
-            print("Move attempted: " + move)
+            print("Illegal move. Move attempted: " + move)
             return False
 
-    # Converts letter to its equivlent decimal.
+    # Converts letter to its equivalent decimal.
     def convertLetter(self, letter: chr) -> int:
         return ord(letter) - 97
+
+    # Convert number to its equivalent number.
+    def convertNumber(self, number: int) -> chr:
+        return chr(number + 97)
 
     # Resets counter to 0.
     def resetCounter(self):
@@ -180,10 +184,6 @@ class Board():
     # Checks if a point is contained within the board.
     def contains(self, x: int, y: int):
         return x >= 0 and x < 8 and y >= 0 and y < 8
-
-    # Add a piece onto the board. Used for a pawn promotion.
-    def addPiece(self, piece: Piece, x: int, y: int):
-        self.board[y][x] = piece
 
     # Promotes pawn.
     def promotePawn(self, name: chr, team: chr, x: int, y: int) -> bool:
@@ -209,7 +209,7 @@ class Board():
 
         for row in self.board:
             for piece in row:
-                if piece is type(King) and piece.team == team:
+                if type(piece) == King and piece.team == team:
                     return piece
 
     # Get all possible moves a team can make.
@@ -247,12 +247,12 @@ class Board():
                 arr[y][x] = -arr[y][x]
 
         return arr
-
-
+"""
 #### SIMPLE TESTS ####
 board = Board()
 board.fillBoard()
 board.printBoard()
+"""
 """
 # TESTS
 board = Board()
