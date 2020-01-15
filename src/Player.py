@@ -1,67 +1,26 @@
 from Board import Board
-import random
 
+class Player():
 
-class Player:
-
-    def __init__(self, board, team, isAI):
-        self.board = board
+    def __init__(self, team: chr, board, isAI):
         self.team = team
+        self.board = board
         self.isAI = isAI
-        self.inCheck = False
 
-    def isCheck(self):
-        # Get position of King
-        # Check if position of King is a valid move for all pieces on the current team
-        # If it is, this player is inCheck
-        if self.team == "W":
-            team = "B"
+    def move(self, move: str):
+
+        boardCopy = self.board.getDeepCopy()
+
+        boardCopy.makeMove(move)
+
+        if boardCopy.isCheck(self.team):
+            return False
+            print("Invalid move. The move {} will result in your team: {} being in check. Try again.".format(move, self.team))
         else:
-            team = "W"
-        
-        moves = self.board.getAllPossibleMoves(team)
-        king = self.board.getKing(self.team)
+            self.board.makeMove(move)
+            return True
 
-        x = self.board.convertNumber(king.x)
-        y = king.y + 1
-
-        for move in moves:
-            if move[2] == x and move[3] == str(y):
-                return True
-            else
-                return False
-
-    def isCheckmate(self):
-        
-        if self.board.getKing(self.team)
-
-    def getRandomMove(self):
-        moves = board.getAllPossibleMoves(self.team)
-        return random.choice(moves)
-
-    # Evaluation only.
-    def calculateBestMove(self) -> str:
-        moves = board.getAllPossibleMoves(self.team)
-
-        if self.team == "W":
-            bestValue = 9999
-        else:
-            bestValue = -9999
-
-        bestMove = self.getRandomMove()
-
-        for move in moves:
-            boardCopy = board.getDeepCopy()
-            boardCopy.update(move)
-            boardValue = board.getEvaluation()
-
-            if boardValue > bestValue:
-                bestValue = boardValue
-                bestMove = move
-
-        return bestMove
-
-    def minimaxRoot(self, depth, isMaximizingPlayer):
+    def getBestMove(self, depth, isMaximizingPlayer):
 
         if isMaximizingPlayer:
             bestMove = 9999
@@ -70,13 +29,13 @@ class Player:
             bestMove = -9999
             team = "B"
 
-        boardCopy = board.getDeepCopy() # Get a copy of the main board.
-        moves = boardCopy.getAllPossibleMoves(team) # Get all the possible moves.
-        bestMoveFound = random.choice(moves) # Pick a random move.
+        boardCopy = self.board.getDeepCopy()
+        moves = boardCopy.getAllPossibleMoves(team)
+        bestMoveFound = ""
 
         for move in moves:
-            boardCopy = board.getDeepCopy()
-            boardCopy.update(move)
+            boardCopy = self.board.getDeepCopy()
+            boardCopy.makeMove(move)
             value = self.minimax(depth - 1, boardCopy, -10000, 10000, not isMaximizingPlayer)
 
             if value >= bestMove:
@@ -117,11 +76,3 @@ class Player:
                     return bestMove
         
         return bestMove
-
-    def movePiece(self, move: str):
-        self.board.update(move)
-
-board = Board()
-board.fillBoard()
-player = Player(board, "W", False)
-player.isCheck()

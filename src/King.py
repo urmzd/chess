@@ -1,117 +1,77 @@
 from Piece import Piece
+from Utility import *
 from Rook import Rook
-
 
 class King(Piece):
 
-    """
-        Note: Inherits properties from Piece, check Piece.py for more information about attributes.
-        @desc: Represents the King in the game of Chess. This piece is the most important piece in the game as losing this piece
-            means losing the game. The King can make 1 move in any direction and can take 2 steps to 'castle' if the Rook involved
-            in the castling has yet to move. The King must also not have moved prior to the castle. Castles can not occur when in check.
+    def __init__(self, team, board, x, y):
+        super().__init__("k", team, board, x, y)
+        self.castleAttempt = False
+        
+    def isValidMove(self, move: str) -> bool:
 
-        @param played: Indicates whether the King has moved or not.
-        @param possibleMoves: A set of all the possible moves the King can make.
-    """
+        intMove = Utility.convertStringMoveToInt(move)
+        newX = intMove[2]
+        newY = intMove[3]
 
-    def __init__(self, team: chr, x: int, y: int, board: 'Board'):
-        super().__init__(team, "K", "\u2654",  900, x, y, board)
+        xDifference = newX - self.x
+        yDifference = newY - self.y
 
-        if self.team == "W":
-            self.icon = "\u265A"
-            self.value = abs(self.value)
+        if [xDifference, yDifference] in self.basicMoves:
 
-        self.played = False
-        self.possibleMoves = [[0, 1], [0, -1], [1, 0], [1, 1],
-                              [1, -1], [-1, 0], [-1, 1], [-1, -1], [2, 0], [-2, 0]]
-
-    # Check Piece.py documentation for more information regarding this method.
-    def validMove(self, x: int, y: int) -> bool:
-
-        if not self.validPosition(x, y):
-            return False
-
-        possibleMoves = self.getMoveSet(self.possibleMoves)
-
-        xDifference = x - self.x
-        yDifference = y - self.y
-
-        if xDifference == possibleMoves[0][0]:
-
-            if yDifference == possibleMoves[0][1]:
-                return True
-            elif yDifference == possibleMoves[1][1]:
-                return True
-            else:
-                return False
-
-        elif xDifference == possibleMoves[2][0]:
-
-            if yDifference == possibleMoves[2][1]:
-                return True
-            elif yDifference == possibleMoves[3][1]:
-                return True
-            elif yDifference == possibleMoves[4][1]:
-                return True
-            else:
-                return False
-
-        elif xDifference == possibleMoves[5][0]:
-
-            if yDifference == possibleMoves[5][1]:
-                return True
-            elif yDifference == possibleMoves[6][1]:
-                return True
-            elif yDifference == possibleMoves[7][1]:
-                return True
-            else:
-                return False
-
-        # The last two elif's determine if castling is allowed.
-        elif xDifference == possibleMoves[8][0]:
-
-            if yDifference == possibleMoves[8][1]:
-
-                if self.board.isEmpty(self.x + possibleMoves[8][0], self.y):
-                    return True
-            else:
-                return False
-
-        elif xDifference == possibleMoves[9][0]:
-
-            if yDifference == possibleMoves[9][1]:
-
-                if self.board.isEmpty(self.x + possibleMoves[9][0], self.y):
-                    return True
-
-        else:
-            return False
-
-    # Check Piece.py documentation for more information regarding this method.
-    def update(self, x: int, y: int) -> bool:
-
-        if self.validMove(x, y):
-
-            # Determine if castling is allowed.
-            if x - self.x == 2:
-                if type(self.board.board[self.y][7]) is Rook and not self.board.board[self.y][7].played:
-                    # Update Rook's position.
-                    self.board.board[self.y][7].update(5, self.y)
+            if self.played == False and abs(xDifference) == 2:
+                if xDifference == 2:
+                    if self.board.isEmpty(7, self.y) == False and type(self.board.board[self.y][7]) is Rook:
+                        moveAttempt = Utility.convertIntMoveToString([self.x, self.y, 6, self.y])
+                        if self.board.board[self.y][7].played == False and self.isValidPath(moveAttempt):
+                            self.castleAttempt = True
+                            return True
+                elif xDifference == -2:
+                    if self.board.isEmpty(0, self.y) == False and type(self.board.board[self.y][0]) is Rook:
+                        moveAttempt = Utility.convertIntMoveToString([self.x, self.y, 1, self.y])
+                        if self.board.board[self.y][0].played == False and self.isValidPath(moveAttempt):
+                            self.castleAttempt = True
+                            return True
                 else:
-                    print("Cannot castle since pieces have already moved.")
                     return False
+            elif self.isValidPath(move):
+                return True
+            elif self.board.isEmpty(newX, newY) == True or self.board.canAttack(newX, newY, self.team):
+                return True
+            else:
+                return False
 
-            if x - self.x == -2:
-                if type(self.board.board[self.y][0]) is Rook and not self.board.board[self.y][0].played:
-                    # Update Rook's position.
-                    self.board.board[self.y][0].update(3, self.y)
-                else:
-                    print("Cannot castle since pieces have already moved.")
-                    return False
+        return False
 
-            self.played = True
-            self.move(x, y)
-            return True
+    def move(self, move: str) -> bool:
+
+        if move in self.possibleMoves:
+            intMove = Utility.convertStringMoveToInt(move)
+            currentX = intMove[0]
+            currentY = intMove[1]
+            newX = intMove[2]
+            newY = intMove[3]
+            self.board.removePiece(currentX, currentY)
+            self.updateCounter(newX, newY)
+            self.board.addPiece(self, newX, newY)
+            self.x = newX
+            self.y = newY
+
+            if self.castleAttempt == True:
+
+                if newX > 4:
+                    self.board.board[self.y][5] = self.board.board[self.y][7]
+                    self.board.removePiece(7, self.y)
+                if newX < 4:
+                    self.board.board[self.y][3] = self.board.board[self.y][0]
+                    self.board.removePiece(0, self.y)
+                
+                self.castleAttempt = False
+
+            if self.played == False:
+                self.played = True
+            
+            self.board.lastMove = self.name + move
         else:
-            print("Illegal move. Try again.")
+            print(move + " " + "is an illegal move. Try again")
             return False

@@ -1,113 +1,106 @@
+from Utility import *
 from Piece import Piece
-
+from typing import List
 
 class Pawn(Piece):
 
-    """
-        Note: Inherits properties from Piece, check Piece.py for more information about attributes.
-        @desc: Represents a Pawn piece in the game of Chess. The Pawn is allowed 2 moves forward on the first turn, 1 move in the forward direction otherwise.
-            It is allowed to attack diagonally but only 1 unit diagonally. It can also the use the En Passent rule to remove a piece behind it,
-            given that the last move made was by the enemy Pawn moving two units towards the current Pawn.
+    def __init__(self, team, board, x, y):
+        super().__init__("p", team, board, x, y)
+        self.passentAttempt = False
+        self.isAI = False
+        
+    def isValidMove(self, move: str) -> bool:
 
-        @param possibleMoves: A set of all possible moves the Pawn can make.
-        @param played: Indicates if played already. Default = False.
-        @param enPassent: Indicates if En Passent can be used or not. Default = False.
-    """
+        intMove = Utility.convertStringMoveToInt(move)
+        newX = intMove[2]
+        newY = intMove[3]
 
-    def __init__(self, team: chr, x: int, y: int, board: "Board"):
-        super().__init__(team, "P", "\u2659", -10, x, y, board)
+        xDifference = newX - self.x
+        yDifference = newY - self.y
 
-        if self.team == "W":
-            self.icon = "\u265F"
-            self.value = abs(self.value)
+        if [xDifference, yDifference] in self.basicMoves:
 
-        self.possibleMoves = [[0, 1], [0, 2], [1, 1], [-1, 1]]
-        self.played = False
-        self.enPassent = False
+            if abs(xDifference) == 1 and abs(yDifference) == 1:
 
-    # Check Piece.py for more documentation.
-    def validMove(self, x: int, y: int) -> bool:
-
-        if not self.validPosition(x, y):
-            return False
-
-        # Determine the correct set of possible moves. Invert if necessary.
-        possibleMoves = self.getMoveSet(self.possibleMoves)
-
-        xDifference = x - self.x
-        yDifference = y - self.y
-
-        if xDifference == possibleMoves[0][0]:
-
-            if yDifference == possibleMoves[0][1]:
-                return True
-
-            elif yDifference == possibleMoves[1][1] and not self.played:
-
-                if not self.board.isEmpty(x, self.y + possibleMoves[1][1]):
-                    return False
-
-                return True
-            else:
-                return False
-
-        elif xDifference == possibleMoves[2][0] or xDifference == possibleMoves[3][0]:
-
-            # Checks if an attack can be made.
-            if yDifference == possibleMoves[2][1]:
-                if not self.board.isEmpty(x, y) and not self.isFriendly(x, y):
+                if self.board.canAttack(newX, newY, self.team):
                     return True
-
-                # Checks if En Passent can be used or not.
-                elif self.board.isEmpty(x, y):
-
+                else:
                     lastMove = self.board.lastMove
 
-                    if lastMove != "" and lastMove[1] == "P":
-                        if int(lastMove[2]) + 1 == self.x or int(lastMove[2]) - 1 == self.x:
-                            if abs(int(lastMove[3]) - int(lastMove[5])):
-                                self.enPassent = True
+                    if lastMove != "" and lastMove[0] == "p":
+                        intMoves = Utility.convertStringMoveToInt(lastMove[1:5])
+                        currentX = intMoves[0]
+                        currentY = intMoves[1]
+                        newX = intMoves[2]
+                        newY = intMoves[3]
+
+                        if newX - currentX == 0 and abs(newY - currentY) == 2:
+                            if currentX + 1 == self.x or currentX - 1 == self.x:
+                                self.passentAttempt = True
                                 return True
+                    else:
+                        return False
+                     
+            elif abs(xDifference) == 0 and abs(yDifference) == 2:
+
+                if self.played == False:
+                    if self.isValidPath(move):
+                        return True
+                    else:
+                        return False
                 else:
                     return False
 
+            else:
+                if self.isValidPath(move):
+                    return True
         else:
             return False
 
-    # Check Piece.py for more documentation.
-    def update(self, x: int, y: int) -> bool:
+        return False
 
-        if self.validMove(x, y):
+    def move(self, move: str) -> bool:
 
-            # If En Passent is allowed, determine which way the piece is facing and remove the piece behind it.
-            if self.enPassent:
+        if move in self.possibleMoves:
+            intMove = Utility.convertStringMoveToInt(move)
+            currentX = intMove[0]
+            currentY = intMove[1]
+            newX = intMove[2]
+            newY = intMove[3]
+            self.board.removePiece(currentX, currentY)
+            self.board.resetCounter()
+            if self.passentAttempt == True:
                 if self.team == "W":
-                    self.capture(x, y - 1)
+                    self.board.removePiece(newX, newY - 1)
                 else:
-                    self.capture(x, y + 1)
-                self.enPassent = False
+                    self.board.removePiece(newX, newY + 1)
+                self.passentAttempt == False
+            self.board.addPiece(self, newX, newY)
+
+            self.x = newX
+            self.y = newY
 
             if self.played == False:
                 self.played = True
 
-            # Reset the 50-move rule counter since a pawn move has been made.
-            self.board.resetCounter()
-            self.move(x, y)
+            if newY == 0 or newY == 7:
 
-            if y == 0 or y == 7:
-                self.requestUpgrade()
+                if self.isAI == False:
+                    name = input("What piece would like to upgrade to. Enter the first lower case letter of the piece, n for knight:")
+                    choices = ["q", "n", "b", "r"]
+                    if name not in choices :
+                        while name not in choices:
+                            name = input("What piece would like to upgrade to. Enter the first lower case letter of the piece, n for knight:")
 
-            return True
+                            if name in choices:
+                                break
+                else:
+                    name = "q"
+
+                self.board.promotePawn(self.x, self.y, self.team, name)
+            
+            self.board.lastMove = self.name + move
         else:
-            print("Illegal move. Try again.")
+            print(move + " " + "is an illegal move. Try again")
             return False
-
-    # Calls upgrade in the board class.
-    def requestUpgrade(self):
-
-        pieceType = input(
-            "Please enter the lowercase letter of the piece you would like to upgrade to: ")
-
-        while not self.board.promotePawn(pieceType, self.team, self.x, self.y):
-            pieceType = input(
-                "Please enter the lowercase letter of the piece you would like to upgrade to: ")
+    
