@@ -181,7 +181,7 @@ class Board():
 
         return False
 
-    def isStallmate(self, team: chr) -> bool:
+    def isStalemate(self, team: chr) -> bool:
         
         if self.isCheckmate(team) == False:
 

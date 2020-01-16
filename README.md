@@ -70,4 +70,4 @@ https://www.youtube.com/watch?v=l-hh51ncgDI
 https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
 
 
-@TODO: add 50-move implementation and stallmate. Validate commands too.
+@TODO: add 50-move implementation and stalemate. Validate commands too.
