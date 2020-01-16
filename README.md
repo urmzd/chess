@@ -63,7 +63,11 @@ and attempt to minimize the reward. The algorithm is based on the idea that the 
 
 Alpha-beta pruning is a way of optimizing the algorithm. At it's core, it evaluates all nodes until it comes across a value which will not effect the end result.
 
-For more information, watch theses:
+For more information, watch/use theses:
 
 https://youtu.be/zp3VMe0Jpf8 
 https://www.youtube.com/watch?v=l-hh51ncgDI
+https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
+
+
+@TODO: add 50-move implementation and stallmate. Validate commands too.
