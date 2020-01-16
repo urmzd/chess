@@ -55,10 +55,9 @@ class Piece():
 
         if self.board.contains(newX, newY) == False:
             return False
-        
-        if self.board.isEmpty(newMove[0], newMove[1]) == False:
-            if self.board.isFriendly(newMove[0], newMove[1], self.team) == True:
-                return False
+
+        if self.board.isEmpty(newMove[0], newMove[1]) == False and self.board.isFriendly(newMove[0], newMove[1], self.team) == True:
+            return False
  
         if self.board.isEmpty(tempMove[0], tempMove[1]) == False:
             return False

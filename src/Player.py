@@ -7,7 +7,7 @@ class Player():
         self.board = board
         self.isAI = isAI
 
-    def move(self, move: str):
+    def validateMove(self, move: str) -> bool:
 
         boardCopy = self.board.getDeepCopy()
 
@@ -17,8 +17,11 @@ class Player():
             return False
             print("Invalid move. The move {} will result in your team: {} being in check. Try again.".format(move, self.team))
         else:
-            self.board.makeMove(move)
             return True
+
+    def move(self, move: str):
+
+        self.board.makeMove(move)
 
     def getBestMove(self, depth, isMaximizingPlayer):
 

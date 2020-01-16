@@ -34,6 +34,9 @@ class Pawn(Piece):
                         newX = intMoves[2]
                         newY = intMoves[3]
 
+                        if abs(newY - self.y) != 1:
+                            return False
+
                         if newX - currentX == 0 and abs(newY - currentY) == 2:
                             if currentX + 1 == self.x or currentX - 1 == self.x:
                                 self.passentAttempt = True
