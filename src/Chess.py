@@ -44,13 +44,13 @@ if __name__ == "__main__":
     # help - gives a list of commands
     # draw - checks if 50 moves have been made.
 
-    startingPlayer.move("e2e4")
+    """startingPlayer.move("e2e4")
     otherPlayer.move(otherPlayer.getBestMove(depth, False))
     startingPlayer.move("d2d4")
-    otherPlayer.move(otherPlayer.getBestMove(depth, False))
-    board.printBoard()
+    otherPlayer.move(otherPlayer.getBestMove(depth, False))"""
 
-    """
+    board.printBoard()
+    
     while True:
 
         if startingPlayer.board.isCheckmate(startingPlayer.team):
@@ -59,6 +59,7 @@ if __name__ == "__main__":
         
         if otherPlayer.board.isCheckmate(otherPlayer.team):
             print("{} has won.".format(otherPlayer.team))
+            break
 
         if startingPlayer.isAI == True:
             startingPlayer.move(startingPlayer.getBestMove(depth, True))
@@ -66,22 +67,25 @@ if __name__ == "__main__":
             move = input("Type in a move in the format x1y1x2y2 (ex: e2e4) or a command (help for more details): ")
 
             if otherPlayer.validateMove(move) == False:
-                while otherPlayer.validateMove(move) == False:
+                while True:
                     move = input("Type in a move in the format x1y1x2y2 (ex: e2e4) or a command (help for more details): ")
-            else:
-                otherPlayer.move(move)
+                    if otherPlayer.validateMove(move) == True:
+                        break
+
+            otherPlayer.move(move)
 
         else:
             move = input("Type in a move in the format x1y1x2y2 (ex: e2e4) or a command (help for more details): ")
 
             if startingPlayer.validateMove(move) == False:
-                while startingPlayer.validateMove(move) == False:
+                while True:
                     move = input("Type in a move in the format x1y1x2y2 (ex: e2e4) or a command (help for more details): ")
-            else:
-                startingPlayer.move(move)
+                    if startingPlayer.validateMove(move) == True:
+                        break
 
             startingPlayer.move(move)
+
             otherPlayer.move(otherPlayer.getBestMove(depth, False))
 
         board.printBoard()
-    """
+    
