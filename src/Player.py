@@ -7,18 +7,6 @@ class Player():
         self.board = board
         self.isAI = isAI
 
-    def validateMove(self, move: str) -> bool:
-
-        boardCopy = self.board.getDeepCopy()
-
-        boardCopy.makeMove(move)
-
-        if boardCopy.isCheck(self.team):
-            return False
-            print("Invalid move. The move {} will result in your team: {} being in check. Try again.".format(move, self.team))
-        else:
-            return True
-
     def move(self, move: str):
 
         self.board.makeMove(move)
@@ -32,8 +20,7 @@ class Player():
             bestMove = -9999
             team = "B"
 
-        boardCopy = self.board.getDeepCopy()
-        moves = boardCopy.getAllPossibleMoves(team)
+        moves = self.board.getAllPossibleMoves(team)
         bestMoveFound = ""
 
         for move in moves:

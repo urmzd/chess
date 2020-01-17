@@ -55,7 +55,7 @@ class Pawn(Piece):
                     return False
 
             else:
-                if self.isValidPath(move):
+                if self.board.isEmpty(newX, newY):
                     return True
         else:
             return False

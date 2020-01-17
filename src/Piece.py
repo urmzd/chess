@@ -58,13 +58,12 @@ class Piece():
 
         if self.board.isEmpty(newMove[0], newMove[1]) == False and self.board.isFriendly(newMove[0], newMove[1], self.team) == True:
             return False
- 
-        if self.board.isEmpty(tempMove[0], tempMove[1]) == False:
-            return False
         else:
             while tempMove != newMove:
 
-                if self.board.isEmpty(tempMove[0], tempMove[1]) == False:
+                if self.board.contains(tempMove[0], tempMove[1]) == False:
+                    return False
+                elif self.board.isEmpty(tempMove[0], tempMove[1]) == False:
                     return False
                 else:
                     tempMove[0] += xStep

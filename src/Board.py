@@ -151,6 +151,8 @@ class Board():
             for piece in row:
                 if piece != None and type(piece) == King and piece.team == team:
                     return piece
+        
+        return None
 
     def isCheckmate(self, team: chr) -> bool:
         
@@ -193,9 +195,8 @@ class Board():
                     return False
             
             return True
-        else:
-            return False
 
+        return False
     def getDeepCopy(self):
         return copy.deepcopy(self)
 
