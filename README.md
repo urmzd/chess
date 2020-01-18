@@ -52,8 +52,6 @@ Notes:
 
 # NOTES
 
-May add a possibleMoveSet to have easier implementation of A.I later on.
-
 A.I will be a minimax algorithm with alpha-beta pruning.
 Essentially, certain nodes will attempt to MAXIMIZE the "reward" while the minimizer will do the exact opposite
 and attempt to minimize the reward. The algorithm is based on the idea that the participants will choose the most logic choice.
@@ -71,3 +69,7 @@ For more information, watch/use theses:
 
 1. Access source folder.
 2. Put the follow command in your terminal: 'python Chess.py'
+
+# TODO:
+
+1. Add comments to source files to ensure code is maintainable later down the line.
