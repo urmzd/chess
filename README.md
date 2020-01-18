@@ -35,7 +35,7 @@ The A.I will be consist of the minimax algorithm with alpha-beta pruning.
 Essentially, certain nodes will attempt to maximize the "reward" while the minimizer will do the exact opposite
 and attempt to minimize the "reward". The reward in this case being, the worth of the board.  The algorithm is based on the idea that the participants will choose the most logic choice.
 
-Alpha-beta pruning is a way of optimizing the algorithm. At its core, it evaluates nodes until it reaches a point where the already evaluated 
+Alpha-beta pruning is a way of optimizing the algorithm. At its core, it evaluates nodes until it reaches a point where the already evaluated.
 
 For more information, feel free to use these:
 
