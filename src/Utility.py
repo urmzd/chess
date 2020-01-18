@@ -187,7 +187,7 @@ class Utility:
         if team == "W":
             return (Utility.positionValues[name])[y][x]
         else:
-            return (Utility.inverseArray(Utility.positionValues[name]))[y][x]
+            return (Utility.negateArray(Utility.inverseArray(Utility.positionValues[name])))[y][x]
 
     @staticmethod
     def getPieceIcon(team: chr, name: chr) -> str:
