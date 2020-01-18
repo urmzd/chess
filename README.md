@@ -59,6 +59,6 @@ For more information, feel free to use these:
  
  # OTHER:
  
- Chess is an extremly complicated game (in terms of the number of tactics and strategies that can be used), in order to create the most efficient A.I, numerous different types of evaluations are used in addition to tables filled with excellent starting moves. While this A.I I developed is lacking compare to other A.I's individuals have made, I believe that it is a good starting point in my A.I career development. I hope to be able to do more projects like this and constantly improve my programming knowledge and skills.
+ Chess is an extremely complicated game (in terms of the number of tactics and strategies that can be used), in order to create the most efficient A.I, numerous different types of evaluations are used in addition to tables filled with excellent starting moves. While this A.I I developed is lacking compare to other A.I's individuals have made, I believe that it is a good starting point in my A.I career development. I hope to be able to do more projects like this and constantly improve my programming knowledge and skills.
 
 
