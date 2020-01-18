@@ -40,9 +40,6 @@ Additional Rules:
         1. A draw may be declared if a pawn hasn't been moved in the last 50 moves.
         2. OR a piece hasn't been captured in the last 50 moves.
 
-    Threefold Repetition:
-        1. Requires a position to be repeated three times. Not moves. Castles, En Passent resets the possibility. A draw request may be made.
-
 Notes:
     
     The X Coordinate will be converted from an ASCII character to an integer by the system.
