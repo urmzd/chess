@@ -50,7 +50,7 @@ if __name__ == "__main__":
     chess = Chess(board, player1, player2, depth)
 
     board.printBoard()
-    
+
     while True:
 
         command = input("Type a command (type 'help' for a list of possible commands.): ")
@@ -92,21 +92,22 @@ if __name__ == "__main__":
                 board.printBoard()
 
                 move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
-
                 while move not in otherPlayer.getAllPossibleMoves():
                     print("{} is an invalid move. Try again.".format(move))
                     move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
 
                 otherPlayer.move(move)
 
-            else:
-                startingPlayer.move(move)
-                board.printBoard()
-                
+            else:                
                 move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
                 while move not in startingPlayer.getAllPossibleMoves():
                     print("{} is an invalid move. Try again.".format(move))
                     move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
+                
+                board.printBoard()
+
+                
+                startingPlayer.move(move)
 
                 print ("----- AI MOVE -----")
                 otherPlayer.move(otherPlayer.getBestMove(depth))

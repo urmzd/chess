@@ -74,7 +74,11 @@ class Player():
             value = self.minimax(depth - 1, boardCopy, -10000, 10000, not isMaximizingPlayer) # Evaluate move made.
 
             # If new best move is found, store within the bestMoveFound variable.
-            if value >= bestMove:
+            if team == "W" and value >= bestMove:
+                bestMove = value
+                bestMoveFound = move
+            
+            if team == "B" and value <= bestMove:
                 bestMove = value
                 bestMoveFound = move
         
@@ -100,16 +104,16 @@ class Player():
         # The maximizing player will always be the white team.
         if isMaximizingPlayer:
             team = "W"
+            bestMove = -9999
         else:
             team = "B"
+            bestMove = 9999
 
         # Get a list of all the possible moves.
         moves = board.getAllPossibleMoves(team)
         
         # Determine if player is attempting to maximize or minimize the board evaluation.
         if isMaximizingPlayer:
-            bestMove = -9999 # Attempt to maximize the current value.
-
             # Iterate through each move.
             for move in moves:
                 # Get the max value possible by comparing the current best move and the other possible moves.
@@ -119,9 +123,7 @@ class Player():
                 # If the the other outcomes can't affect the current best move, return the current evaluation.
                 if beta <= alpha:
                     return bestMove
-        else:
-            bestMove = 9999 # Attempt to minimize the current value.
-            
+        else:            
             # Iterate through each move.
             for move in moves:
                 # Get the min value possible by comparing the current best move and the other possible moves.
