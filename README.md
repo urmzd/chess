@@ -70,4 +70,7 @@ https://www.youtube.com/watch?v=l-hh51ncgDI
 https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
 
 
-@TODO: add 50-move implementation and stalemate. Validate commands too.
+# HOW TO RUN:
+
+1. Access source folder.
+2. Put the follow command in your terminal: 'python Chess.py'
