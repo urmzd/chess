@@ -19,7 +19,7 @@ if __name__ == "__main__":
     depth = int(input("What depth would like the AI to reach? Type an integer: "))
 
     while depth < 1:
-    depth = int(input("What depth would like the AI to reach? Type an integer: "))
+        depth = int(input("What depth would like the AI to reach? Type an integer: "))
 
     team = input("What team would like be on? Type 'W' for white and 'B' for black: ")
 
@@ -94,7 +94,7 @@ if __name__ == "__main__":
                 move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
 
                 while move not in otherPlayer.getAllPossibleMoves():
-                    print("{} is an invalid move. Try again.")
+                    print("{} is an invalid move. Try again.".format(move))
                     move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
 
                 otherPlayer.move(move)
@@ -105,7 +105,7 @@ if __name__ == "__main__":
                 
                 move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
                 while move not in startingPlayer.getAllPossibleMoves():
-                    print("{} is an invalid move. Try again.")
+                    print("{} is an invalid move. Try again.".format(move))
                     move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
 
                 print ("----- AI MOVE -----")

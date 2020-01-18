@@ -1,8 +1,13 @@
 from typing import List
 import copy
 
+"""
+    @desc: The Utility class holds important pieces of data for each piece that exists in the the game of Chess.
+        Additionally, it holds methods that all for conversions and data retrieval.
+"""
 class Utility:
 
+    # A set of the basic moves a piece can make.
     moves = {
         "k": [[0,1], [1, 0], [0, -1], [-1, 0], [1, 1], [1, -1], [-1, 1], [-1, -1], [-2, 0], [2, 0]],
         "r" : [
@@ -25,8 +30,10 @@ class Utility:
         "p" : [[0, 1], [0, 2], [1, 1], [-1, 1]],
     }
 
+    # The queen can make the moves a Bishop and Rook can make.
     moves["q"] = moves["b"] + moves["r"]
 
+    # The values of pieces on the white team, negated if team is black.
     values = {
         "k" : 900,
         "q" : 90,
@@ -36,6 +43,7 @@ class Utility:
         "p" : 10
     }
 
+    # A list of the unicodes for the white team.
     whiteIcons = {
         "k" : "\u265A",
         "q" : "\u265B",
@@ -45,6 +53,7 @@ class Utility:
         "p" : "\u265F"
     }
 
+    # A list of unicodes for the black team.
     blackIcons = {
         "k" : "\u2654",
         "q" : "\u2655",
@@ -54,6 +63,7 @@ class Utility:
         "p" : "\u2659"
     }
 
+    # A list of position evaluations for each piece on the white team. Inverse if team is black.
     positionValues = {
         "k": [
         [-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
@@ -117,15 +127,29 @@ class Utility:
         
     }
 
-    ## Set of position evaluation.
+    """
+        @desc: Converts character to integer.
+        @param str: A lower case string from 'a' - 'h'.
+        @return Integer: Returns the corresponding integer from 0 - 7.
+    """
     @staticmethod
     def convertToNumber(letter: str) -> int:
         return ord(letter) - 97
 
+    """
+        @desc: Converts integer to string.
+        @param number: A number from 0-7.
+        @param String: Returns the corresponding string from 'a' - 'h'.
+    """
     @staticmethod
     def convertToLetter(number: int) -> chr:
         return chr(number + 97)
 
+    """
+        @desc: Converts a string move into a list of integers.
+        @param move: The string move.
+        @return List: A list of integers.
+    """
     @staticmethod
     def convertStringMoveToInt(move: str) -> List[int]:
         moves = []
@@ -138,6 +162,11 @@ class Utility:
 
         return moves
 
+    """
+        @desc: Converts a list of integers into a string move.
+        @param move: The list of integers to convert.
+        @return String: A string holding a possible valid move.
+    """
     @staticmethod
     def convertIntMoveToString(move: List[int]) -> str:
         moves = ""
@@ -150,6 +179,9 @@ class Utility:
 
         return moves
 
+    """
+        @desc
+    """
     @staticmethod
     def negateArray(array: List[List[int]]) -> List[List[int]]:
 
