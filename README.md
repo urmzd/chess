@@ -23,7 +23,8 @@ Structure:
         Knight
         Pawn
     Board
-
+    Player
+    Chess 
 Additional Rules:
 
     En Passent:
