@@ -11,6 +11,10 @@ class Player():
 
         self.board.makeMove(move)
 
+    def getAllPossibleMoves(self):
+
+        return self.board.getAllPossibleMoves(self.team)
+
     def getBestMove(self, depth, isMaximizingPlayer):
 
         if isMaximizingPlayer:
