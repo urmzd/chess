@@ -1,4 +1,4 @@
-# Chess --> https://repl.it/repls/YellowishStingyConference
+# Chess
 Chess game in Python Command Line. No GUI will implemented as of now.
 
 The Chess Board will be labelled as following:
