@@ -1,7 +1,7 @@
 # Chess
 
 # Preface
-        The 'chess' game is be a command-line based version of the popular board game 'Chess'.
+The 'chess' game is be a command-line based version of the popular board game 'Chess'.
         
 The Chess Board will be labelled as following (icons will replace the letters in the actual game):
 
