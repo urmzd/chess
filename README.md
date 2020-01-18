@@ -62,9 +62,9 @@ Alpha-beta pruning is a way of optimizing the algorithm. At it's core, it evalua
 
 For more information, watch/use theses:
 
-https://youtu.be/zp3VMe0Jpf8 
-https://www.youtube.com/watch?v=l-hh51ncgDI
-https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
+1. https://youtu.be/zp3VMe0Jpf8 
+2. https://www.youtube.com/watch?v=l-hh51ncgDI
+3. https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
 
 
 # HOW TO RUN:
