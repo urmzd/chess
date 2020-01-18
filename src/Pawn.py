@@ -46,7 +46,7 @@ class Pawn(Piece):
                      
             elif abs(xDifference) == 0 and abs(yDifference) == 2:
 
-                if self.played == False:
+                if self.played == False and self.board.isEmpty(newX, newY):
                     if self.isValidPath(move):
                         return True
                     else:
