@@ -68,8 +68,10 @@ For more information, watch/use theses:
 
 # HOW TO RUN:
 
-1. Access source folder.
-2. Put the follow command in your terminal: 'python Chess.py'
+1. First, ensure that you have Python 3.7 + installed.
+2. Access source folder.
+3. Put the follow command in your terminal: 'python Chess.py'
+4. Have fun playing! Type 'help' in the terminal for assistance in learning more about the game.
 
 # TODO:
 
