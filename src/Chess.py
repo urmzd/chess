@@ -37,6 +37,8 @@ if __name__ == "__main__":
         startingPlayer = player2
         otherPlayer = player1
 
+    board.declareAsAI(aiTeam)
+
     chess = Chess(board, player1, player2, depth)
 
     #commands:
@@ -44,48 +46,66 @@ if __name__ == "__main__":
     # help - gives a list of commands
     # draw - checks if 50 moves have been made.
 
-    """startingPlayer.move("e2e4")
-    otherPlayer.move(otherPlayer.getBestMove(depth, False))
-    startingPlayer.move("d2d4")
-    otherPlayer.move(otherPlayer.getBestMove(depth, False))"""
-
     board.printBoard()
     
     while True:
 
-        if startingPlayer.board.isCheckmate(startingPlayer.team):
-            print("{} has won.".format(startingPlayer.team))
-            break
+        command = input("Type a command (type 'help' for a list of possible commands.): ")
+
+        while command not in ["draw", "help", "move"]:
+            command = input("Type a command (type 'help' for a list of possible commands.): ")
+
+        if command == "draw":
+
+            if board.canDeclareDraw() == True:
+                print("The game has ended in a draw.")
+                break
+            else:
+                print("The game not be declared as a draw currently. Current count without a pawn move or capture: {}. Make a move.".format(board.counter))
         
-        if otherPlayer.board.isCheckmate(otherPlayer.team):
-            print("{} has won.".format(otherPlayer.team))
-            break
-
-        if startingPlayer.isAI == True:
-            startingPlayer.move(startingPlayer.getBestMove(depth, True))
-
-            move = input("Type in a move in the format x1y1x2y2 (ex: e2e4) or a command (help for more details): ")
-
-            if otherPlayer.validateMove(move) == False:
-                while True:
-                    move = input("Type in a move in the format x1y1x2y2 (ex: e2e4) or a command (help for more details): ")
-                    if otherPlayer.validateMove(move) == True:
-                        break
-
-            otherPlayer.move(move)
+        elif command == "help":
+            print("The following are the list of commands: ")
+            print("help: Provides a list of possible commands.")
+            print("draw: Ends the game in a draw if 50 moves have been made without a pawn capture or move.")
+            print("move: Allows user to make a move.")
 
         else:
-            move = input("Type in a move in the format x1y1x2y2 (ex: e2e4) or a command (help for more details): ")
 
-            if startingPlayer.validateMove(move) == False:
-                while True:
-                    move = input("Type in a move in the format x1y1x2y2 (ex: e2e4) or a command (help for more details): ")
-                    if startingPlayer.validateMove(move) == True:
-                        break
+            if board.isCheckmate("B"):
+                print("The game has ended. {} has won.".format("White"))
+                break
+            
+            if board.isCheckmate("W"):
+                print("The game has ended. {} has won.".format("Black"))
+                break
+                
+            if board.isStalemate("W") or board.isStalemate("B"):
+                print("The has ended in a draw.")
+                break
 
-            startingPlayer.move(move)
+            if startingPlayer.isAI == True:
+                print ("----- AI MOVE -----")
+                startingPlayer.move(startingPlayer.getBestMove(depth, True))
+                board.printBoard()
 
-            otherPlayer.move(otherPlayer.getBestMove(depth, False))
+                move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
 
-        board.printBoard()
-    
+                while move not in otherPlayer.getAllPossibleMoves():
+                    print("{} is an invalid move. Try again.")
+                    move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
+
+                otherPlayer.move(move)
+
+            else:
+                startingPlayer.move(move)
+                board.printBoard()
+                
+                move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
+                while move not in startingPlayer.getAllPossibleMoves():
+                    print("{} is an invalid move. Try again.")
+                    move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
+
+                print ("----- AI MOVE -----")
+                otherPlayer.move(otherPlayer.getBestMove(depth, False))
+
+            board.printBoard()
