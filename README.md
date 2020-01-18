@@ -1,7 +1,7 @@
 # Chess
 
-#Preface
-        The Chess game will be a command-line based version of the popular board game 'Chess'
+# Preface
+        The 'chess' game is be a command-line based version of the popular board game 'Chess'.
         
 The Chess Board will be labelled as following (icons will replace the letters in the actual game):
 
@@ -33,11 +33,11 @@ Structure:
 
 The A.I will be consist of the minimax algorithm with alpha-beta pruning.
 Essentially, certain nodes will attempt to maximize the "reward" while the minimizer will do the exact opposite
-and attempt to minimize the "reward". The reward in this case being, the board evaluation.  The algorithm is based on the idea that the participants will choose the most logic choice.
+and attempt to minimize the "reward". The reward in this case being, the worth of the board.  The algorithm is based on the idea that the participants will choose the most logic choice.
 
-Alpha-beta pruning is a way of optimizing the algorithm. At it's core, it evaluates all nodes until it comes across a value which will not effect the end result.
+Alpha-beta pruning is a way of optimizing the algorithm. At its core, it evaluates nodes until it reaches a point where the already evaluated 
 
-For more information, watch/use theses:
+For more information, feel free to use these:
 
 1. https://youtu.be/zp3VMe0Jpf8 
 2. https://www.youtube.com/watch?v=l-hh51ncgDI
@@ -48,9 +48,17 @@ For more information, watch/use theses:
 
 1. First, ensure that you have Python 3.7 + installed.
 2. Access source folder.
-3. Put the follow command in your terminal: 'python Chess.py'
+3. Put the follow command in your terminal: 'python Chess.py'.
 4. Have fun playing! Type 'help' in the terminal for assistance in learning more about the game.
+5. Note that any depth > 3 will result in slow processing times. No default is set.
 
-# TODO:
+# CREDIT:
 
-1. Add comments to source files to ensure code is maintainable later down the line.
+- I'd like to thank the following article from FreeCodeCamp: https://www.freecodecamp.org/news/simple-chess-ai-step-by-step-1d55a9266977/
+ for helping me in the development of the A.I. The piece and position evaluation was a big help in developing a working A.I. 
+ 
+ # OTHER:
+ 
+ Chess is an extremly complicated game (in terms of the number of tactics and strategies that can be used), in order to create the most efficient A.I, numerous different types of evaluations are used in addition to tables filled with excellent starting moves. While this A.I I developed is lacking compare to other A.I's individuals have made, I believe that it is a good starting point in my A.I career development. I hope to be able to do more projects like this and constantly imporve my programming knowledge and skills.
+
+
