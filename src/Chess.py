@@ -17,7 +17,15 @@ class Chess:
 if __name__ == "__main__":
     
     depth = int(input("What depth would like the AI to reach? Type an integer: "))
+
+    while depth < 1:
+    depth = int(input("What depth would like the AI to reach? Type an integer: "))
+
     team = input("What team would like be on? Type 'W' for white and 'B' for black: ")
+
+    while team not in ['W', 'B']:
+        team = input("What team would like be on? Type 'W' for white and 'B' for black: ")
+
 
     if team == "W":
         aiTeam = "B"
@@ -40,11 +48,6 @@ if __name__ == "__main__":
     board.declareAsAI(aiTeam)
 
     chess = Chess(board, player1, player2, depth)
-
-    #commands:
-    # move - move 
-    # help - gives a list of commands
-    # draw - checks if 50 moves have been made.
 
     board.printBoard()
     
@@ -85,7 +88,7 @@ if __name__ == "__main__":
 
             if startingPlayer.isAI == True:
                 print ("----- AI MOVE -----")
-                startingPlayer.move(startingPlayer.getBestMove(depth, True))
+                startingPlayer.move(startingPlayer.getBestMove(depth))
                 board.printBoard()
 
                 move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
@@ -106,6 +109,6 @@ if __name__ == "__main__":
                     move = input("Type in a move in the format x1y1x2y2 (ex: e2e4): ")
 
                 print ("----- AI MOVE -----")
-                otherPlayer.move(otherPlayer.getBestMove(depth, False))
+                otherPlayer.move(otherPlayer.getBestMove(depth))
 
             board.printBoard()
