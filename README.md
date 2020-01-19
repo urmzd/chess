@@ -46,7 +46,7 @@ For more information, feel free to use these:
 
 # HOW TO RUN:
 
-1. First, ensure that you have Python 3.7 + installed.
+1. First, ensure that you have Python 3.8+ installed.
 2. Access source folder.
 3. Put the follow command in your terminal: 'python Chess.py'.
 4. Have fun playing! Type 'help' in the terminal for assistance in learning more about the game.
