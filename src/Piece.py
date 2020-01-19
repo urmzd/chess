@@ -1,24 +1,40 @@
 from Utility import *
 from typing import List
 
+"""
+    @desc: The Piece class holds the template for which all other pieces will inherit their
+        methods and attributes from.
+"""
 class Piece():
 
+    """
+        @desc: Creates a Piece instance.
+        @param name: The name of the piece.
+        @param team: The team to which the piece belongs to.
+        @param board: The board in which the piece will play on.
+        @param x: The horizontal location of the piece.
+        @param y: The vertical location of the piece.
+    """
     def __init__(self, name: chr, team: chr, board, x: int, y: int):
         self.name = name
         self.team = team
         self.board = board
         self.x = x
         self.y = y
-        self.value = Utility.getPieceEvaluation(team, name)
-        self.icon = Utility.getPieceIcon(team, name)
-        self.basicMoves = Utility.getBasicMoves(team, name)
-        self.played = False
-        self.possibleMoves = []
+        self.value = Utility.getPieceEvaluation(team, name) # Determine the value of the piece.
+        self.icon = Utility.getPieceIcon(team, name) # Determine the icon of the piece.
+        self.basicMoves = Utility.getBasicMoves(team, name) # Determine a list of steps the piece can make.
+        self.played = False # Indicate if piece has played in the game or not.
+        self.possibleMoves = [] # Holds a list of possible moves the piece cna make.
 
+    """
+        @desc: Updates the list of possible moves the piece can make.
+    """
     def updatePossibleMoves(self):
 
         self.possibleMoves = [] # Empty possibleMoves after each call.
         
+        # Test if each basic move is a possible move.
         for move in self.basicMoves:
 
             currentPosition = [self.x, self.y]
@@ -32,9 +48,32 @@ class Piece():
                 self.possibleMoves.append(stringMove)
             
 
+    """
+        @desc: Checks if a move is valid or not. Default method meant for Bishop, Rook and Queen.
+        @param move: A string representation of the move to be made.
+        @return Boolean: Returns True if the move is valid, False otherwise.
+    """
     def isValidMove(self, move: str) -> bool:
-        pass
+        
+        intMove = Utility.convertStringMoveToInt(move)
+        newX = intMove[2]
+        newY = intMove[3]
 
+        xDifference = newX - self.x
+        yDifference = newY - self.y
+
+        if [xDifference, yDifference] in self.basicMoves:
+
+            if self.isValidPath(move):
+                return True
+
+        return False
+
+    """
+        @desc: Checks if a moves path is valid.
+        @param: The move to check.
+        @return Boolean: Checks if all squares up until the destination point is empty. Returns true if they are, False otherwise.
+    """
     def isValidPath(self, move: str) -> bool:
 
         intMove = Utility.convertStringMoveToInt(move)
@@ -71,12 +110,17 @@ class Piece():
 
         return True
 
+    """
+        @desc: Updates the move counter on the board depending on the situation.
+        @param x: The horizontal location of the piece.
+        @param y: The vertical location of the piece.
+    """
     def updateCounter(self, x: int, y: int):
 
         if self.board.canAttack(x, y, self.team):
-            self.board.resetCounter()
+            self.board.resetCounter() # Resets counter a piece is going to be removed.
         else:
-            self.board.incrementCounter()
+            self.board.incrementCounter() # Increment counter otherwise.
 
     def move(self, move: str) -> bool:
 
@@ -100,5 +144,9 @@ class Piece():
             print(move + " " + "is an illegal move. Try again")
             return False
 
+    """
+        @desc: Represents the piece in unicode.
+        @return String: The unicode to print out.
+    """
     def __repr__(self):
         return self.icon

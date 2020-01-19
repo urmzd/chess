@@ -180,7 +180,9 @@ class Utility:
         return moves
 
     """
-        @desc
+        @desc: Makes all the values in a list negative and returns it.
+        @param array: The list to convert.
+        @return List: The negated list.
     """
     @staticmethod
     def negateArray(array: List[List[int]]) -> List[List[int]]:
@@ -193,10 +195,20 @@ class Utility:
 
         return negativeArray
 
+    """
+        @desc: Inverses an array.
+        @return List: Returns the inverted list.
+    """
     @staticmethod
     def inverseArray(array: List[List[int]]) -> List[List[int]]:
         return list(reversed(array))
 
+    """
+        @desc: Retrieves the list of basic moves for a given piece.
+        @param team: The team of the piece.
+        @param name: The name of the piece.
+        @return List: The list of all moves that can be made.
+    """
     @staticmethod
     def getBasicMoves(team: chr, name: chr) -> List[List[int]]:
 
@@ -205,6 +217,12 @@ class Utility:
         else:
             return Utility.negateArray(Utility.moves[name])
 
+    """
+        @desc: Retrieves the worth of a piece.
+        @param team: The team of the piece.
+        @param name: The name of the piece.
+        @return Integer: The worth of the piece.
+    """
     @staticmethod
     def getPieceEvaluation(team: chr, name: chr) -> int:
 
@@ -213,6 +231,13 @@ class Utility:
         else:
             return -Utility.values[name]
 
+    """
+        @desc: Retrieves the worth of a position depending on what piece is located at (x,y).
+        @param team: The team of the piece.
+        @param name: The name of the piece.
+        @param x: The horizontal location of the piece.
+        @param y: The vertical location of the piece.
+    """
     @staticmethod
     def getPositionEvaluation(team: chr, name: chr, x: int, y: int) -> int:
 
@@ -221,6 +246,12 @@ class Utility:
         else:
             return (Utility.negateArray(Utility.inverseArray(Utility.positionValues[name])))[y][x]
 
+    """
+        @desc: Retrieves the unicode for a piece.
+        @param team: The team to which the piece belongs to.
+        @param name: The name of the piece.
+        @return String: The unicode of the piece.
+    """
     @staticmethod
     def getPieceIcon(team: chr, name: chr) -> str:
 

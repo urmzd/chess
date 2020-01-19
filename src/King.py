@@ -2,12 +2,29 @@ from Piece import Piece
 from Utility import *
 from Rook import Rook
 
+"""
+    @desc: The King is the most important piece in the game, if a team's king is captured, the team loses.
+        It can make a 1 step move in any direction or a two step move when the corresponding rook has not played.
+"""
 class King(Piece):
 
+    """
+        @desc: Creates an instance of the King object.
+        @param team: The team to which the piece belongs to.
+        @param board: The board to which the piece belongs to.
+        @param x: The horizontal location of the piece.
+        @param y: The vertical location of the piece.
+    """
     def __init__(self, team, board, x, y):
         super().__init__("k", team, board, x, y)
         self.castleAttempt = False
-        
+    
+    """
+        @OVERRIDE
+        @desc: Checks is a move is valid or not.
+        @param move: A move in a string format.
+        @return Boolean: Returns True if move is valid, False otherwise.
+    """
     def isValidMove(self, move: str) -> bool:
 
         intMove = Utility.convertStringMoveToInt(move)
@@ -19,6 +36,7 @@ class King(Piece):
 
         if [xDifference, yDifference] in self.basicMoves:
 
+            # Check if a Castle can be made.
             if self.played == False and abs(xDifference) == 2:
                 if xDifference == 2:
                     if self.board.isEmpty(7, self.y) == False and type(self.board.board[self.y][7]) is Rook:
@@ -43,6 +61,12 @@ class King(Piece):
 
         return False
 
+    """
+        @OVERRIDE
+        @desc: Moves the king on the board. Additionally, it moves the corresponding rook in a castle attempt.
+        @param move: A move in the string format indicating the starting and ending positions.
+        @return Boolean: Returns True if the move was successfully made, False otherwise.
+    """
     def move(self, move: str) -> bool:
 
         if move in self.possibleMoves:
