@@ -50,7 +50,7 @@ For more information, feel free to use these:
 2. Access source folder.
 3. Put the follow command in your terminal: 'python Chess.py'.
 4. Have fun playing! Type 'help' in the terminal for assistance in learning more about the game.
-5. Note that any depth > 3 will result in slow processing times. No default is set.
+5. Note that any depth greater than 3 will result in slow processing times. No default is set.
 
 # CREDIT:
 
