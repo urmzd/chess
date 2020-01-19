@@ -8,26 +8,61 @@ from Bishop import Bishop
 from Knight import Knight
 from Rook import Rook
 
-
+"""
+    @desc: The Board class holds an array representing a board in the Chess game and the possible actions that can occur 
+        on on the board such as the checkmate, stalemate, check.
+"""
 class Board():
 
+    """
+        @desc: Creates an instance of the class.
+    """
     def __init__(self):
-        self.board = [[None for x in range(8)] for y in range(8)]
-        self.lastMove = ""
-        self.counter = 0
+        self.board = [[None for x in range(8)] for y in range(8)] # A 8x8 grid holding all the pieces in the game.
+        self.lastMove = "" # The last move made in the game.
+        self.counter = 0 # The number of moves since the last pawn move or capture.
 
+    """
+        @desc: Checks if an empty spot exists at (x,y).
+        @param x: The x location to check.
+        @param y: The y location to check.
+        @return Boolean: True if (x,y) is empty, False otherwise.
+    """
     def isEmpty(self, x, y) -> bool:
         return self.board[y][x] == None
 
+    """
+        @desc: Check if a friendly piece exists at (x,y).
+        @param x: The x location to check.
+        @param y: The y location to check.
+        @return Boolean: True if (x,y) is a friendly unit, False otherwise.
+    """
     def isFriendly(self, x, y, team) -> bool:
         return self.board[y][x].team == team
 
+    """
+        @desc: Checks if a piece can be attacked at (x,y).
+        @param x: The x location to check.
+        @param y: The y location to check.
+        @return Boolean: True if (x,y) is a non-empty enemy unit, False otherwise.
+    """
     def canAttack(self, x, y, team) -> bool:
         return self.isEmpty(x, y) == False and self.isFriendly(x, y, team) == False
 
+    """
+        @desc: Checks if a point exists on the board.
+        @param x: The x location to check.
+        @param y: The y location to check.
+        @return Boolean: True if (x,y) is greater than 0 and less than 8.
+    """
     def contains(self, x, y) -> bool:
         return x >= 0 and x < 8 and y >= 0 and y < 8
 
+    """
+        @desc: Get all the possible moves a team can make.
+        @param team: The team which is requesting a list of it's possible moves.
+        @return List: A list of all the possible moves in string format.
+    """
     def getAllPossibleMoves(self, team) -> List[str]:
 
         possibleMoves = []
@@ -40,12 +75,21 @@ class Board():
 
         return possibleMoves
 
+    """
+        @desc: Resets the counter attribute.
+    """
     def resetCounter(self):
         self.counter = 0
 
+    """
+        @desc: Increments the counter attribute.
+    """
     def incrementCounter(self):
         self.counter += 1
 
+    """
+        @desc: Fills the board with all the necessary pieces to play.
+    """
     def fillBoard(self):
         startingPositions = [1, 6]
         teams = ["W", "B"]
@@ -74,7 +118,10 @@ class Board():
                 teams[index], self, 6, startingPositions[index])
             self.board[startingPositions[index]][7] = Rook(
                 teams[index], self, 7, startingPositions[index])
-        
+
+    """
+        @desc: Print the current state of the board.
+    """
     def printBoard(self):
 
         print("  " + "A B C D E F G H" + "\n")
@@ -95,6 +142,10 @@ class Board():
 
         print("  " + "A B C D E F G H" + "\n")
 
+    """
+        @desc: Declares all pawns on the specified team as an A.I.
+        @param team: The team on which the pawns are an A.I.
+    """
     def declareAsAI(self, team: chr):
 
         for row in self.board:
@@ -102,6 +153,11 @@ class Board():
                 if piece != None and piece.name == "p" and piece.team == team:
                     piece.isAI = True
     
+    """
+        @desc: Make a move on the board.
+        @param move: A move in the string format indicating the starting and ending positions.
+        @return Boolean: True if the move was made, False otherwise.
+    """
     def makeMove(self, move: str) -> bool:
         
         intMoves = Utility.convertStringMoveToInt(move)
@@ -121,12 +177,27 @@ class Board():
             print("{} is a illegal move. It's not a possible move. Try again.".format(move))
             return False
 
+    """ 
+        @desc: Add a piece on the board.
+        @param piece: The piece to add onto the board.
+        @param x: The x location to add it to.
+        @param y: The y location to add it to.
+    """
     def addPiece(self, piece: Piece, x: int, y: int):
         self.board[y][x] = piece
 
+    """
+        @desc: Remove a piece on the board.
+        @param x: The x location to remove it from.
+        @param y: The y location to remove it from.
+    """
     def removePiece(self, x: int, y: int):
         self.board[y][x] = None
 
+    """
+        @desc: Gets an evaluation of the board.
+        @return Integer: Returns the evaluation of the board based on each piece value and the positions they are located at.
+    """
     def getEvaluation(self) -> int:
 
         evaluation = 0
@@ -138,13 +209,22 @@ class Board():
         
         return evaluation
 
-    def canDeclareDraw(self) -> bool: # 50 move rule.
+    """
+        @desc: Determines if the 50-move rule has occurred.
+        @return Boolean: True if the move has occurred, False otherwise.
+    """
+    def canDeclareDraw(self) -> bool:
 
         if self.counter >= 50:
             return True
         else:
             return False
     
+    """
+        @desc: Gets the king from the specified team.
+        @param team: The team which the king should be retrieved from.
+        @return King: A king object with the specified team.
+    """
     def getKing(self, team: chr):
         
         for row in self.board:
@@ -154,6 +234,11 @@ class Board():
         
         return None
 
+    """
+        @desc: Determines if a team is in checkmate.
+        @param team: The team to check if a checkmate exists.
+        @return Boolean: True if a team is in checkmate, False otherwise.
+    """
     def isCheckmate(self, team: chr) -> bool:
         
         for move in self.getAllPossibleMoves(team):
@@ -165,6 +250,11 @@ class Board():
 
         return True
 
+    """
+        @desc: Determines if a team is in check.
+        @param team: The team to check if a check exists.
+        @return Boolean: True if a team is in check, False otherwise.
+    """
     def isCheck(self, team: chr) -> bool:
 
         king = self.getKing(team)
@@ -183,6 +273,11 @@ class Board():
 
         return False
 
+    """
+        @desc: Determines a stalemate has occurred.
+        @param team: The team which to check the stalemate has occurred with.
+        @return Boolean: True if stalemate has occurred, False otherwise. 
+    """
     def isStalemate(self, team: chr) -> bool:
         
         if self.isCheckmate(team) == False:
@@ -197,9 +292,21 @@ class Board():
             return True
 
         return False
+    
+    """ 
+        @desc: Gets a deep copy of the current instance of the board.
+        @return Board: Returns an instance of the current board.
+    """
     def getDeepCopy(self):
         return copy.deepcopy(self)
 
+    """
+        @desc: Promotes a pawn to a different piece at the specified location.
+        @param x: The x location of the pawn.
+        @param y: The y location of the pawn.
+        @param team: The team of the pawn.
+        @param name: The name of the piece to promote it to.
+    """
     def promotePawn(self, x: int, y: int, team: chr, name: chr):
 
         if name == "q":
@@ -211,5 +318,5 @@ class Board():
         else:
             piece = Rook(team, self, x, y)
         
-        self.removePiece(x, y)
-        self.addPiece(piece, x, y)
+        self.removePiece(x, y) # Remove the pawn.
+        self.addPiece(piece, x, y) # Add the new piece to the board.
