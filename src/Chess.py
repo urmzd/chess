@@ -106,10 +106,10 @@ if __name__ == "__main__":
                     print("{} is an invalid move. Try again.".format(move))
                     move = input(
                         "Type in a move in the format x1y1x2y2 (ex: e2e4): ")
-
+                        
+                startingPlayer.move(move)
                 board.printBoard()
 
-                startingPlayer.move(move)
                 checkIfGameHasEnded()
 
                 print("----- AI MOVE -----")
