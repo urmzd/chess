@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from Board import Board
 from Player import Player
 
