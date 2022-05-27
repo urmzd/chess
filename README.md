@@ -15,7 +15,7 @@ A command line version of `Chess` written in Object Oriented Python.
 
 ## Usage
 
-### Using the Interpretor
+### Using the Interpreter
 
 ```bash
     python src/Chess.py
